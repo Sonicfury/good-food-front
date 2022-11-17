@@ -7,8 +7,8 @@ node_modules
 .fleet
 
 /node_modules
-/.svelte
-/.svelte-kit
+.svelte
+.svelte-kit
 /build
 /functions
 /.vercel_build_output
