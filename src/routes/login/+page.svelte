@@ -43,7 +43,7 @@
 </script>
 
 <div class="flex items-center flex-col mt-12">
-    <h1 class="text-6xl text-primary">S'inscrire</h1>
+    <h1 class="text-6xl text-primary">Se connecter</h1>
     <form on:submit|preventDefault="{handleSubmit}" class="flex items-center flex-col">
         <input
             type="text"
@@ -67,6 +67,6 @@
         {/if}
 
         <button type="submit" class="btn mt-10 btn-primary text-base-100 w-32">Valider</button>
-        <a href="/register" class="text-primary mt-5 cursor-pointer">Ou se connecter</a>
+        <a href="/register" class="text-primary mt-5 cursor-pointer">Ou s'inscrire</a>
     </form>
 </div>

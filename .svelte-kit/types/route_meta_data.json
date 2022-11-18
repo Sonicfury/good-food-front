@@ -1,8 +1,6 @@
 {
 	"/": [],
-	"/login": [
-		"src/routes/login/+page.server.ts"
-	],
+	"/login": [],
 	"/register": [],
 	"/api/user": [
 		"src/routes/api/user/+server.ts"
