@@ -6,5 +6,8 @@
 	"/register": [],
 	"/api/user": [
 		"src/routes/api/user/+server.ts"
+	],
+	"/api/login": [
+		"src/routes/api/login/+server.ts"
 	]
 }
