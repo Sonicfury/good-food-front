@@ -94,6 +94,6 @@
             </div>
         {/if}
         <button type="submit" class="btn mt-10 btn-primary text-base-100 w-32">Valider</button>
-        <a href="/register" class="text-primary mt-5 cursor-pointer">Ou s'inscrire</a>
+        <a href="/register" class="text-primary mt-5 cursor-pointer">Où s'inscrire ?</a>
     </form>
 </div>
