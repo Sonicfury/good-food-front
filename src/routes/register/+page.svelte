@@ -1,5 +1,6 @@
 <script lang="ts">
     import * as yup from 'yup';
+    import { goto } from '$app/navigation';
 
     $: showPassword = false;
 
@@ -15,6 +16,9 @@
         firstName: '' as string,
         lastName: '' as string,
     } as LoginForm;
+
+    let messageError = '';
+    let isMessageError = false;
 
     const schema = yup.object().shape({
         email: yup.string().required(' Email requis').email('Email invalide'),
@@ -44,15 +48,21 @@
     };
 
     async function login() {
-        try {
-            const request = await fetch('api/user', {
-                method: 'POST',
-                body: JSON.stringify(loginForm),
-                headers: {
-                    'content-type': 'application/json',
-                },
-            });
-        } catch (err) {}
+        isMessageError = false;
+        const response = await fetch('api/user', {
+            method: 'POST',
+            body: JSON.stringify(loginForm),
+            headers: {
+                'content-type': 'application/json',
+            },
+        });
+        const userInfo = await response.json();
+        if (userInfo.data) {
+            goto('/');
+        } else {
+            isMessageError = true;
+            messageError = userInfo.message;
+        }
     }
 </script>
 
@@ -100,6 +110,25 @@
         />
         {#if errors?.password}
             <span class="label-text-alt text-error w-80">{errors?.password}</span>
+        {/if}
+
+        {#if isMessageError}
+            <div class="alert alert-error shadow-lg">
+                <div>
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="stroke-current flex-shrink-0 h-6 w-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        ><path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg
+                    >
+                    <span>{messageError}</span>
+                </div>
+            </div>
         {/if}
 
         <button type="submit" class="btn mt-10 btn-primary text-base-100 w-32">Valider</button>
