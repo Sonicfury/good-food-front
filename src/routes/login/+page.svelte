@@ -23,7 +23,7 @@
 
     const handleSubmit = async () => {
         try {
-            await schema.validate(loginForm, { abortEarly: false });
+            schema.validate(loginForm, { abortEarly: false });
             await login();
             errors = {} as LoginForm;
         } catch (err) {
@@ -44,7 +44,7 @@
         });
         const userInfo = await response.json();
         if (userInfo.data) {
-            goto('/');
+            await goto('/');
         } else {
             isMessageError = true;
             messageError = 'Adresse email ou mot de passe incorrect';
