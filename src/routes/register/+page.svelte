@@ -1,4 +1,5 @@
 <script lang="ts">
+    import Alert from '../components/Alert.svelte';
     import * as yup from 'yup';
     import { goto } from '$app/navigation';
 
@@ -112,24 +113,7 @@
             <span class="label-text-alt text-error w-80">{errors?.password}</span>
         {/if}
 
-        {#if isMessageError}
-            <div class="alert alert-error shadow-lg">
-                <div>
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="stroke-current flex-shrink-0 h-6 w-6"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        ><path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg
-                    >
-                    <span>{messageError}</span>
-                </div>
-            </div>
-        {/if}
+        <Alert isError="{isMessageError}" message="{messageError}" />
 
         <button type="submit" class="btn mt-10 btn-primary text-base-100 w-32">Valider</button>
         <a href="/login" class="text-primary mt-5 cursor-pointer">Ou se connecter</a>
