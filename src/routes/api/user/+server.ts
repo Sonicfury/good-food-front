@@ -15,7 +15,7 @@ export const POST: RequestHandler = async ({ cookies, request }) => {
         cookies.set('session', requestBody.data.token);
         return new Response(JSON.stringify({ data: requestBody.data }), { status: 200 });
     } else if (requestBody.message === 'Validation Error.') {
-        return new Response(JSON.stringify({ message: 'Un compte avec cette email est déjà enregistré' }), {
+        return new Response(JSON.stringify({ message: 'Un compte avec cet email est déjà enregistré' }), {
             status: 500,
         });
     } else {
