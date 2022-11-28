@@ -3,12 +3,14 @@ node_modules
 
 # IDES
 .idea
+/.idea
 .vscode
+/.vscode
 .fleet
+/.fleet
 
 /node_modules
 .svelte
-.svelte-kit
 /build
 /functions
 /.vercel_build_output

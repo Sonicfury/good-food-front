@@ -30,6 +30,8 @@
     "type": "module",
     "dependencies": {
         "@tailwindcss/typography": "^0.5.8",
-        "daisyui": "^2.41.0"
+        "daisyui": "^2.41.0",
+        "yup": "^0.32.11",
+        "zod": "^3.19.1"
     }
 }
