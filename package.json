@@ -16,6 +16,7 @@
         "@sveltejs/kit": "next",
         "autoprefixer": "^10.4.13",
         "cypress": "^11.1.0",
+        "mdi-svelte": "^1.1.2",
         "postcss": "^8.4.19",
         "prettier": "2.7.1",
         "prettier-plugin-svelte": "^2.8.0",
@@ -29,6 +30,8 @@
     },
     "type": "module",
     "dependencies": {
+        "@mdi/font": "^7.0.96",
+        "@mdi/js": "^7.0.96",
         "@tailwindcss/typography": "^0.5.8",
         "daisyui": "^2.41.0",
         "yup": "^0.32.11",

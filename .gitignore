@@ -17,10 +17,12 @@ node_modules
 /.netlify
 /workers-site
 *.log
+.svelte-kit
+
+
 
 # Ignore the build css
 static/*.css
-
 # Ignore the xml
 static/sitemap.xml
 static/feed.xml
