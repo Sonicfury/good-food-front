@@ -19,7 +19,7 @@
     } as LoginForm;
 
     let messageError = '';
-    let isMessageError = false;
+    let isMessageError = true;
 
     const schema = yup.object().shape({
         email: yup.string().required(' Email requis').email('Email invalide'),
@@ -113,7 +113,7 @@
             <span class="label-text-alt text-error w-80">{errors?.password}</span>
         {/if}
 
-        <Alert isError="{isMessageError}" message="{messageError}" />
+        <Alert isSucess="false" isError="{isMessageError}" message="{messageError}" />
 
         <button type="submit" class="btn mt-10 btn-primary text-base-100 w-32">Valider</button>
         <a href="/login" class="text-primary mt-5 cursor-pointer">Ou se connecter</a>
