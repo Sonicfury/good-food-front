@@ -6,6 +6,9 @@
         email: string;
         password: string;
     };
+
+    type LoginError = LoginForm;
+
     let loginForm = {
         email: '' as string,
         password: '' as string,
@@ -16,7 +19,7 @@
         password: yup.string().required('Mot de passe requis'),
     });
 
-    let errors = {} as LoginForm;
+    let error = {} as LoginError;
 
     let messageError = '';
     let isMessageError = false;
@@ -24,17 +27,19 @@
     const handleSubmit = async () => {
         try {
             schema.validate(loginForm, { abortEarly: false });
-            await login();
-            errors = {} as LoginForm;
-        } catch (err) {
-            errors = err.inner.reduce((acc, err) => {
+            error = {} as LoginError;
+        } catch (err: any) {
+            error = err.inner.reduce((acc, err) => {
                 return { ...acc, [err.path]: err.message };
-            }, {});
+            }, {}) as LoginError;
         }
+
+        await login();
     };
 
     async function login() {
         isMessageError = false;
+
         const response = await fetch('api/login', {
             method: 'POST',
             body: JSON.stringify(loginForm),
@@ -42,7 +47,9 @@
                 'content-type': 'application/json',
             },
         });
+
         const userInfo = await response.json();
+
         if (userInfo.data) {
             await goto('/');
         } else {
@@ -60,20 +67,20 @@
             name="email"
             bind:value="{loginForm.email}"
             placeholder="Email"
-            class="input  bg-neutral mb-3  w-80 max-w-xs mt-10 {errors?.email ? 'input-error' : ''} "
+            class="input  bg-neutral mb-3  w-80 max-w-xs mt-10 {error?.email ? 'input-error' : ''} "
         />
-        {#if errors?.email}
-            <span class="label-text-alt text-error">{errors?.email}</span>
+        {#if error?.email}
+            <span class="label-text-alt text-error">{error?.email}</span>
         {/if}
         <input
             type="password"
             name="password"
             bind:value="{loginForm.password}"
             placeholder="Mot de passe"
-            class="input  bg-neutral mb-3  mt-10  w-80 max-w-xs  {errors?.password ? 'input-error' : ''}"
+            class="input  bg-neutral mb-3  mt-10  w-80 max-w-xs  {error?.password ? 'input-error' : ''}"
         />
-        {#if errors?.password}
-            <span class="label-text-alt text-error ">{errors?.password}</span>
+        {#if error?.password}
+            <span class="label-text-alt text-error ">{error?.password}</span>
         {/if}
         {#if isMessageError}
             <div class="alert alert-error shadow-lg">

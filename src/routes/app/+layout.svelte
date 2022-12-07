@@ -1,5 +1,5 @@
 <script>
-    import BottomNavBar from '../components/BottomNavBar.svelte';
+    import BottomNavBar from '../../components/BottomNavBar.svelte';
 </script>
 
 <slot />

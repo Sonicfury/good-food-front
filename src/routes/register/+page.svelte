@@ -1,9 +1,7 @@
 <script lang="ts">
-    import Alert from '../components/Alert.svelte';
+    import Alert from '../../components/Alert.svelte';
     import * as yup from 'yup';
     import { goto } from '$app/navigation';
-
-    $: showPassword = false;
 
     type LoginForm = {
         email: string;
@@ -41,7 +39,7 @@
             await schema.validate(loginForm, { abortEarly: false });
             await login();
             errors = {} as LoginForm;
-        } catch (err) {
+        } catch (err: any) {
             errors = err.inner.reduce((acc, err) => {
                 return { ...acc, [err.path]: err.message };
             }, {});
