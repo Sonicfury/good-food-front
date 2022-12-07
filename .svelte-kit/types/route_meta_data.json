@@ -8,5 +8,7 @@
 	"/api/login": [
 		"src/routes/api/login/+server.ts"
 	],
-	"/UserAccount": []
+	"/UserAccount": [
+		"src/routes/UserAccount/+page.server.ts"
+	]
 }
