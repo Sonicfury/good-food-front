@@ -15,10 +15,10 @@ module.exports = {
                     accent: '#F8DC56',
                     neutral: '#F9EFE8',
                     'base-100': '#FAFAFA',
-                    info: '#3ABFF8',
+                    info: '#334155',
                     success: '#43B549',
                     warning: '#F8DC56',
-                    error: '#DF6562',
+                    error: '#DF6562'
                 },
                 fontFamily: {
                     Poppins: ['Poppins', 'sans-serif'],
