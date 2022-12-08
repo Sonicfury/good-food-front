@@ -91,7 +91,7 @@
       type="text"
       name="lastName"
       bind:value="{loginForm.lastName}"
-      placeholder="Mot de passe"
+      placeholder="Nom de famille"
       class="input  bg-neutral mb-3  mt-10  w-80 max-w-xs  {errors?.lastName ? 'input-error' : ''}"
     />
     {#if errors?.lastName}
@@ -122,6 +122,6 @@
     <Alert isError="{isMessageError}" message="{messageError}" />
 
     <button type="submit" class="btn mt-10 btn-primary text-base-100 w-32">Valider</button>
-    <a href="/login" class="text-primary mt-5 cursor-pointer">Ou se connecter</a>
+    <a href="/login" class="text-primary mt-5 cursor-pointer">J'ai déjà un compte !</a>
   </form>
 </div>
