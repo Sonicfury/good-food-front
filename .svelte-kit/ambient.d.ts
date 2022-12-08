@@ -27,32 +27,38 @@
  */
 declare module '$env/static/private' {
 	export const VITE_API_URL: string;
+	export const ELECTRON_RUN_AS_NODE: string;
 	export const NVM_RC_VERSION: string;
 	export const NODE: string;
 	export const INIT_CWD: string;
 	export const NVM_CD_FLAGS: string;
-	export const SHELL: string;
 	export const TERM: string;
+	export const SHELL: string;
 	export const npm_config_metrics_registry: string;
 	export const TMPDIR: string;
 	export const npm_config_global_prefix: string;
 	export const CAPACITOR_ANDROID_STUDIO_PATH: string;
 	export const NVIM_CONFIG: string;
 	export const COLOR: string;
+	export const TERM_SESSION_ID: string;
 	export const npm_config_noproxy: string;
 	export const npm_config_local_prefix: string;
 	export const ZSH: string;
-	export const USER: string;
+	export const __INTELLIJ_COMMAND_HISTFILE__: string;
 	export const NVM_DIR: string;
+	export const USER: string;
 	export const COMMAND_MODE: string;
 	export const npm_config_globalconfig: string;
 	export const SSH_AUTH_SOCK: string;
 	export const __CF_USER_TEXT_ENCODING: string;
 	export const npm_execpath: string;
+	export const LOGIN_SHELL: string;
 	export const PAGER: string;
 	export const LSCOLORS: string;
 	export const PATH: string;
+	export const TERMINAL_EMULATOR: string;
 	export const npm_package_json: string;
+	export const _: string;
 	export const npm_config_userconfig: string;
 	export const npm_config_init_module: string;
 	export const __CFBundleIdentifier: string;
@@ -76,7 +82,18 @@ declare module '$env/static/private' {
 	export const npm_config_user_agent: string;
 	export const npm_node_execpath: string;
 	export const npm_config_prefix: string;
-	export const _: string;
+	export const FORCE_COLOR: string;
+	export const DEBUG_COLORS: string;
+	export const MOCHA_COLORS: string;
+	export const FORCE_STDIN_TTY: string;
+	export const FORCE_STDOUT_TTY: string;
+	export const FORCE_STDERR_TTY: string;
+	export const ORIGINAL_XDG_CURRENT_DESKTOP: string;
+	export const CYPRESS_INTERNAL_ENV: string;
+	export const PROJECT_BASE_DIR: string;
+	export const UV_THREADPOOL_SIZE: string;
+	export const CYPRESS: string;
+	export const NODE_OPTIONS: string;
 }
 
 /**
@@ -107,32 +124,38 @@ declare module '$env/static/public' {
 declare module '$env/dynamic/private' {
 	export const env: {
 		VITE_API_URL: string;
+		ELECTRON_RUN_AS_NODE: string;
 		NVM_RC_VERSION: string;
 		NODE: string;
 		INIT_CWD: string;
 		NVM_CD_FLAGS: string;
-		SHELL: string;
 		TERM: string;
+		SHELL: string;
 		npm_config_metrics_registry: string;
 		TMPDIR: string;
 		npm_config_global_prefix: string;
 		CAPACITOR_ANDROID_STUDIO_PATH: string;
 		NVIM_CONFIG: string;
 		COLOR: string;
+		TERM_SESSION_ID: string;
 		npm_config_noproxy: string;
 		npm_config_local_prefix: string;
 		ZSH: string;
-		USER: string;
+		__INTELLIJ_COMMAND_HISTFILE__: string;
 		NVM_DIR: string;
+		USER: string;
 		COMMAND_MODE: string;
 		npm_config_globalconfig: string;
 		SSH_AUTH_SOCK: string;
 		__CF_USER_TEXT_ENCODING: string;
 		npm_execpath: string;
+		LOGIN_SHELL: string;
 		PAGER: string;
 		LSCOLORS: string;
 		PATH: string;
+		TERMINAL_EMULATOR: string;
 		npm_package_json: string;
+		_: string;
 		npm_config_userconfig: string;
 		npm_config_init_module: string;
 		__CFBundleIdentifier: string;
@@ -156,7 +179,18 @@ declare module '$env/dynamic/private' {
 		npm_config_user_agent: string;
 		npm_node_execpath: string;
 		npm_config_prefix: string;
-		_: string;
+		FORCE_COLOR: string;
+		DEBUG_COLORS: string;
+		MOCHA_COLORS: string;
+		FORCE_STDIN_TTY: string;
+		FORCE_STDOUT_TTY: string;
+		FORCE_STDERR_TTY: string;
+		ORIGINAL_XDG_CURRENT_DESKTOP: string;
+		CYPRESS_INTERNAL_ENV: string;
+		PROJECT_BASE_DIR: string;
+		UV_THREADPOOL_SIZE: string;
+		CYPRESS: string;
+		NODE_OPTIONS: string;
 		[key: `PUBLIC_${string}`]: undefined;
 		[key: string]: string | undefined;
 	}
