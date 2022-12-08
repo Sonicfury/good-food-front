@@ -2,7 +2,7 @@ name: lint
 
 on:
   pull_request:
-    types: opened
+    types: [opened, reopened, edited]
     branches: main
   workflow_dispatch:
 

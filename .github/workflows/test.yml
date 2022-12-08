@@ -1,7 +1,8 @@
 name: End-to-end tests
+
 on:
   pull_request:
-    types: opened
+    types: [opened, reopened, edited]
     branches: main
   workflow_dispatch:
 
