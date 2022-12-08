@@ -4,3 +4,5 @@ describe('Home test', () => {
         cy.get('img').should('have.length', 1);
     });
 });
+
+export {}
