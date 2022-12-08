@@ -5,4 +5,4 @@ describe('Home test', () => {
     });
 });
 
-export {}
+export {};

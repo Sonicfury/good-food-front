@@ -8,7 +8,7 @@
     const isActive = (path: string) => $page.route.id === path;
 </script>
 
-<nav aria-label='Nav' class="fixed bottom-4 transform inline-flex  mx-auto justify-between bg-white w-full bottom-0">
+<nav aria-label="Nav" class="fixed bottom-4 transform inline-flex  mx-auto justify-between bg-white w-full bottom-0">
     <a
         aria-current="{isActive('/app/dashboard') ? 'page' : 'false'}"
         class="inline-flex flex-col items-center text-primary text-xs font-medium py-3 px-4 text-white flex-grow"
@@ -21,7 +21,7 @@
     <a
         aria-current="{isActive('/app/search') ? 'page' : 'false'}"
         class="relative inline-flex flex-col items-center text-xs font-medium text-white py-3 px-6 flex-grow"
-        href='/app/search'
+        href="/app/search"
     >
         <div class="absolute bottom-5 p-3 rounded-full border-4 border-base-100 bg-accent">
             <Icon path="{mdiMapMarkerOutline}" clazz="fill-white w-10 h-10" />
