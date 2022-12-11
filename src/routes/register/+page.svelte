@@ -16,8 +16,9 @@
     lastName: '' as string,
   } as LoginForm
 
-  let messageError = ''
-  let isMessageError = false
+  let alertMessage = ''
+  let alertLevel: 'error' | 'success' | 'warning' | 'info' = 'error'
+  let showAlert = false
 
   const schema = yup.object().shape({
     email: yup.string().required(' Email requis').email('Email invalide'),
@@ -47,7 +48,7 @@
   }
 
   async function register() {
-    isMessageError = false
+    showAlert = false
     const response = await fetch('api/user', {
       method: 'POST',
       body: JSON.stringify(loginForm),
@@ -64,8 +65,9 @@
       return
     }
 
-    isMessageError = true
-    messageError = userInfo.message
+    showAlert = true
+    alertLevel = 'error'
+    alertMessage = userInfo.message
   }
 </script>
 
@@ -115,8 +117,9 @@
       <span class='label-text-alt text-error w-80'>{errors?.password}</span>
     {/if}
 
-    <Alert isError='{isMessageError}' message='{messageError}' />
-
+    {#if showAlert}
+      <Alert level={alertLevel} message='{alertMessage}' />
+    {/if}
     <button type='submit' class='btn mt-10 btn-primary text-base-100 w-32'>Valider</button>
     <a href='/login' class='text-primary mt-5 cursor-pointer'>J'ai déjà un compte !</a>
   </form>

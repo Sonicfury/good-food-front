@@ -1,42 +1,39 @@
-<script lang="ts">
-    export let message: string;
-    export let isError: boolean;
-    export let isSucess: boolean;
+<script lang='ts'>
+  import { mdiAlert, mdiCheckCircle, mdiCloseCircle, mdiInformation } from '@mdi/js'
+  import Icon from '$lib/components/Icon.svelte'
+
+  export let level: 'error' | 'success' | 'warning' | 'info'
+  export let message: string
+
+  let iconPath = ''
+  switch (level) {
+    case 'success':
+      iconPath = mdiCheckCircle
+      break
+    case 'warning':
+      iconPath = mdiAlert
+      break
+    case 'info':
+      iconPath = mdiInformation
+      break
+    default:
+      iconPath = mdiCloseCircle
+      break
+  }
 </script>
 
 <div>
-    <div>
-        {#if isError}
-            <div class="{isSucess ? 'alert alert-success shadow-lg ' : 'alert alert-error shadow-lg'}">
-                <div>
-                    {#if isSucess}
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="stroke-current flex-shrink-0 h-6 w-6"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            ><path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg
-                        >
-                    {:else}
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="stroke-current flex-shrink-0 h-6 w-6"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            ><path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg
-                        >
-                    {/if}
-                    <span>{message}</span>
-                </div>
-            </div>
-        {/if}
+  <div>
+    <div class='alert shadow-lg'
+         class:alert-success={level === 'success'}
+         class:alert-error={level === 'error'}
+         class:alert-info={level === 'info'}
+         class:alert-warning={level === 'warning'}
+    >
+      <div class='flex gap-2'>
+        <Icon clazz='w-6 h-6' path={iconPath} />
+        <span>{message}</span>
+      </div>
     </div>
+  </div>
 </div>

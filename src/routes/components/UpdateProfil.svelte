@@ -4,10 +4,10 @@
   import Alert from './Alert.svelte'
   import * as yup from 'yup'
 
-  let messageError = 'test' as string
+  let alertMessage = ''
   let isLoading = false
-  let isMessageError = false as boolean
-  let isSucess = false as boolean
+  let alertLevel: 'error' | 'success' | 'warning' | 'info' = 'error'
+  let showAlert = false
   let user = {} as User
   let errors = {} as User
 
@@ -18,9 +18,9 @@
     if (response.data) {
       user = response.data
     } else {
-      isMessageError = true
-      messageError = response.message
-      isSucess = false
+      alertLevel = 'error'
+      alertMessage = response.message
+      showAlert = true
     }
 
     isLoading = false
@@ -45,7 +45,7 @@
   }
 
   async function updateUser() {
-    isMessageError = false
+    showAlert = false
     isLoading = true
 
     const response = await fetch('api/user', {
@@ -60,13 +60,13 @@
 
     if (userInfo.data) {
       user = userInfo.data
-      isMessageError = true
-      messageError = 'Informations modifié avec succés'
-      isSucess = true
+      showAlert = true
+      alertLevel = 'success'
+      alertMessage = 'Informations modifiées avec succès'
     } else {
-      isMessageError = true
-      messageError = userInfo.message
-      isSucess = false
+      showAlert = true
+      alertMessage = userInfo.message
+      alertLevel = 'error'
     }
 
     isLoading = false
@@ -74,7 +74,9 @@
 </script>
 
 <div class='flex items-center flex-col'>
-  <Alert isSucess='{isSucess}' isError='{isMessageError}' message='{messageError}' />
+  {#if showAlert}
+    <Alert level={alertLevel} message='{alertMessage}' />
+  {/if}
   <form on:submit|preventDefault='{handleSubmit}' class='flex items-center flex-col'>
     <input
       type='text'
@@ -109,6 +111,6 @@
       <span class='label-text-alt text-error'>{errors?.email}</span>
     {/if}
 
-    <button type='submit' class='btn mt-10 btn-primary text-base-100 w-32' class:loading="{isLoading}">Modifier</button>
-    </form>
+    <button type='submit' class='btn mt-10 btn-primary text-base-100 w-32' class:loading='{isLoading}'>Modifier</button>
+  </form>
 </div>
