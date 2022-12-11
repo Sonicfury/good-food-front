@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Alert from '../../lib/components/Alert.svelte'
+  import Alert from '$lib/components/Alert.svelte'
   import * as yup from 'yup'
   import { goto } from '$app/navigation'
 

@@ -17,5 +17,8 @@
 	],
 	"/admin": [],
 	"/app": [],
-	"/app/dashboard": []
+	"/app/dashboard": [],
+	"/account": [
+		"src/routes/account/+page.server.ts"
+	]
 }

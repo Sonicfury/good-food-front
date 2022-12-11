@@ -1,25 +1,36 @@
-<script lang="ts">
-  let messageError: string
-  let isMessageError: boolean
+<script lang='ts'>
+  import { mdiAlert, mdiCheckCircle, mdiCloseCircle, mdiInformation } from '@mdi/js'
+  import Icon from './Icon.svelte'
+
+  export let level: 'error' | 'success' | 'warning' | 'info'
+  export let message: string
+
+  let iconPath = ''
+  switch (level) {
+    case 'success':
+      iconPath = mdiCheckCircle
+      break
+    case 'warning':
+      iconPath = mdiAlert
+      break
+    case 'info':
+      iconPath = mdiInformation
+      break
+    default:
+      iconPath = mdiCloseCircle
+      break
+  }
 </script>
 
-<div>
-  {#if isMessageError}
-    <div class="alert alert-error shadow-lg">
-      <div>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="stroke-current flex-shrink-0 h-6 w-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          ><path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg
-        >
-        <span>{messageError}</span>
-      </div>
-    </div>
-  {/if}
+<div
+  class='alert shadow-lg'
+  class:alert-success="{level === 'success'}"
+  class:alert-error="{level === 'error'}"
+  class:alert-info="{level === 'info'}"
+  class:alert-warning="{level === 'warning'}"
+>
+  <div class='flex gap-2'>
+    <Icon clazz='w-6 h-6' path='{iconPath}' />
+    <span>{message}</span>
+  </div>
 </div>
