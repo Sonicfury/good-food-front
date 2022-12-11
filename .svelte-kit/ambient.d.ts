@@ -26,6 +26,7 @@
  * ```
  */
 declare module '$env/static/private' {
+	export const VITE_API_URL: string;
 	export const NVM_RC_VERSION: string;
 	export const NODE: string;
 	export const INIT_CWD: string;
@@ -76,6 +77,7 @@ declare module '$env/static/private' {
 	export const npm_node_execpath: string;
 	export const npm_config_prefix: string;
 	export const _: string;
+	export const NODE_ENV: string;
 }
 
 /**
@@ -105,6 +107,7 @@ declare module '$env/static/public' {
  */
 declare module '$env/dynamic/private' {
 	export const env: {
+		VITE_API_URL: string;
 		NVM_RC_VERSION: string;
 		NODE: string;
 		INIT_CWD: string;
@@ -155,6 +158,7 @@ declare module '$env/dynamic/private' {
 		npm_node_execpath: string;
 		npm_config_prefix: string;
 		_: string;
+		NODE_ENV: string;
 		[key: `PUBLIC_${string}`]: undefined;
 		[key: string]: string | undefined;
 	}

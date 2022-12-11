@@ -7,5 +7,10 @@
 	],
 	"/api/login": [
 		"src/routes/api/login/+server.ts"
-	]
+	],
+	"/admin": [],
+	"/app": [],
+	"/home": [],
+	"/test": [],
+	"/app/dashboard": []
 }
