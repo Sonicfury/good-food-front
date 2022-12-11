@@ -7,7 +7,6 @@ let localSession
 
 // ensures localStorage exists
 if (browser) {
-
   localSession = window.localStorage.getItem('session')
 }
 

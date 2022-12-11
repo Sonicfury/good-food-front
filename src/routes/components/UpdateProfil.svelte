@@ -1,4 +1,4 @@
-<script lang='ts'>
+<script lang="ts">
   import { onMount } from 'svelte'
   import type { User } from '../../models/user'
   import Alert from './Alert.svelte'
@@ -73,44 +73,44 @@
   }
 </script>
 
-<div class='flex items-center flex-col'>
+<div class="flex items-center flex-col">
   {#if showAlert}
-    <Alert level={alertLevel} message='{alertMessage}' />
+    <Alert level="{alertLevel}" message="{alertMessage}" />
   {/if}
-  <form on:submit|preventDefault='{handleSubmit}' class='flex items-center flex-col'>
+  <form on:submit|preventDefault="{handleSubmit}" class="flex items-center flex-col">
     <input
-      type='text'
-      name='firstname'
-      bind:value='{user.firstname}'
-      placeholder='Prénom'
+      type="text"
+      name="firstname"
+      bind:value="{user.firstname}"
+      placeholder="Prénom"
       class="input  bg-neutral mb-3  mt-10  w-72 max-w-xs  {errors?.firstname ? 'input-error' : ''}"
     />
     {#if errors?.firstname}
-      <span class='label-text-alt text-error '>{errors?.firstname}</span>
+      <span class="label-text-alt text-error ">{errors?.firstname}</span>
     {/if}
 
     <input
-      type='text'
-      name='lastname'
-      bind:value='{user.lastname}'
-      placeholder='Mot de passe'
+      type="text"
+      name="lastname"
+      bind:value="{user.lastname}"
+      placeholder="Mot de passe"
       class="input  bg-neutral mb-3  mt-10  w-72 max-w-xs  {errors?.lastname ? 'input-error' : ''}"
     />
     {#if errors?.lastname}
-      <span class='label-text-alt text-error '>{errors?.lastname}</span>
+      <span class="label-text-alt text-error ">{errors?.lastname}</span>
     {/if}
 
     <input
-      type='text'
-      name='email'
-      bind:value='{user.email}'
-      placeholder='Email'
+      type="text"
+      name="email"
+      bind:value="{user.email}"
+      placeholder="Email"
       class="input  bg-neutral mb-3 w-72 max-w-xs mt-10 {errors?.email ? 'input-error' : ''} "
     />
     {#if errors?.email}
-      <span class='label-text-alt text-error'>{errors?.email}</span>
+      <span class="label-text-alt text-error">{errors?.email}</span>
     {/if}
 
-    <button type='submit' class='btn mt-10 btn-primary text-base-100 w-32' class:loading='{isLoading}'>Modifier</button>
+    <button type="submit" class="btn mt-10 btn-primary text-base-100 w-32" class:loading="{isLoading}">Modifier</button>
   </form>
 </div>

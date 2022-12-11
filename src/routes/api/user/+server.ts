@@ -12,8 +12,8 @@ export const POST: RequestHandler = async ({ cookies, request }) => {
   })
   const requestBody = await response.json()
   if (requestBody.success) {
-    cookies.set('token', requestBody.data.token, {path: '/'})
-    cookies.set('user', JSON.stringify(requestBody.data.user), {path: '/'})
+    cookies.set('token', requestBody.data.token, { path: '/' })
+    cookies.set('user', JSON.stringify(requestBody.data.user), { path: '/' })
     return new Response(JSON.stringify({ data: requestBody.data }), { status: 200 })
   } else if (requestBody.message === 'Validation Error.') {
     return new Response(JSON.stringify({ message: 'Un compte avec cet email est déjà enregistré' }), {

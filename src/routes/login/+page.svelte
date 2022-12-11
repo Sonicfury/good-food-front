@@ -90,7 +90,7 @@
       <span class="label-text-alt text-error ">{error?.password}</span>
     {/if}
     {#if showAlert}
-      <Alert level='error' message={alertMessage} />
+      <Alert level="error" message="{alertMessage}" />
     {/if}
     <button type="submit" class="btn mt-10 btn-primary text-base-100 w-32" class:loading="{isLoading}">
       Valider
