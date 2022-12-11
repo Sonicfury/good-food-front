@@ -11,8 +11,8 @@ export const POST: RequestHandler = async ({ cookies, request }) => {
     });
     const requestBody = await response.json();
     if (requestBody.success) {
-        cookies.set('session', requestBody.data.token);
-        cookies.set('userId', requestBody.data.user.id);
+        cookies.set('token', requestBody.data.token, {path: '/'});
+        cookies.set('user', JSON.stringify(requestBody.data.user), {path: '/'});
         return new Response(JSON.stringify({ data: requestBody.data }), { status: 200 });
     } else {
         return new Response(JSON.stringify({ error: requestBody.data.error }), { status: 500 });

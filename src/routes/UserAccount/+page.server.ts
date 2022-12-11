@@ -3,8 +3,9 @@ import type { Actions } from './$types';
 
 export const actions: Actions = {
     default({ cookies }) {
-        cookies.set('session', '');
-        cookies.set('userId', '');
+        cookies.delete('token')
+        cookies.delete('user')
+
         throw redirect(302, '/login');
     },
 };

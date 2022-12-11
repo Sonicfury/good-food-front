@@ -1,14 +1,7 @@
 <script lang="ts">
   import * as yup from 'yup'
   import { goto } from '$app/navigation'
-  import { session } from '$lib/stores/session'
-  import { onMount } from 'svelte'
-  import { isAuthenticated } from '$lib/helpers/guard'
   import { ObjectSchema } from 'yup'
-
-  onMount(() => {
-    isAuthenticated() && goto('/')
-  })
 
   type LoginForm = {
     email: string
@@ -61,7 +54,6 @@
     const userResponse = await response.json()
 
     if (userResponse.data) {
-      session.update((session) => userResponse.data)
       await goto('/')
 
       return

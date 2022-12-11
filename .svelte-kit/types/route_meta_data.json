@@ -1,7 +1,11 @@
 {
 	"/": [],
-	"/login": [],
-	"/register": [],
+	"/login": [
+		"src/routes/login/+page.server.ts"
+	],
+	"/register": [
+		"src/routes/register/+page.server.ts"
+	],
 	"/api/user": [
 		"src/routes/api/user/+server.ts"
 	],
@@ -10,5 +14,8 @@
 	],
 	"/UserAccount": [
 		"src/routes/UserAccount/+page.server.ts"
-	]
+	],
+	"/admin": [],
+	"/app": [],
+	"/app/dashboard": []
 }
