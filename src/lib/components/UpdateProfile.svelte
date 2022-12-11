@@ -1,4 +1,4 @@
-<script lang='ts'>
+<script lang="ts">
   import { onMount } from 'svelte'
   import type { User } from '../../models/user'
   import Alert from './Alert.svelte'
@@ -73,59 +73,59 @@
   }
 </script>
 
-<div class='flex items-center flex-col'>
+<div class="flex items-center flex-col">
   {#if showAlert}
-    <Alert level='{alertLevel}' message='{alertMessage}' />
+    <Alert level="{alertLevel}" message="{alertMessage}" />
   {/if}
-  <form on:submit|preventDefault='{handleSubmit}' class='flex items-center flex-col gap-8'>
-    <div class='form-control'>
-      <label class="label" for='firstname'>Prénom</label>
+  <form on:submit|preventDefault="{handleSubmit}" class="flex items-center flex-col gap-8">
+    <div class="form-control">
+      <label class="label" for="firstname">Prénom</label>
       <input
-        type='text'
-        id='firstname'
-        name='firstname'
-        bind:value='{user.firstname}'
-        placeholder='Prénom'
-        class='input bg-neutral w-72 max-w-xs'
-        class:input-error={errors?.firstname}
+        type="text"
+        id="firstname"
+        name="firstname"
+        bind:value="{user.firstname}"
+        placeholder="Prénom"
+        class="input bg-neutral w-72 max-w-xs"
+        class:input-error="{errors?.firstname}"
       />
       {#if errors?.firstname}
-        <span class='label-text-alt text-error '>{errors?.firstname}</span>
+        <span class="label-text-alt text-error ">{errors?.firstname}</span>
       {/if}
     </div>
 
-    <div class='form-control'>
-      <label class="label" for='lastname'>Nom</label>
+    <div class="form-control">
+      <label class="label" for="lastname">Nom</label>
       <input
-        type='text'
-        id='lastname'
-        name='lastname'
-        bind:value='{user.lastname}'
-        placeholder='Mot de passe'
-        class='input  bg-neutral w-72 max-w-xs'
-        class:input-error={errors?.lastname}
+        type="text"
+        id="lastname"
+        name="lastname"
+        bind:value="{user.lastname}"
+        placeholder="Mot de passe"
+        class="input  bg-neutral w-72 max-w-xs"
+        class:input-error="{errors?.lastname}"
       />
       {#if errors?.lastname}
-        <span class='label-text-alt text-error '>{errors?.lastname}</span>
+        <span class="label-text-alt text-error ">{errors?.lastname}</span>
       {/if}
     </div>
 
-    <div class='form-control'>
-      <label class="label" for='email'>Email</label>
+    <div class="form-control">
+      <label class="label" for="email">Email</label>
       <input
-        type='email'
-        id='email'
-        name='email'
-        bind:value='{user.email}'
-        placeholder='you@domain.com'
-        class='input bg-neutral w-72 max-w-xs'
-        class:input-error={errors?.email}
+        type="email"
+        id="email"
+        name="email"
+        bind:value="{user.email}"
+        placeholder="you@domain.com"
+        class="input bg-neutral w-72 max-w-xs"
+        class:input-error="{errors?.email}"
       />
       {#if errors?.email}
-        <span class='label-text-alt text-error'>{errors?.email}</span>
+        <span class="label-text-alt text-error">{errors?.email}</span>
       {/if}
     </div>
 
-    <button type='submit' class='btn btn-primary text-base-100 w-32' class:loading='{isLoading}'>Modifier</button>
+    <button type="submit" class="btn btn-primary text-base-100 w-32" class:loading="{isLoading}">Modifier</button>
   </form>
 </div>

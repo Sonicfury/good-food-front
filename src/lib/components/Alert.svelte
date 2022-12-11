@@ -1,4 +1,4 @@
-<script lang='ts'>
+<script lang="ts">
   import { mdiAlert, mdiCheckCircle, mdiCloseCircle, mdiInformation } from '@mdi/js'
   import Icon from './Icon.svelte'
 
@@ -23,14 +23,14 @@
 </script>
 
 <div
-  class='alert shadow-lg'
+  class="alert shadow-lg"
   class:alert-success="{level === 'success'}"
   class:alert-error="{level === 'error'}"
   class:alert-info="{level === 'info'}"
   class:alert-warning="{level === 'warning'}"
 >
-  <div class='flex gap-2'>
-    <Icon clazz='w-6 h-6' path='{iconPath}' />
+  <div class="flex gap-2">
+    <Icon clazz="w-6 h-6" path="{iconPath}" />
     <span>{message}</span>
   </div>
 </div>
