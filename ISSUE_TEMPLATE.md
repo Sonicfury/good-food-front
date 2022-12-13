@@ -12,5 +12,5 @@ ALORS
 
 # Tâches
 
--   [ ] Tâche 1
--   [ ] Tâche 2
+- [ ] Tâche 1
+- [ ] Tâche 2

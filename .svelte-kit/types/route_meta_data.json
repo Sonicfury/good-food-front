@@ -8,5 +8,13 @@
 	"/api/login": [
 		"src/routes/api/login/+server.ts"
 	],
+<<<<<<< HEAD
 	"/restaurants": []
+=======
+	"/admin": [],
+	"/app": [],
+	"/home": [],
+	"/test": [],
+	"/app/dashboard": []
+>>>>>>> main
 }
