@@ -14,5 +14,6 @@
 	"/app": [],
 	"/home": [],
 	"/test": [],
-	"/app/dashboard": []
+	"/app/dashboard": [],
+	"/admin/carte": []
 }
