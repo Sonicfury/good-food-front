@@ -133,7 +133,7 @@
 
 <style>
   .right-picture {
-    background-image: url('../../lib/assets/img/login-picture.jpg');
+    background-image: url('/images/login-picture.jpg');
     width: 50%;
     background-size: cover;
     height: 900px;

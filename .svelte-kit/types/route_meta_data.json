@@ -8,7 +8,9 @@
 	"/api/login": [
 		"src/routes/api/login/+server.ts"
 	],
-	"/admin": [],
+	"/admin": [
+		"src/routes/admin/+server.ts"
+	],
 	"/app": [],
 	"/home": [],
 	"/test": [],
