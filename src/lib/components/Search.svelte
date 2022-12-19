@@ -1,5 +1,6 @@
 <script lang="ts">
   export let searchTerm: String
+  export let placeholder: String
 </script>
 
 <div class="flex justify-center">
@@ -23,8 +24,8 @@
   </svg>
   <input
     type="text"
-    placeholder="Adresse, ville ..."
-    class="input w-80 max-w-xs bg-neutral search-btn placeholder-info"
+    placeholder="{placeholder}"
+    class="input w-80 max-w-xs bg-neutral search-btn placeholder-black"
     bind:value="{searchTerm}"
     on:input
   />
