@@ -12,5 +12,12 @@
 	"/app": [],
 	"/home": [],
 	"/test": [],
-	"/app/dashboard": []
+	"/app/dashboard": [],
+	"/api/restaurant": [
+		"src/routes/api/restaurant/+server.ts"
+	],
+	"/restaurants": [],
+	"/api/adresse": [
+		"src/routes/api/adresse/+server.ts"
+	]
 }
