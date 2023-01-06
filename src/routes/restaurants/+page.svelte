@@ -3,7 +3,7 @@
   import Search from '../../lib/components/Search.svelte'
   import { onMount } from 'svelte'
   import Alert from '../../lib/components/Alert.svelte'
-
+  import LeafletMap from '../../lib/components/LeafletMap.svelte'
   let searchTerm = ''
   let restaurants = ''
   let messageError = 'test' as string
@@ -55,6 +55,8 @@
     </ul>
   {/if}
 </div>
+<LeafletMap />
+
 {#each restaurants as restaurant}
   <RestaurantCard :restaurantItem="{restaurant}" />
 {/each}
