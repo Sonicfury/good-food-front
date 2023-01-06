@@ -1,12 +1,24 @@
-<div class="navbar bg-neutral">
+<script lang="ts">
+  import { page } from '$app/stores'
+  console.log($page, 'apge')
+</script>
+
+<div class="navbar bg-white">
   <div class="flex-1">
     <img class="ml-4 object-contain  w-24" alt="good-food-logo" src="/images/Good-Food-logo.png" />
   </div>
   <div class="flex-none">
     <ul class="menu menu-horizontal px-1">
-      <li><a href="">Commandes et réservations</a></li>
-      <li><a href="/admin/carte">Ma carte</a></li>
-      <li><a>KPI</a></li>
+      <li>
+        <a class="{$page.route.id === '/admin/order' ? 'text-primary' : ''}" href="/admin/order"
+          >Commandes et réservations</a
+        >
+      </li>
+      <li><a class="{$page.route.id === '/admin/carte' ? 'text-primary' : ''}" href="/admin/carte">Ma carte</a></li>
+      <li><a class="{$page.route.id === '/admin/kpi' ? 'text-primary' : ''}" href="/admin/kpi">KPI</a></li>
+      <li>
+        <a class="{$page.route.id === '/admin/delivery' ? 'text-primary' : ''}" href="/admin/delivery">Mes livreurs</a>
+      </li>
     </ul>
     <div class="dropdown dropdown-end ml-24 mr-6">
       <label tabindex="0" class="btn btn-ghost btn-circle avatar">
