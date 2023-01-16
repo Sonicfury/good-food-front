@@ -1,16 +1,24 @@
 {
 	"/": [],
-	"/login": [],
-	"/register": [],
+	"/login": [
+		"src/routes/login/+page.server.ts"
+	],
+	"/register": [
+		"src/routes/register/+page.server.ts"
+	],
 	"/api/user": [
 		"src/routes/api/user/+server.ts"
 	],
 	"/api/login": [
 		"src/routes/api/login/+server.ts"
 	],
+	"/UserAccount": [
+		"src/routes/UserAccount/+page.server.ts"
+	],
 	"/admin": [],
 	"/app": [],
-	"/home": [],
-	"/test": [],
-	"/app/dashboard": []
+	"/app/dashboard": [],
+	"/account": [
+		"src/routes/account/+page.server.ts"
+	]
 }
