@@ -1,32 +1,28 @@
 {
 	"/": [],
+	"/account": [
+		"src/routes/account/+page.server.ts"
+	],
+	"/admin": [],
+	"/api/adresse": [
+		"src/routes/api/adresse/+server.ts"
+	],
+	"/api/login": [
+		"src/routes/api/login/+server.ts"
+	],
+	"/api/restaurant": [
+		"src/routes/api/restaurant/+server.ts"
+	],
+	"/api/user": [
+		"src/routes/api/user/+server.ts"
+	],
+	"/app": [],
+	"/app/dashboard": [],
 	"/login": [
 		"src/routes/login/+page.server.ts"
 	],
 	"/register": [
 		"src/routes/register/+page.server.ts"
 	],
-	"/api/user": [
-		"src/routes/api/user/+server.ts"
-	],
-	"/api/login": [
-		"src/routes/api/login/+server.ts"
-	],
-	"/UserAccount": [
-		"src/routes/UserAccount/+page.server.ts"
-	],
-	"/admin": [],
-	"/app": [],
-	"/home": [],
-	"/test": [],
-	"/app/dashboard": [],
-	"/api/restaurant": [
-		"src/routes/api/restaurant/+server.ts"
-	],
-	"/restaurants": [],
-	"/api/adresse": [
-		"src/routes/api/adresse/+server.ts"
-	"/account": [
-		"src/routes/account/+page.server.ts"
-	]
+	"/restaurants": []
 }
