@@ -1,7 +1,7 @@
 import type { RequestHandler } from './$types'
 
-export const GET: RequestHandler = async ({cookies}) => {
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/restaurants`, {
+export const GET: RequestHandler = async ({cookies, url}) => {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/restaurants`+url.search, {
         headers: {
             'content-type': 'application/json',
             'Authorization': `Bearer ${cookies.get('session')}`
@@ -13,4 +13,4 @@ export const GET: RequestHandler = async ({cookies}) => {
     } else {
         return new Response(JSON.stringify({ message: 'Une erreur est survenue' }), { status: 500 });
     }
-  }
+}

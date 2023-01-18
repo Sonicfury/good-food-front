@@ -1,6 +1,6 @@
 export type Restaurant = {
     name: string,
-    address: string,
+    address1: string,
     address2:string,
     zipCode:string,
     city:string,

@@ -6,9 +6,9 @@
   import { isAuthenticated } from '../../lib/helpers/guard'
   import { session } from '../../lib/stores/session'
 
-  onMount(() => {
-    isAuthenticated() && goto('/')
-  })
+  // onMount(() => {
+  //   isAuthenticated() && goto('/')
+  // })
 
   type LoginForm = {
     email: string

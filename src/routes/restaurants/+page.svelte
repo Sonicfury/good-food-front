@@ -5,18 +5,25 @@
   import Alert from '../../lib/components/Alert.svelte'
   import LeafletMap from '../../lib/components/LeafletMap.svelte'
   let searchTerm = ''
-  let restaurants = ''
+  let restaurants = null
   let messageError = 'test' as string
   let isMessageError = false as boolean
   let isSucess = false as boolean
   let adresseList = null as Array<any> | null
   let dropdownOpen = true as boolean
+  let fetchRestaurantUrl
   onMount(async () => {
     await getRestaurant()
   })
 
   async function getRestaurant(coordinates: Array<string>) {
-    const res = await fetch(`api/restaurant`)
+    if (coordinates) {
+      fetchRestaurantUrl = `api/restaurant?coords=${coordinates}`
+    } else {
+      fetchRestaurantUrl = `api/restaurant`
+    }
+
+    const res = await fetch(fetchRestaurantUrl)
     let response = await res.json()
     if (response.data) {
       restaurants = response.data
@@ -55,8 +62,9 @@
     </ul>
   {/if}
 </div>
-<LeafletMap />
-
-{#each restaurants as restaurant}
-  <RestaurantCard :restaurantItem="{restaurant}" />
-{/each}
+{#if restaurants}
+  {#each restaurants as restaurant}
+    <RestaurantCard bind:restaurantItem="{restaurant}" />
+  {/each}
+{/if}
+<!-- <LeafletMap /> -->
