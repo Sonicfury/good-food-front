@@ -1,28 +1,14 @@
 // @ts-nocheck
-import type {  Actions } from './$types';
-import { z } from 'zod'
+import { redirect } from '@sveltejs/kit';
+import { session } from '$lib/stores/session'
+import type { Actions } from './$types';
+import type { Session } from '$lib/models/session'
 
-const loginSchema = z.object({
-    email: z.string({ required_error:  "Email requis"}).email({ message: "Email invalid"}),
-    password: z.string({ required_error:  "Mot de passe requis"})
-})
-
- 
 export const actions = {
-  login: async ({ cookies, request }: import('./$types').RequestEvent) => {
-    const formData = Object.fromEntries(await request.formData());
+    default() {
+        session.set({} as Session)
 
-    try{
-        const result = loginSchema.parse(formData)
-        console.log(result, 'success')
-    }catch(error: any){
-        const { fieldErrors: errors } = error.flatten()
-        const { password, ...rest} = formData
-        return{ 
-            data: rest,
-            errors
-        }
-    }
- 
-  },
-};;null as any as Actions;
+        throw redirect(302, '/login');
+    },
+};
+;null as any as Actions;

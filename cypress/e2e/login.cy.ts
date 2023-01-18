@@ -26,7 +26,7 @@ describe('login', () => {
     cy.visit(getUrl('login'))
     cy.intercept('/api/login').as('loginApi')
     // todo : stub response with 401
-    cy.get('input[name="email"]').type(credentials.email)
+    cy.get('input[name="email"]').type(testUser.data.user.email)
     cy.get('input[name="password"]').type('coucou')
     cy.contains('button', 'Valider').click()
     cy.wait('@loginApi')
@@ -34,7 +34,8 @@ describe('login', () => {
   })
 
   it('should redirect to home if user is logged in', () => {
-    localStorage.setItem('session', JSON.stringify(testUser))
+    cy.setCookie('user', JSON.stringify(testUser.data.user))
+    cy.setCookie('token', JSON.stringify(testUser.data.token))
     cy.visit(getUrl('login'))
     cy.url().should('eq', getUrl('/'))
   })
