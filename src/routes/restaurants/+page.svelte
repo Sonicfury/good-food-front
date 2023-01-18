@@ -13,7 +13,16 @@
   let dropdownOpen = true as boolean
   let fetchRestaurantUrl
   onMount(async () => {
-    await getRestaurant()
+    const successCallback = async (position) => {
+      const coords = [position.coords.latitude, position.coords.longitude]
+      await getRestaurant(coords)
+    }
+
+    const errorCallback = async (error) => {
+      await getRestaurant()
+    }
+
+    navigator.geolocation.getCurrentPosition(successCallback, errorCallback)
   })
 
   async function getRestaurant(coordinates: Array<string>) {
