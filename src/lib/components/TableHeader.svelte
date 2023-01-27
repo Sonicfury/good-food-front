@@ -1,8 +1,7 @@
 <script lang="ts">
   import Search from './Search.svelte'
-  import { CarteItem } from '$lib/enums/carte'
   import CarteForm from './CarteForm.svelte'
-  export let carteItemName: CarteItem | string
+  export let carteItemName: string
 </script>
 
 <div class=" flex justify-around mt-24 mb-4">

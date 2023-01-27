@@ -1,14 +1,24 @@
 <script lang="ts">
   import AdminTable from '$lib/components/AdminTable.svelte'
   import TableHeader from '$lib/components/TableHeader.svelte'
-  import { CarteItem } from '$lib/enums/carte'
-  let carteItemName = 'categories' as CarteItem | string
-  let cartefetchItem = null
+  import type { Category } from '$lib/models/category'
+  import { onMount } from 'svelte'
+  let carteItemName: string = 'categories'
+  let cartefetchItem: Array<Category> | null = null
 
-  function getCarteItem(carteItemType: CarteItem) {
-    // fetch item type
-    // cartefetchItem = result
+  onMount(async () => {
+    getCarteItem(carteItemName)
+  })
+
+  async function getCarteItem(carteItemType: string) {
+    console.log('je passe', carteItemType)
     carteItemName = carteItemType
+    console.log(carteItemType, 'carteItemType')
+    const res = await fetch(`/api/${carteItemType}`)
+    let response = await res.json()
+    if (response.data) {
+      cartefetchItem = response.data
+    }
   }
 </script>
 

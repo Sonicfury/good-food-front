@@ -6,10 +6,6 @@
   import { isAuthenticated } from '$lib/helpers/guard'
   import { ObjectSchema } from 'yup'
 
-  onMount(() => {
-    isAuthenticated() && goto('/')
-  })
-
   type LoginForm = {
     email: string
     password: string

@@ -4,6 +4,9 @@
 		"src/routes/admin/+server.ts"
 	],
 	"/admin/carte": [],
+	"/api/categories": [
+		"src/routes/api/categories/+server.ts"
+	],
 	"/api/login": [
 		"src/routes/api/login/+server.ts"
 	],
