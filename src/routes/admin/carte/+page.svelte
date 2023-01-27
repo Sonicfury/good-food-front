@@ -1,6 +1,5 @@
 <script lang="ts">
   import AdminTable from '$lib/components/AdminTable.svelte'
-  import TableHeader from '$lib/components/TableHeader.svelte'
   import type { Category } from '$lib/models/category'
   import { onMount } from 'svelte'
   let carteItemName: string = 'categories'
@@ -48,7 +47,6 @@
     >
   </div>
 </div>
-<TableHeader carteItemName="{carteItemName}" />
 <AdminTable carteItemName="{carteItemName}" cartefetchItem="{cartefetchItem}" />
 
 <style>
