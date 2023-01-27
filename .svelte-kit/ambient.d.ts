@@ -27,8 +27,10 @@
  */
 declare module '$env/static/private' {
 	export const VITE_API_URL: string;
+	export const VITE_ADRESSE_API_URL: string;
 	export const NVM_INC: string;
 	export const TERM_PROGRAM: string;
+	export const MallocProbGuardViaLaunchd: string;
 	export const NODE: string;
 	export const INIT_CWD: string;
 	export const NVM_CD_FLAGS: string;
@@ -82,6 +84,7 @@ declare module '$env/static/private' {
 	export const npm_node_execpath: string;
 	export const npm_config_prefix: string;
 	export const COLORTERM: string;
+	export const NODE_ENV: string;
 }
 
 /**
@@ -112,8 +115,10 @@ declare module '$env/static/public' {
 declare module '$env/dynamic/private' {
 	export const env: {
 		VITE_API_URL: string;
+		VITE_ADRESSE_API_URL: string;
 		NVM_INC: string;
 		TERM_PROGRAM: string;
+		MallocProbGuardViaLaunchd: string;
 		NODE: string;
 		INIT_CWD: string;
 		NVM_CD_FLAGS: string;
@@ -167,6 +172,7 @@ declare module '$env/dynamic/private' {
 		npm_node_execpath: string;
 		npm_config_prefix: string;
 		COLORTERM: string;
+		NODE_ENV: string;
 		[key: `PUBLIC_${string}`]: undefined;
 		[key: string]: string | undefined;
 	}

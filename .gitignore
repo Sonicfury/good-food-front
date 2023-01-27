@@ -8,7 +8,7 @@ node_modules
 /.vscode
 .fleet
 /.fleet
-
+.svelte-kit
 /node_modules
 .svelte
 /build

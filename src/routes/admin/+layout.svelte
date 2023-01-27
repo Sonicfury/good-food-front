@@ -1,6 +1,5 @@
 <script lang="ts">
   import { page } from '$app/stores'
-  console.log($page, 'apge')
 </script>
 
 <div class="navbar bg-white">
