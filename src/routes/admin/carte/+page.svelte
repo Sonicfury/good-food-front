@@ -4,16 +4,14 @@
   import type { Category } from '$lib/models/category'
   import { onMount } from 'svelte'
   let carteItemName: string = 'categories'
-  let cartefetchItem: Array<Category> | null = null
+  $: cartefetchItem = [] as Array<Category>
 
   onMount(async () => {
     getCarteItem(carteItemName)
   })
 
   async function getCarteItem(carteItemType: string) {
-    console.log('je passe', carteItemType)
     carteItemName = carteItemType
-    console.log(carteItemType, 'carteItemType')
     const res = await fetch(`/api/${carteItemType}`)
     let response = await res.json()
     if (response.data) {
@@ -22,7 +20,7 @@
   }
 </script>
 
-<div class="flex justify-center mt-24">
+<div class="flex justify-center mt-12">
   <div class="tabs color-primary ">
     <button
       on:click="{() => getCarteItem('categories')}"

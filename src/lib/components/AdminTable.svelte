@@ -4,24 +4,35 @@
   import { mdiDeleteOutline } from '@mdi/js'
   import { page } from '$app/stores'
   import CarteForm from './CarteForm.svelte'
+
   import type { Category } from '$lib/models/category'
   export let carteItemName: string
-  export let cartefetchItem: null | Array<Category>
+  export let cartefetchItem: Array<Category>
   const isActive = (path: string) => $page.route.id === path
+  import { paginate, LightPaginationNav } from 'svelte-paginate'
+
+  let items: Array<Category> = []
+  let currentPage: number = 1
+  let pageSize: number = 5
+  let paginatedItems: Array<Category> = []
+
+  $: if (cartefetchItem.length > 0) {
+    items = cartefetchItem
+    paginatedItems = paginate({ items, pageSize, currentPage })
+  }
 </script>
 
 <div class="overflow-x-auto flex justify-center">
   <table class="table w-3/4">
-    <!-- head -->
     <thead>
       <tr>
-        <th>id</th>
-        <th>Nom</th>
+        <th>id </th>
+        <th>Nom </th>
         <th>Actions</th>
       </tr>
     </thead>
     <tbody class="bg-white">
-      {#each cartefetchItem as carteItem}
+      {#each paginatedItems as carteItem}
         <tr>
           <th>{carteItem.id}</th>
           <td>{carteItem.name}</td>
@@ -40,5 +51,23 @@
       {/each}
     </tbody>
   </table>
+
   <CarteForm carteItemName="{carteItemName}" />
 </div>
+<div class="pagination-nav">
+  <LightPaginationNav
+    totalItems="{items.length}"
+    pageSize="{pageSize}"
+    currentPage="{currentPage}"
+    limit="{1}"
+    showStepOptions="{true}"
+    on:setPage="{(e) => (currentPage = e.detail.page)}"
+  />
+</div>
+
+<style>
+  .pagination-nav :global(.pagination-nav) {
+    background: none !important;
+    box-shadow: none !important;
+  }
+</style>

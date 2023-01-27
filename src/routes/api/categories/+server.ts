@@ -21,7 +21,6 @@ export const POST: RequestHandler = async ({ cookies, request }) => {
 }
 
 export const GET: RequestHandler = async ({ cookies }) => {
-  console.log("je passe")
   const response = await fetch(`${import.meta.env.VITE_API_URL}/categories/`, {
     headers: {
       'content-type': 'application/json',
@@ -30,7 +29,6 @@ export const GET: RequestHandler = async ({ cookies }) => {
     },
   })
   const requestBody = await response.json()
-  console.log(requestBody, 'requestBody')
   if (requestBody.success) {
     return new Response(JSON.stringify({ data: requestBody.data }), { status: 200 })
   } else {
