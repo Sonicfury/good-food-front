@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Product } from './../models/product.ts'
+  import type { Product } from '$lib/models/product.ts'
   import Icon from './Icon.svelte'
   import { mdiCircleEditOutline } from '@mdi/js'
   import { mdiDeleteOutline } from '@mdi/js'
