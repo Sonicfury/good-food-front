@@ -36,7 +36,7 @@
       bind:value="{item.price}"
       class="input text-black m-6  bg-neutral mb-3  w-80 max-w-xs mt-10  "
     />
-    <select class="select w-full max-w-xs" bind:value="{item.category}" on:change="{onChange}">
+    <select class="select w-full max-w-xs" bind:value="{item.category}">
       {#if item.category}
         <option value="{item.category}" selected>{item.category.name}</option>
       {/if}

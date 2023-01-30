@@ -40,7 +40,6 @@ export const GET: RequestHandler = async ({ cookies }) => {
 export const PUT: RequestHandler = async ({ cookies, request }): Promise<Response> => {
   const data = await request.json()
   const categoryId = data.id
-  console.log(data, 'data')
   const response = await fetch(`${import.meta.env.VITE_API_URL}/products/` + categoryId, {
     method: 'PUT',
     body: JSON.stringify(data),
