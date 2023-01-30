@@ -1,9 +1,10 @@
 <script lang="ts">
   import AdminTable from '$lib/components/AdminTable.svelte'
   import type { Category } from '$lib/models/category'
+  import type { Product } from '$lib/models/product.ts'
   import { onMount } from 'svelte'
   let carteItemName: string = 'categories'
-  $: cartefetchItem = [] as Array<Category>
+  $: cartefetchItem = [{}] as Array<Category | Product>
   import Alert from '$lib/components/Alert.svelte'
 
   let messageError: string = ''
@@ -14,12 +15,15 @@
   })
 
   async function getCarteItem(carteItemType: string) {
+    cartefetchItem = []
     carteItemName = carteItemType
     const res = await fetch(`/api/${carteItemType}`)
     let response = await res.json()
     if (response.data) {
       cartefetchItem = response.data
       cartefetchItem.sort((a, b) => b.id - a.id)
+    } else {
+      cartefetchItem = []
     }
   }
   const deleteItem = async (event) => {

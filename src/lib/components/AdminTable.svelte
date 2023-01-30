@@ -1,10 +1,12 @@
 <script lang="ts">
+  import type { Product } from './../models/product.ts'
   import Icon from './Icon.svelte'
   import { mdiCircleEditOutline } from '@mdi/js'
   import { mdiDeleteOutline } from '@mdi/js'
   import { page } from '$app/stores'
   import CarteForm from './CarteForm.svelte'
   import type { Category } from '$lib/models/category'
+
   import { paginate, LightPaginationNav } from 'svelte-paginate'
   import Search from './Search.svelte'
   import { createEventDispatcher } from 'svelte'
@@ -12,21 +14,24 @@
   const dispatch = createEventDispatcher()
 
   export let carteItemName: string
-  export let cartefetchItem: Array<Category>
+  export let cartefetchItem: Array<Category | Product>
   const isActive = (path: string) => $page.route.id === path
 
-  let items: Array<Category> = []
+  let items: Array<Category | Product> = []
   let currentPage: number = 1
   let pageSize: number = 5
-  let paginatedItems: Array<Category> = []
+  let paginatedItems: Array<Category | Product> = []
   let searchTerm: string = ''
   let itemToPut = null
   let showModal: boolean = false
   let editItem = {}
 
   $: if (cartefetchItem.length > 0) {
+    paginatedItems = []
     items = cartefetchItem
     paginatedItems = paginate({ items, pageSize, currentPage })
+  } else {
+    paginatedItems = []
   }
 
   const search = () => {
@@ -43,7 +48,7 @@
     })
   }
 
-  function putItem(carteItem: Category) {
+  function putItem(carteItem: Category | Product) {
     if (carteItem.id) {
       dispatch('editItem', {
         item: carteItem,
@@ -56,7 +61,7 @@
     showModal = false
   }
 
-  function openModalWithItem(item: Category) {
+  function openModalWithItem(item: Category | Product) {
     editItem = item
     showModal = true
   }
@@ -74,6 +79,10 @@
       <tr>
         <th>id </th>
         <th>Nom </th>
+        {#if carteItemName === 'products'}
+          <th>Prix </th>
+          <td>Catégorie</td>
+        {/if}
         <th>Actions</th>
       </tr>
     </thead>
@@ -82,6 +91,10 @@
         <tr>
           <th>{carteItem.id}</th>
           <td>{carteItem.name}</td>
+          {#if carteItemName === 'products'}
+            <th>{carteItem.price}</th>
+            <td>{carteItem.category.name}</td>
+          {/if}
           <td class="flex content-row">
             <button on:click="{() => openModalWithItem(carteItem)}">
               <Icon
