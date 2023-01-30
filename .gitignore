@@ -17,7 +17,8 @@ node_modules
 /.netlify
 /workers-site
 *.log
-
+.svelte-kit
+/.svelte-kit
 
 
 # Ignore the build css
