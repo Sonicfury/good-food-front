@@ -4,7 +4,6 @@
   import { goto } from '$app/navigation'
   import { session } from '../../lib/stores/session'
 
-
   type LoginForm = {
     email: string
     password: string
@@ -73,7 +72,10 @@
   }
 </script>
 
-<div class="flex items-center flex-col mt-12 gap-8">
+<div class="flex justify-center">
+  <img class="m-4 object-contain  w-24" alt="good-food-logo" src="/images/Good-Food-logo.png" />
+</div>
+<div class="flex items-center flex-col mt-12">
   <h1 class="text-6xl text-primary">S'inscrire</h1>
   <form on:submit|preventDefault="{handleSubmit}" class="flex items-center flex-col gap-8">
     <div class="form-control">

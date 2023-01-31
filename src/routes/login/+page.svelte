@@ -56,6 +56,10 @@
     const userResponse = await response.json()
 
     if (userResponse.data) {
+      session.update((session) => userResponse.data)
+      if (userResponse.data.user.roles[0].name !== 'customer') {
+        await goto('/admin/dasboard')
+      }
       await goto('/')
 
       return
@@ -67,48 +71,91 @@
   }
 </script>
 
-<div class="flex items-center flex-col mt-12 gap-8">
-  <h1 class="text-6xl text-primary">Se connecter</h1>
-  <form on:submit|preventDefault="{handleSubmit}" class="flex items-center flex-col gap-8">
-    <div class="form-control">
-      <label class="label" for="email">Email</label>
+<div class="flex flex-row ">
+  <div class="right-picture"></div>
+  <div class="left-content flex items-center flex-col mt-12 w-1/2	">
+    <div class="flex justify-center">
+      <img class="m-4 object-contain  w-24" alt="good-food-logo" src="/images/Good-Food-logo.png" />
+    </div>
+    <h1 class="text-6xl text-primary">Se connecter</h1>
+    <form on:submit|preventDefault="{handleSubmit}" class="flex items-center flex-col">
       <input
-        type="email"
-        id="email"
+        type="text"
         name="email"
         bind:value="{loginForm.email}"
-        placeholder="you@domain.com"
-        class="input bg-neutral w-72 max-w-xs"
-        class:input-error="{errors?.email}"
+        placeholder="Email"
+        class="input  bg-neutral mb-3  w-80 max-w-xs mt-10 {error?.email ? 'input-error' : ''} "
       />
-      {#if errors?.email}
-        <span class="label-text-alt text-error">{errors?.email}</span>
+      {#if error?.email}
+        <span class="label-text-alt text-error">{error?.email}</span>
       {/if}
-    </div>
-    <div class="form-control">
-      <label class="label" for="password">Mot de passe</label>
       <input
         type="password"
-        id="password"
         name="password"
         bind:value="{loginForm.password}"
         placeholder="Mot de passe"
-        class="input bg-neutral w-72 max-w-xs"
-        class:input-error="{errors?.password}"
+        class="input  bg-neutral mb-3  mt-10  w-80 max-w-xs  {error?.password ? 'input-error' : ''}"
       />
-
-      {#if errors?.password}
-        <span class="label-text-alt text-error ">{errors?.password}</span>
+      {#if error?.password}
+        <span class="label-text-alt text-error ">{error?.password}</span>
       {/if}
-    </div>
-
-    {#if showAlert}
-      <Alert level="error" message="{alertMessage}" />
-    {/if}
-
-    <button type="submit" class="btn mt-10 btn-primary text-base-100 w-32" class:loading="{isLoading}">
-      Valider
-    </button>
-    <a href="/register" class="text-primary mt-5 cursor-pointer">Où s'inscrire ?</a>
-  </form>
+      {#if isMessageError}
+        <div class="alert alert-error shadow-lg">
+          <div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="stroke-current flex-shrink-0 h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <span>{messageError}</span>
+          </div>
+        </div>
+      {/if}
+      <button type="submit" class="btn mt-10 btn-primary text-base-100 w-32" class:loading="{isLoading}">
+        Valider
+      </button>
+      <a href="/register" class="text-primary mt-5 cursor-pointer">Où s'inscrire ?</a>
+    </form>
+  </div>
 </div>
+
+<style>
+  .right-picture {
+    background-image: url('/images/login-picture.jpg');
+    width: 50%;
+    background-size: cover;
+    height: 900px;
+  }
+  @media (max-width: 1200px) {
+    .right-picture {
+      display: none;
+    }
+    .left-content {
+      width: 100%;
+    }
+  }
+</style>
+
+<style>
+  .right-picture {
+    background-image: url('/images/login-picture.jpg');
+    width: 50%;
+    background-size: cover;
+    height: 900px;
+  }
+  @media (max-width: 1200px) {
+    .right-picture {
+      display: none;
+    }
+    .left-content {
+      width: 100%;
+    }
+  }
+</style>
