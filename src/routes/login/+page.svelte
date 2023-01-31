@@ -15,10 +15,11 @@
     email: '' as string,
     password: '' as string,
   } as LoginForm
-  let errors = {} as LoginError
+  let error = {} as LoginError
   let alertMessage = ''
   let showAlert = false
   let isLoading = false
+  let isMessageError = false
 
   const schema: ObjectSchema<LoginForm> = yup.object().shape({
     email: yup.string().required(' Email requis').email('Email invalide'),
@@ -26,12 +27,12 @@
   })
 
   const handleSubmit = async () => {
-    errors = {} as LoginError
+    error = {} as LoginError
 
     try {
       await schema.validate(loginForm, { abortEarly: false })
     } catch (err: any) {
-      errors = err.inner.reduce((acc, err) => {
+      error = err.inner.reduce((acc, err) => {
         return { ...acc, [err.path]: err.message }
       }, {}) as LoginError
 
@@ -56,12 +57,11 @@
     const userResponse = await response.json()
 
     if (userResponse.data) {
-      session.update((session) => userResponse.data)
+      console.log(userResponse.data, 'userResponse')
       if (userResponse.data.user.roles[0].name !== 'customer') {
         await goto('/admin/dasboard')
       }
-      await goto('/')
-
+        await goto('/')
       return
     }
 
@@ -125,23 +125,6 @@
     </form>
   </div>
 </div>
-
-<style>
-  .right-picture {
-    background-image: url('/images/login-picture.jpg');
-    width: 50%;
-    background-size: cover;
-    height: 900px;
-  }
-  @media (max-width: 1200px) {
-    .right-picture {
-      display: none;
-    }
-    .left-content {
-      width: 100%;
-    }
-  }
-</style>
 
 <style>
   .right-picture {

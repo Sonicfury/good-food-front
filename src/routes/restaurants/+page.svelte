@@ -26,14 +26,18 @@
   })
 
   async function getRestaurant(coordinates: Array<string>) {
+    console.log(coordinates, 'coordinates')
     if (coordinates) {
       fetchRestaurantUrl = `api/restaurant?coords=${coordinates}`
     } else {
+      console.log("je passe")
       fetchRestaurantUrl = `api/restaurant`
     }
-
+    console.log(fetchRestaurantUrl, 'fetchRestaurantUrl')
     const res = await fetch(fetchRestaurantUrl)
+    
     let response = await res.json()
+    console.log(response, 'res')
     if (response.data) {
       restaurants = response.data
     } else {
@@ -60,9 +64,11 @@
     dropdownOpen = false
   }
 </script>
-
+<div class="flex justify-center">
+  <img class="m-4 object-contain  w-24" alt="good-food-logo" src="/images/Good-Food-logo.png" />
+</div>
 <div class="dropdown flex justify-center dropdown-open">
-  <Search bind:searchTerm="{searchTerm}" on:input="{searchBooks}" />
+  <Search bind:searchTerm="{searchTerm}" placeholder="{"Adresse ..."}" on:input="{searchBooks}" />
   {#if adresseList && dropdownOpen}
     <ul class="dropdown-content mt-14 menu p-2 shadow bg-base-100 rounded-box w-68">
       {#each adresseList as adresse}
