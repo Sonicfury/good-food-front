@@ -2,11 +2,15 @@ import type { RequestHandler } from './$types'
 import type { User } from '$lib/models/user'
 
 export const POST: RequestHandler = async ({ cookies, request }) => {
-
   const data = await request.json()
+  const product = {
+    "name": data.name,
+    "price": data.price,
+    "category_id": data.category.id
+    }
   const response = await fetch(`${import.meta.env.VITE_API_URL}/products`, {
     method: 'POST',
-    body: JSON.stringify(data),
+    body: JSON.stringify(product),
     headers: {
       'content-type': 'application/json',
       Authorization: `Bearer ${cookies.get('session')}`,
