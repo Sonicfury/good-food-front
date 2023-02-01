@@ -10,6 +10,9 @@
 	"/api/login": [
 		"src/routes/api/login/+server.ts"
 	],
+	"/api/products": [
+		"src/routes/api/products/+server.ts"
+	],
 	"/api/user": [
 		"src/routes/api/user/+server.ts"
 	],
@@ -17,7 +20,10 @@
 	"/app/dashboard": [],
 	"/login": [],
 	"/register": [],
-	"/api/products": [
-		"src/routes/api/products/+server.ts"
+	"/api/menus": [
+		"src/routes/api/menus/+server.ts"
+	],
+	"/api/offers": [
+		"src/routes/api/offers/+server.ts"
 	]
 }

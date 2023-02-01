@@ -84,8 +84,8 @@
         : 'tab tab-bordered text-xl text-black'}	">Catégories</button
     >
     <button
-      on:click="{() => getCarteItem('menu')}"
-      class="{carteItemName === 'menu'
+      on:click="{() => getCarteItem('menus')}"
+      class="{carteItemName === 'menus'
         ? 'tab-active tab tab-bordered text-xl text-black'
         : 'tab tab-bordered text-xl text-black'}	">Menus</button
     >
@@ -96,8 +96,8 @@
         : 'tab tab-bordered text-xl text-black'}	">Produits</button
     >
     <button
-      on:click="{() => getCarteItem('sales')}"
-      class="{carteItemName === 'sales'
+      on:click="{() => getCarteItem('offers')}"
+      class="{carteItemName === 'offers'
         ? 'tab-active tab tab-bordered text-xl text-black'
         : 'tab tab-bordered text-xl text-black'}	">Promotions</button
     >

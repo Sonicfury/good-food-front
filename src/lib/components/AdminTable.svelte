@@ -59,11 +59,17 @@
       })
     }
     showModal = false
+    editItem = {}
   }
 
   function openModalWithItem(item: Category | Product) {
     editItem = item
     showModal = true
+  }
+
+  function closeModal() {
+    showModal = false
+    editItem = {}
   }
 </script>
 
@@ -79,9 +85,14 @@
       <tr>
         <th>id </th>
         <th>Nom </th>
-        {#if carteItemName === 'products'}
+        {#if carteItemName === 'products' || carteItemName === 'menus'}
           <th>Prix </th>
+        {/if}
+        {#if carteItemName === 'products'}
           <td>Catégorie</td>
+        {/if}
+        {#if carteItemName === 'offers'}
+          <td>Pourcentage</td>
         {/if}
         <th>Actions</th>
       </tr>
@@ -91,9 +102,14 @@
         <tr>
           <th>{carteItem.id}</th>
           <td>{carteItem.name}</td>
+          {#if carteItemName === 'products' || carteItemName === 'menus'}
+            <th>{carteItem.price} €</th>
+          {/if}
           {#if carteItemName === 'products'}
-            <th>{carteItem.price}</th>
             <td>{carteItem.category.name}</td>
+          {/if}
+          {#if carteItemName === 'offers'}
+            <td>{carteItem.percent}</td>
           {/if}
           <td class="flex content-row">
             <button on:click="{() => openModalWithItem(carteItem)}">
@@ -111,7 +127,7 @@
           <Modal>
             <CarteForm carteItemName="{carteItemName}" item="{editItem}" />
             <div class=" flex content-row justify-center m-6">
-              <button on:click="{() => (showModal = false)}" class="btn btn-error text-white m-2">Annuler</button>
+              <button on:click="{() => closeModal()}" class="btn btn-error text-white m-2">Annuler</button>
               <button on:click="{() => putItem(editItem)}" class="btn btn-success text-white m-2"> Valider</button>
             </div>
           </Modal>

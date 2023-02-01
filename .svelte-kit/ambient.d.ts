@@ -30,7 +30,6 @@ declare module '$env/static/private' {
 	export const VITE_ADRESSE_API_URL: string;
 	export const NVM_INC: string;
 	export const TERM_PROGRAM: string;
-	export const MallocProbGuardViaLaunchd: string;
 	export const NODE: string;
 	export const INIT_CWD: string;
 	export const NVM_CD_FLAGS: string;
@@ -117,7 +116,6 @@ declare module '$env/dynamic/private' {
 		VITE_ADRESSE_API_URL: string;
 		NVM_INC: string;
 		TERM_PROGRAM: string;
-		MallocProbGuardViaLaunchd: string;
 		NODE: string;
 		INIT_CWD: string;
 		NVM_CD_FLAGS: string;

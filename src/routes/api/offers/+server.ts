@@ -4,9 +4,19 @@ import type { User } from '$lib/models/user'
 export const POST: RequestHandler = async ({ cookies, request }) => {
 
   const data = await request.json()
-  const response = await fetch(`${import.meta.env.VITE_API_URL}/products`, {
+  let url = ""
+  if(data.offersEntity === 1){
+    url = `products/${data.products.id}/offers`
+  }else if(data.offersEntity === 2){
+    url = `menus/${data.menus.id}/offers`
+  }
+  const offers = {
+    name: data.name,
+    percent: data.percent
+  }
+  const response = await fetch(`${import.meta.env.VITE_API_URL}/${url}`, {
     method: 'POST',
-    body: JSON.stringify(data),
+    body: JSON.stringify(offers),
     headers: {
       'content-type': 'application/json',
       Authorization: `Bearer ${cookies.get('session')}`,
@@ -22,7 +32,7 @@ export const POST: RequestHandler = async ({ cookies, request }) => {
 }
 
 export const GET: RequestHandler = async ({ cookies }) => {
-  const response = await fetch(`${import.meta.env.VITE_API_URL}/products/`, {
+  const response = await fetch(`${import.meta.env.VITE_API_URL}/offers/`, {
     headers: {
       'content-type': 'application/json',
       Authorization: `Bearer ${cookies.get('session')}`,
@@ -40,14 +50,9 @@ export const GET: RequestHandler = async ({ cookies }) => {
 export const PUT: RequestHandler = async ({ cookies, request }): Promise<Response> => {
   const data = await request.json()
   const categoryId = data.id
-  const product = {
-    "name": data.name,
-    "price": data.price,
-    "category_id": data.category.id
-    }
-  const response = await fetch(`${import.meta.env.VITE_API_URL}/products/` + categoryId, {
+  const response = await fetch(`${import.meta.env.VITE_API_URL}/offers/` + categoryId, {
     method: 'PUT',
-    body: JSON.stringify(product),
+    body: JSON.stringify(data),
     headers: {
       'content-type': 'application/json',
       Authorization: `Bearer ${cookies.get('session')}`,
@@ -64,7 +69,7 @@ export const PUT: RequestHandler = async ({ cookies, request }): Promise<Respons
 
 export const DELETE: RequestHandler = async ({ cookies, request }): Promise<Response> => {
   const id = await request.json()
-  const response = await fetch(`${import.meta.env.VITE_API_URL}/products/` + id, {
+  const response = await fetch(`${import.meta.env.VITE_API_URL}/offers/` + id, {
     method: 'DELETE',
     headers: {
       'content-type': 'application/json',
