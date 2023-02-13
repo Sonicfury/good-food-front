@@ -11,8 +11,3 @@ export const actions: Actions = {
   },
 }
 
-export const load = (({ cookies }) => {
-  if (cookies.get('token', '/')) {
-    throw redirect(307, '/')
-  }
-}) satisfies LayoutServerLoad
