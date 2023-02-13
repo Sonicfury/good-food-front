@@ -7,7 +7,7 @@
   import { session } from '../../lib/stores/session'
 
   onMount(() => {
-    isAuthenticated() && goto('/')
+    isAuthenticated() && goto('/app/dashboard')
   })
 
   type LoginForm = {
