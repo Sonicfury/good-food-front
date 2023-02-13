@@ -1,14 +1,8 @@
 <script lang="ts">
-  import Alert from '../../lib/components/Alert.svelte'
+  import Alert from '$lib/components/Alert.svelte'
   import * as yup from 'yup'
   import { goto } from '$app/navigation'
-  import { onMount } from 'svelte'
-  import { isAuthenticated } from '../../lib/helpers/guard'
   import { session } from '../../lib/stores/session'
-
-  onMount(() => {
-    isAuthenticated() && goto('/')
-  })
 
   type LoginForm = {
     email: string
@@ -23,8 +17,9 @@
     lastName: '' as string,
   } as LoginForm
 
-  let messageError = ''
-  let isMessageError = false
+  let alertMessage = ''
+  let alertLevel: 'error' | 'success' | 'warning' | 'info' = 'error'
+  let showAlert = false
 
   const schema = yup.object().shape({
     email: yup.string().required(' Email requis').email('Email invalide'),
@@ -54,7 +49,7 @@
   }
 
   async function register() {
-    isMessageError = false
+    showAlert = false
     const response = await fetch('api/user', {
       method: 'POST',
       body: JSON.stringify(loginForm),
@@ -62,14 +57,18 @@
         'content-type': 'application/json',
       },
     })
+
     const userInfo = await response.json()
+
     if (userInfo.data) {
-      session.update((session) => userInfo.data)
       await goto('/')
-    } else {
-      isMessageError = true
-      messageError = userInfo.message
+
+      return
     }
+
+    showAlert = true
+    alertLevel = 'error'
+    alertMessage = userInfo.message
   }
 </script>
 
@@ -78,53 +77,75 @@
 </div>
 <div class="flex items-center flex-col mt-12">
   <h1 class="text-6xl text-primary">S'inscrire</h1>
-  <form on:submit|preventDefault="{handleSubmit}" class="flex items-center flex-col">
-    <input
-      type="text"
-      name="firstName"
-      bind:value="{loginForm.firstName}"
-      placeholder="Prénom"
-      class="input  bg-neutral mb-3  mt-10  w-80 max-w-xs  {errors?.firstName ? 'input-error' : ''}"
-    />
-    {#if errors?.firstName}
-      <span class="label-text-alt text-error ">{errors?.firstName}</span>
-    {/if}
+  <form on:submit|preventDefault="{handleSubmit}" class="flex items-center flex-col gap-8">
+    <div class="form-control">
+      <label class="label" for="firstName">Prénom</label>
+      <input
+        type="text"
+        name="firstName"
+        id="firstName"
+        bind:value="{loginForm.firstName}"
+        placeholder="Prénom"
+        class="input  bg-neutral w-72 max-w-xs"
+        class:input-error="{errors?.firstName}"
+      />
+      {#if errors?.firstName}
+        <span class="label-text-alt text-error ">{errors?.firstName}</span>
+      {/if}
+    </div>
 
-    <input
-      type="text"
-      name="lastName"
-      bind:value="{loginForm.lastName}"
-      placeholder="Nom de famille"
-      class="input  bg-neutral mb-3  mt-10  w-80 max-w-xs  {errors?.lastName ? 'input-error' : ''}"
-    />
-    {#if errors?.lastName}
-      <span class="label-text-alt text-error ">{errors?.lastName}</span>
-    {/if}
+    <div class="form-control">
+      <label class="label" for="lastName">Nom</label>
+      <input
+        type="text"
+        name="lastName"
+        id="lastName"
+        bind:value="{loginForm.lastName}"
+        placeholder="Nom de famille"
+        class="input bg-neutral w-72 max-w-xs"
+        class:input-error="{errors?.lastName}"
+      />
+      {#if errors?.lastName}
+        <span class="label-text-alt text-error">{errors?.lastName}</span>
+      {/if}
+    </div>
 
-    <input
-      type="text"
-      name="email"
-      bind:value="{loginForm.email}"
-      placeholder="Email"
-      class="input  bg-neutral mb-3  w-80 max-w-xs mt-10 {errors?.email ? 'input-error' : ''} "
-    />
-    {#if errors?.email}
-      <span class="label-text-alt text-error">{errors?.email}</span>
-    {/if}
-    <input
-      type="password"
-      name="password"
-      bind:value="{loginForm.password}"
-      placeholder="Mot de passe"
-      class="input  bg-neutral mb-3  mt-10  w-80 max-w-xs  {errors?.password ? 'input-error' : ''}"
-    />
-    {#if errors?.password}
-      <span class="label-text-alt text-error w-80">{errors?.password}</span>
-    {/if}
+    <div class="form-control">
+      <label class="label" for="email">Email</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        bind:value="{loginForm.email}"
+        placeholder="you@domain.com"
+        class="input bg-neutral w-72 max-w-xs"
+        class:input-error="{errors?.email}"
+      />
+      {#if errors?.email}
+        <span class="label-text-alt text-error">{errors?.email}</span>
+      {/if}
+    </div>
 
-    <Alert isError="{isMessageError}" message="{messageError}" />
+    <div class="form-control">
+      <label class="label" for="password">Mot de passe</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        bind:value="{loginForm.password}"
+        placeholder="Mot de passe"
+        class="input bg-neutral w-72 max-w-xs"
+        class:input-error="{errors?.password}"
+      />
+      {#if errors?.password}
+        <span class="label-text-alt text-error w-72">{errors?.password}</span>
+      {/if}
+    </div>
 
-    <button type="submit" class="btn mt-10 btn-primary text-base-100 w-32">Valider</button>
+    {#if showAlert}
+      <Alert level="{alertLevel}" message="{alertMessage}" />
+    {/if}
+    <button type="submit" class="btn btn-primary text-base-100 w-32">Valider</button>
     <a href="/login" class="text-primary mt-5 cursor-pointer">J'ai déjà un compte !</a>
   </form>
 </div>

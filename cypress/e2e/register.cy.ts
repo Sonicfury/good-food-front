@@ -1,7 +1,11 @@
 import * as path from 'path'
 import * as testUser from '../fixtures/test-user.json'
 
+<<<<<<< HEAD
+describe('register', () => {
+=======
 describe('login', () => {
+>>>>>>> main
   const url = 'http://localhost:5173'
   const getUrl = (...paths: string[]) => new URL(path.join(...paths), url).href
   const credentials = {
@@ -28,7 +32,12 @@ describe('login', () => {
   })
 
   it('should redirect to home if user is logged in', () => {
+<<<<<<< HEAD
+    cy.setCookie('user', JSON.stringify(testUser.data.user))
+    cy.setCookie('token', JSON.stringify(testUser.data.token))
+=======
     localStorage.setItem('session', JSON.stringify(testUser))
+>>>>>>> main
     cy.visit(getUrl('register'))
     cy.url().should('eq', getUrl('/'))
   })

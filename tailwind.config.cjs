@@ -18,7 +18,7 @@ module.exports = {
           info: '#3ABFF8',
           success: '#43B549',
           warning: '#F8DC56',
-          error: '#DF6562',
+          error: '#DF6562'
         },
         fontFamily: {
           Poppins: ['Poppins', 'sans-serif'],

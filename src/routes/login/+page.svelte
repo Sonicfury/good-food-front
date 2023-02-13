@@ -1,10 +1,9 @@
 <script lang="ts">
   import * as yup from 'yup'
   import { goto } from '$app/navigation'
-  import { session } from '$lib/stores/session'
-  import { onMount } from 'svelte'
-  import { isAuthenticated } from '$lib/helpers/guard'
   import { ObjectSchema } from 'yup'
+
+  import Alert from '$lib/components/Alert.svelte'
 
   type LoginForm = {
     email: string
@@ -17,9 +16,10 @@
     password: '' as string,
   } as LoginForm
   let error = {} as LoginError
-  let messageError = ''
-  let isMessageError = false
+  let alertMessage = ''
+  let showAlert = false
   let isLoading = false
+  let isMessageError = false
 
   const schema: ObjectSchema<LoginForm> = yup.object().shape({
     email: yup.string().required(' Email requis').email('Email invalide'),
@@ -43,7 +43,7 @@
   }
 
   const login = async () => {
-    isMessageError = false
+    showAlert = false
     isLoading = true
 
     const response: Response = await fetch('api/login', {
@@ -57,17 +57,15 @@
     const userResponse = await response.json()
 
     if (userResponse.data) {
-      session.update((session) => userResponse.data)
       if (userResponse.data.user.roles[0].name !== 'customer') {
         await goto('/admin/dasboard')
       }
       await goto('/')
-
       return
     }
 
-    isMessageError = true
-    messageError = 'Adresse email ou mot de passe incorrect'
+    showAlert = true
+    alertMessage = 'Adresse email ou mot de passe incorrect'
     isLoading = false
   }
 </script>
