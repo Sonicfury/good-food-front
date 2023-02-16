@@ -19,8 +19,8 @@
       </div>
     </div>
     <div class="card-actions justify-center m-6">
-      <button class="btn w-48 btn-primary text-white">Click and collect</button>
-      <button class="btn w-48 btn-ghost border border-primary text-primary">Livraison</button>
+      <a href="/carte"><button class="btn w-48 btn-primary text-white">Click and collect</button></a>
+      <a href="/carte"><button class="btn w-48 btn-ghost border border-primary text-primary">Livraison</button></a>
     </div>
   </div>
 </div>
