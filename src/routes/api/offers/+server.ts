@@ -2,17 +2,16 @@ import type { RequestHandler } from './$types'
 import type { User } from '$lib/models/user'
 
 export const POST: RequestHandler = async ({ cookies, request }) => {
-
   const data = await request.json()
-  let url = ""
-  if(data.offersEntity === 1){
+  let url = ''
+  if (data.offersEntity === 1) {
     url = `products/${data.products.id}/offers`
-  }else if(data.offersEntity === 2){
+  } else if (data.offersEntity === 2) {
     url = `menus/${data.menus.id}/offers`
   }
   const offers = {
     name: data.name,
-    percent: data.percent
+    percent: data.percent,
   }
   const response = await fetch(`${import.meta.env.VITE_API_URL}/${url}`, {
     method: 'POST',
@@ -20,7 +19,7 @@ export const POST: RequestHandler = async ({ cookies, request }) => {
     headers: {
       'content-type': 'application/json',
       Authorization: `Bearer ${cookies.get('session')}`,
-      'Accept': 'application/json'
+      Accept: 'application/json',
     },
   })
   const requestBody = await response.json()
@@ -36,7 +35,7 @@ export const GET: RequestHandler = async ({ cookies }) => {
     headers: {
       'content-type': 'application/json',
       Authorization: `Bearer ${cookies.get('session')}`,
-      'Accept': 'application/json'
+      Accept: 'application/json',
     },
   })
   const requestBody = await response.json()
@@ -56,7 +55,7 @@ export const PUT: RequestHandler = async ({ cookies, request }): Promise<Respons
     headers: {
       'content-type': 'application/json',
       Authorization: `Bearer ${cookies.get('session')}`,
-      'Accept': 'application/json'
+      Accept: 'application/json',
     },
   })
   const requestBody = await response.json()
@@ -74,7 +73,7 @@ export const DELETE: RequestHandler = async ({ cookies, request }): Promise<Resp
     headers: {
       'content-type': 'application/json',
       Authorization: `Bearer ${cookies.get('session')}`,
-      'Accept': 'application/json'
+      Accept: 'application/json',
     },
   })
   const requestBody = await response.json()
