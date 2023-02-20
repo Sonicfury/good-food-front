@@ -26,6 +26,10 @@
     password: yup.string().required('Mot de passe requis'),
   })
 
+  onMount(() => {
+    isAuthenticated() && goto('/app/dashboard')
+  })
+
   const handleSubmit = async () => {
     error = {} as LoginError
 

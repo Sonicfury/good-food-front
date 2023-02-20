@@ -1,7 +1,5 @@
-
 export type Menu = {
-    id: Number
-    name: string
-    price: Number
-  }
-  
+  id: Number
+  name: string
+  price: Number
+}

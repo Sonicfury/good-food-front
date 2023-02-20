@@ -6,11 +6,14 @@
   let carteItemName: string = 'categories'
   $: cartefetchItem = [{}] as Array<Category | Product>
   import Alert from '$lib/components/Alert.svelte'
+  import { isAuthenticatedAdmin } from '$lib/helpers/guard'
+  import { goto } from '$app/navigation'
 
   let messageError: string = ''
   let isMessageError: boolean = false
 
   onMount(async () => {
+    // isAuthenticatedAdmin() && goto('/app/dashboard')
     getCarteItem(carteItemName)
   })
 

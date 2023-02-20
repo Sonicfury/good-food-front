@@ -4,17 +4,17 @@ import type { User } from '$lib/models/user'
 export const POST: RequestHandler = async ({ cookies, request }) => {
   const data = await request.json()
   const product = {
-    "name": data.name,
-    "price": data.price,
-    "category_id": data.category.id
-    }
+    name: data.name,
+    price: data.price,
+    category_id: data.category.id,
+  }
   const response = await fetch(`${import.meta.env.VITE_API_URL}/products`, {
     method: 'POST',
     body: JSON.stringify(product),
     headers: {
       'content-type': 'application/json',
       Authorization: `Bearer ${cookies.get('session')}`,
-      'Accept': 'application/json'
+      Accept: 'application/json',
     },
   })
   const requestBody = await response.json()
@@ -30,7 +30,7 @@ export const GET: RequestHandler = async ({ cookies }) => {
     headers: {
       'content-type': 'application/json',
       Authorization: `Bearer ${cookies.get('session')}`,
-      'Accept': 'application/json'
+      Accept: 'application/json',
     },
   })
   const requestBody = await response.json()
@@ -45,17 +45,17 @@ export const PUT: RequestHandler = async ({ cookies, request }): Promise<Respons
   const data = await request.json()
   const categoryId = data.id
   const product = {
-    "name": data.name,
-    "price": data.price,
-    "category_id": data.category.id
-    }
+    name: data.name,
+    price: data.price,
+    category_id: data.category.id,
+  }
   const response = await fetch(`${import.meta.env.VITE_API_URL}/products/` + categoryId, {
     method: 'PUT',
     body: JSON.stringify(product),
     headers: {
       'content-type': 'application/json',
       Authorization: `Bearer ${cookies.get('session')}`,
-      'Accept': 'application/json'
+      Accept: 'application/json',
     },
   })
   const requestBody = await response.json()
@@ -73,7 +73,7 @@ export const DELETE: RequestHandler = async ({ cookies, request }): Promise<Resp
     headers: {
       'content-type': 'application/json',
       Authorization: `Bearer ${cookies.get('session')}`,
-      'Accept': 'application/json'
+      Accept: 'application/json',
     },
   })
   const requestBody = await response.json()
