@@ -1,6 +1,7 @@
 import type { RequestHandler } from './$types'
 
 export const POST: RequestHandler = async ({ cookies, request }) => {
+  console.log("je passe api")
   const data = await request.json()
   const response = await fetch(`${import.meta.env.VITE_API_URL}/login`, {
     method: 'POST',
