@@ -1,5 +1,7 @@
 <script lang="ts">
   import MobileHeader from '$lib/components/MobileHeader.svelte'
+  import { cart } from '$lib/stores/cart'
+  import { get } from 'svelte/store'
 
   export let data
   const { product } = data
@@ -14,6 +16,35 @@
   function removeQuantity() {
     quantity = quantity - 1
   }
+
+  async function addToCart() {
+    const storeCart = get(cart)
+    if (get(cart)) {
+      storeCart.items.push({
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        quantity: quantity,
+      })
+      const price = Number(product.price) * Number(quantity)
+      storeCart.totalPrice = Number(storeCart.totalPrice) + price
+      cart.update((cart) => storeCart)
+    } else {
+      const cartStore = {
+        items: [
+          {
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            quantity: quantity,
+          },
+        ],
+        totalPrice: product.price,
+      }
+      cart.update((cart) => cartStore)
+    }
+    window.location.href = '/app/carte?addToCart=true'
+  }
 </script>
 
 <MobileHeader bind:goBack="{urlBack}" bind:pageName="{pageName}" />
@@ -22,9 +53,9 @@
   <figure class="px-20 pt-20 w-50">
     <img src="/images/buger.png" class="w-60" />
   </figure>
-  <p class="m-3 h-2">{product.name}</p>
+  <p class="m-5 h-2">{product.name}</p>
   <h4>{product.price} €</h4>
-  <div class="custom-number-input h-10 w-32">
+  <div class="custom-number-input h-10 w-32 mt-10">
     <div class="flex flex-row h-10 w-full rounded-lg relative mt-1 border-primary">
       <button
         on:click="{removeQuantity}"
@@ -48,7 +79,7 @@
       </button>
     </div>
   </div>
-  <button class="btn w-48 btn-primary text-white mt-20">Ajouter au panier</button>
+  <button on:click="{addToCart}" class="btn w-48 btn-primary text-white mt-20">Ajouter au panier</button>
 </div>
 
 <style>

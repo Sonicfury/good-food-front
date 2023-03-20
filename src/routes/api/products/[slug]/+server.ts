@@ -9,7 +9,6 @@ export const GET: RequestHandler = async ({ cookies, params }) => {
       },
     })
     const requestBody = await response.json()
-    console.log(requestBody)
     if (requestBody.success) {
       return new Response(JSON.stringify({ data: requestBody.data }), { status: 200 })
     } else {
