@@ -75,14 +75,6 @@ async function deleteAdress(id: number){
 async function updateAdress(item: Adress){
     isAdressForm = false
     adressForm = item
-    // await fetch('/api/adresse', {
-    //     method: 'PUT',
-    //     body: JSON.stringify(item),
-    //     headers: {
-    //     'Content-Type': 'application/json',
-    //     },
-    // })
-    // getAdress()
 }
 
 </script>
