@@ -3,7 +3,6 @@
   import Search from '$lib/components/Search.svelte'
   import { onMount } from 'svelte'
   import Alert from '$lib/components/Alert.svelte'
-  import LeafletMap from '$lib/components/LeafletMap.svelte'
   let searchTerm = ''
   let restaurants = null
   let messageError = 'test' as string
@@ -85,7 +84,6 @@
 </div>
 
 {/if}
-<!-- <LeafletMap /> -->
 
 <style>
   .loaderBar{

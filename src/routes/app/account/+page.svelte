@@ -1,6 +1,8 @@
 <script>
   import UpdateProfile from '$lib/components/UpdateProfile.svelte'
   import { session } from '$lib/stores/session'
+  import Adress from '$lib/components/Adress.svelte';
+  let canUpdate = true
 
   function logout() {
     session.update((session) => '')
@@ -15,6 +17,7 @@
   </details>
   <details class="collapse collapse-arrow  bg-base-100 rounded-box">
     <summary class="collapse-title text-m font-medium">Mes adresses</summary>
+    <Adress bind:canUpdate="{canUpdate}"/>
   </details>
   <details class="collapse collapse-arrow  bg-base-100 rounded-box">
     <summary class="collapse-title text-m font-medium">Mes moyens de paiements</summary>
