@@ -18,9 +18,9 @@
     if (response.data) {
       products = response.data
     } else {
-      // isMessageError = true
-      // messageError = response.message
-      // isSucess = false
+      isMessageError = true
+      messageError = response.message
+      isSucess = false
     }
   }
 
@@ -28,13 +28,7 @@
     const res = await fetch('/api/categories')
 
     let response = await res.json()
-    if (response.data) {
-      categories = response.data
-    } else {
-      // isMessageError = true
-      // messageError = response.message
-      // isSucess = false
-    }
+    categories = response.data
   })
 </script>
 
