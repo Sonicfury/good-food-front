@@ -49,7 +49,6 @@
   const login = async () => {
     isMessageError = false
     isLoading = true
-
     const response: Response = await fetch('api/login', {
       method: 'POST',
       body: JSON.stringify(loginForm),

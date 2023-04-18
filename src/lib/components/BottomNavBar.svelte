@@ -19,9 +19,9 @@
   </a>
 
   <a
-    aria-current="{isActive('/app/search') ? 'page' : 'false'}"
+    aria-current="{isActive('/app/restaurants') ? 'page' : 'false'}"
     class="relative inline-flex flex-col items-center text-xs font-medium text-white py-3 px-6 flex-grow"
-    href="/app/search"
+    href="/app/restaurants"
   >
     <div class="absolute bottom-5 p-3 rounded-full border-4 border-base-100 bg-accent">
       <Icon path="{mdiMapMarkerOutline}" clazz="fill-white w-10 h-10" />
@@ -29,11 +29,11 @@
     <span class="sr-only">Location</span>
   </a>
   <a
-    aria-current="{isActive('/app/profile') ? 'page' : 'false'}"
+    aria-current="{isActive('/app/account') ? 'page' : 'false'}"
     class="inline-flex flex-col items-center text-secondary text-xs font-medium text-blue-400 py-3 px-4 flex-grow"
-    href="/app/profile"
+    href="/app/account"
   >
-    <Icon path="{mdiAccountOutline}" clazz="{isActive('/app/profile') ? 'fill-primary' : 'fill-secondary'}" />
+    <Icon path="{mdiAccountOutline}" clazz="{isActive('/app/account') ? 'fill-primary' : 'fill-secondary'}" />
     <span class="sr-only">Profile</span>
   </a>
 </nav>
