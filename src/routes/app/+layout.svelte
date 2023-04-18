@@ -7,8 +7,8 @@
 
 <slot />
 
-{#if $page.url.pathname.includes('carte') || $page.url.pathname.includes('checkout')}
+{#if $page.url.pathname.includes('carte')}
   <CartNavBar />
-{:else}
+{:else if !$page.url.pathname.includes('checkout')}
   <BottomNavBar />
 {/if}

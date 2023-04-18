@@ -7,7 +7,7 @@
   <div class="card w-120 border-slate-300 border text-neutral-content">
     <div class="card-body p-6 flex-row">
       <img
-        class="w-1/4 rounded-lg"
+        class="w-1/4 rounded-lg object-cover"
         alt="restaurant-picture"
         src="https://media.istockphoto.com/id/931308812/fr/photo/s%C3%A9lection-de-la-nourriture-am%C3%A9ricaine.jpg?s=612x612&w=0&k=20&c=dg395z__O5wl6bitmkvychwTH4d7bsRa57qf2a2L_HE="
       />

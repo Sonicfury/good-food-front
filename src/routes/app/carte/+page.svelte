@@ -1,7 +1,7 @@
 <script lang="ts">
   import MobileHeader from '$lib/components/MobileHeader.svelte'
   let pageName: string = 'Nom restaurant'
-  let urlBack: string = '/restaurants'
+  let urlBack: string = 'restaurants'
   import { onMount } from 'svelte'
   let selectedCategorie: string
   let categories = [] as Array<object>
@@ -53,6 +53,7 @@
 {/if}
 
 <div class="flex flex-wrap justify-center">
+  {#if products}
   {#each products as product}
     <a href="{'carte/' + product.id}">
       <div class="card w-40 h-40 m-10 bg-neutral ">
@@ -66,4 +67,9 @@
       </div>
     </a>
   {/each}
+  {:else}
+  <div class="flex justify-center loaderBar">
+    <progress class="progress color-neutral w-6/12 progress-warning"></progress>
+  </div>
+  {/if}
 </div>

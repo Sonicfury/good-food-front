@@ -12,6 +12,7 @@
   let adresseList = null as Array<any> | null
   let dropdownOpen = true as boolean
   let fetchRestaurantUrl
+
   onMount(async () => {
     const successCallback = async (position) => {
       const coords = [position.coords.latitude, position.coords.longitude]
@@ -78,5 +79,16 @@
   {#each restaurants as restaurant}
     <RestaurantCard bind:restaurantItem="{restaurant}" />
   {/each}
+{:else}
+<div class="flex justify-center loaderBar">
+  <progress class="progress color-neutral w-6/12 progress-warning"></progress>
+</div>
+
 {/if}
 <!-- <LeafletMap /> -->
+
+<style>
+  .loaderBar{
+    margin-top: 200px;
+  }
+</style>

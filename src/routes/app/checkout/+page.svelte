@@ -16,19 +16,27 @@
     cartStore = get(cart)
   })
 
-  function addQuantity(id: string): void {
+  function updateCart(operation: string, price: number, id: string) {
     const objWithIdIndex = cartStore.items.findIndex((obj) => obj.id === id)
-    cartStore.items[objWithIdIndex].quantity = cartStore.items[objWithIdIndex].quantity + 1
-  }
-
-  function removeQuantity(id: string): void {
-    const objWithIdIndex = cartStore.items.findIndex((obj) => obj.id === id)
-    cartStore.items[objWithIdIndex].quantity = cartStore.items[objWithIdIndex].quantity - 1
-  }
-
-  function deleteItem(id: string): void {
-    const objWithIdIndex = cartStore.items.findIndex((obj) => obj.id === id)
-    cartStore.items.splice(objWithIdIndex, 1)
+    switch (operation) {
+      case 'remove':
+        if (cartStore.items[objWithIdIndex].quantity - 1 === 0) {
+          updateCart('delete', price, id)
+        } else {
+          cartStore.items[objWithIdIndex].quantity = cartStore.items[objWithIdIndex].quantity - 1
+          cartStore.totalPrice = Number(cartStore.totalPrice) - Number(price)
+        }
+        break
+      case 'add':
+        cartStore.items[objWithIdIndex].quantity = cartStore.items[objWithIdIndex].quantity + 1
+        cartStore.totalPrice = Number(cartStore.totalPrice) + Number(price)
+        break
+      case 'delete':
+        cartStore.items.splice(objWithIdIndex, 1)
+        cartStore.totalPrice = Number(cartStore.totalPrice) - Number(price)
+        break
+      default:
+    }
     cart.update((cart) => cartStore)
     cartStore = get(cart)
   }
@@ -36,16 +44,17 @@
 
 <MobileHeader bind:goBack="{urlBack}" bind:pageName="{pageName}" />
 
-<div>
+<div class="stepper">
   <ul class="steps w-full">
     <li class="step step-primary">Panier</li>
-    <li class="step step-primary">Paiement</li>
+    <li class="step">Adresse</li>
+    <li class="step">Paiement</li>
     <li class="step">Comfirmation</li>
   </ul>
 </div>
 {#if cartStore}
   {#each cartStore.items as item}
-    <div class=" border	border-grey  h-full w-20 rounded-l cursor-pointer flex flex-row cartCard">
+    <div class=" border	border-grey h-full w-20 rounded-l cursor-pointer flex flex-row cartCard">
       <img src="/images/buger.png" />
       <div>
         <p>{item.name}</p>
@@ -54,7 +63,7 @@
       <div class="custom-number-input h-10 w-32">
         <div class="flex flex-row h-10 w-full rounded-lg relative border-primary">
           <button
-            on:click="{removeQuantity(item.id)}"
+            on:click="{updateCart('remove', item.price, item.id)}"
             data-action="decrement"
             class=" border-y border-l	border-primary  h-full w-20 rounded-l cursor-pointer"
           >
@@ -67,7 +76,7 @@
             value="{item.quantity}"
           />
           <button
-            on:click="{addQuantity(item.id)}"
+            on:click="{updateCart('add', item.price, item.id)}"
             data-action="increment"
             class=" border-y border-r		border-primary h-full w-20 rounded-r cursor-pointer"
           >
@@ -75,20 +84,42 @@
           </button>
         </div>
       </div>
-      <a on:click="{deleteItem(item.id)}">
+      <a on:click="{updateCart('delete', item.price, item.id)}">
         <Icon path="{mdiDeleteOutline}" clazz="fill-primary" />
       </a>
     </div>
   {/each}
+
+  <template>
+    <div class="container mx-auto px-4">
+      <div class="flex justify-between mb-4">
+        <h3 class="text-gray-700 font-medium">Sous total</h3>
+        <p class="text-gray-700 font-medium">{cartStore.totalPrice} $</p>
+      </div>
+      <hr class="my-2 border-gray-400" />
+      <div class="flex justify-between mt-4">
+        <h3 class="text-gray-700 font-medium">Total</h3>
+        <p class="text-gray-700 font-medium">{cartStore.totalPrice} $</p>
+      </div>
+    </div>
+  </template>
 {/if}
+<div class="flex justify-center m-20">
+  <a href="./checkout/adresse">
+    <button class="btn btn-primary text-white"> Valider mon panier </button>
+  </a>
+</div>
 
 <style>
   .cartCard {
-    width: 80%;
+    width: 90%;
     padding: 25px;
     margin: 40px;
     border-radius: 15px;
     align-items: center;
     justify-content: space-between;
+  }
+  .stepper {
+    margin: 60px;
   }
 </style>
