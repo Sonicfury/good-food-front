@@ -1,9 +1,9 @@
 <script lang="ts">
-  import RestaurantCard from '$lib/components/RestaurantCard.svelte'
-  import Search from '$lib/components/Search.svelte'
+  import RestaurantCard from '../../lib/components/RestaurantCard.svelte'
+  import Search from '../../lib/components/Search.svelte'
   import { onMount } from 'svelte'
-  import Alert from '$lib/components/Alert.svelte'
-  import LeafletMap from '$lib/components/LeafletMap.svelte'
+  import Alert from '../../lib/components/Alert.svelte'
+  import LeafletMap from '../../lib/components/LeafletMap.svelte'
   let searchTerm = ''
   let restaurants = null
   let messageError = 'test' as string
@@ -12,7 +12,6 @@
   let adresseList = null as Array<any> | null
   let dropdownOpen = true as boolean
   let fetchRestaurantUrl
-
   onMount(async () => {
     const successCallback = async (position) => {
       const coords = [position.coords.latitude, position.coords.longitude]
@@ -28,9 +27,9 @@
 
   async function getRestaurant(coordinates: Array<string>) {
     if (coordinates) {
-      fetchRestaurantUrl = `/api/restaurant?coords=${coordinates}`
+      fetchRestaurantUrl = `api/restaurant?coords=${coordinates}`
     } else {
-      fetchRestaurantUrl = `/api/restaurant`
+      fetchRestaurantUrl = `api/restaurant`
     }
     const res = await fetch(fetchRestaurantUrl)
 
@@ -46,7 +45,7 @@
 
   async function searchBooks() {
     dropdownOpen = true
-    const response: Response = await fetch('/api/adresse', {
+    const response: Response = await fetch('api/adresse', {
       method: 'POST',
       body: JSON.stringify(searchTerm),
     })
@@ -62,10 +61,10 @@
   }
 </script>
 
-<div class="flex justify-center z-index">
+<div class="flex justify-center">
   <img class="m-4 object-contain  w-24" alt="good-food-logo" src="/images/Good-Food-logo.png" />
 </div>
-<div class="dropdown flex justify-center dropdown-open z-index mb-5">
+<div class="dropdown flex justify-center dropdown-open">
   <Search bind:searchTerm="{searchTerm}" placeholder="{'Adresse ...'}" on:input="{searchBooks}" />
   {#if adresseList && dropdownOpen}
     <ul class="dropdown-content mt-14 menu p-2 shadow bg-base-100 rounded-box w-68">
@@ -75,16 +74,9 @@
     </ul>
   {/if}
 </div>
-
 {#if restaurants}
-<LeafletMap  restaurantsList="{restaurants}"/>
-{/if} 
+  {#each restaurants as restaurant}
+    <RestaurantCard bind:restaurantItem="{restaurant}" />
+  {/each}
+{/if}
 
-<style>
-  .loaderBar{
-    margin-top: 200px;
-  }
-  .z-index{
-    z-index: 9999;
-  }
-</style>
