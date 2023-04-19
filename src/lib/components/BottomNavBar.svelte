@@ -8,7 +8,7 @@
   const isActive = (path: string) => $page.route.id === path
 </script>
 
-<nav aria-label="Nav" class="fixed bottom-4 transform inline-flex  mx-auto justify-between bg-white w-full bottom-0">
+<nav aria-label="Nav" class=" navBar fixed bottom-4 transform inline-flex  mx-auto justify-between bg-white w-full bottom-0">
   <a
     aria-current="{isActive('/app/dashboard') ? 'page' : 'false'}"
     class="inline-flex flex-col items-center text-primary text-xs font-medium py-3 px-4 text-white flex-grow"
@@ -37,3 +37,10 @@
     <span class="sr-only">Profile</span>
   </a>
 </nav>
+
+
+<style>
+  .navBar{
+    z-index: 9999;
+  }
+</style>
