@@ -2,7 +2,7 @@
   import MobileHeader from '$lib/components/MobileHeader.svelte'
   let urlBack = '/app/checkout'
   let pageName = 'Checkout'
-  import Adress from '$lib/components/Adress.svelte';
+  import Adress from '$lib/components/Adress.svelte'
   let canUpdate = false
 </script>
 
@@ -15,7 +15,4 @@
     <li class="step">Comfirmation</li>
   </ul>
 </div>
-<Adress bind:canUpdate="{canUpdate}"/>
-
-
-
+<Adress bind:canUpdate="{canUpdate}" />

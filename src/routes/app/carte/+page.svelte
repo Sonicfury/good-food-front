@@ -24,7 +24,6 @@
     }
   }
 
-  
   onMount(async () => {
     const res = await fetch('/api/categories')
 
@@ -49,22 +48,22 @@
 
 <div class="flex flex-wrap justify-center">
   {#if products}
-  {#each products as product}
-    <a href="{'carte/' + product.id}">
-      <div class="card w-40 h-40 m-10 bg-neutral ">
-        <div class="flex justify-center flex-col items-center text-center p-0">
-          <figure class="px-5 pt-5">
-            <img src="/images/buger.png" alt="Shoes" class="rounded-xl" />
-          </figure>
-          <p class="m-3 h-2">{product.name}</p>
-          <h4 class="card-title bottom-5	 absolute">{product.price} €</h4>
+    {#each products as product}
+      <a href="{'carte/' + product.id}">
+        <div class="card w-40 h-40 m-10 bg-neutral ">
+          <div class="flex justify-center flex-col items-center text-center p-0">
+            <figure class="px-5 pt-5">
+              <img src="/images/buger.png" alt="Shoes" class="rounded-xl" />
+            </figure>
+            <p class="m-3 h-2">{product.name}</p>
+            <h4 class="card-title bottom-5	 absolute">{product.price} €</h4>
+          </div>
         </div>
-      </div>
-    </a>
-  {/each}
+      </a>
+    {/each}
   {:else}
-  <div class="flex justify-center loaderBar">
-    <progress class="progress color-neutral w-6/12 progress-warning"></progress>
-  </div>
+    <div class="flex justify-center loaderBar">
+      <progress class="progress color-neutral w-6/12 progress-warning"></progress>
+    </div>
   {/if}
 </div>
