@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte'
   import type { Restaurant } from '$lib/models/restaurant'
+  import L from 'leaflet'
 
   let mapElement
   let map
@@ -10,20 +11,15 @@
   export let restaurantsList: Array<Restaurant>
 
   onMount(async () => {
-    const leaflet = await import('leaflet')
+    map = L.map(mapElement).setView([50.63167668045036, 3.0520353211535323], 5)
 
-    map = leaflet.map(mapElement).setView([50.63167668045036, 3.0520353211535323], 5)
-
-    leaflet
-      .tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-      })
-      .addTo(map)
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    }).addTo(map)
 
     restaurantsList.forEach((restaurant) => {
       console.log(restaurant, 'restaurant')
-      leaflet
-        .marker([restaurant.lat, restaurant.long])
+      L.marker([restaurant.lat, restaurant.long])
         .addTo(map)
         .on('click', function (e) {
           selectedRestaurant = restaurant
@@ -61,8 +57,12 @@
           </div>
         </div>
         <div class="card-actions justify-center m-6">
-          <a href="carte"><button class="btn w-48 btn-primary text-white">Click and collect</button></a>
-          <a href="carte"><button class="btn w-48 btn-ghost border border-primary text-primary">Livraison</button></a>
+          <a href="carte">
+            <button class="btn w-48 btn-primary text-white">Click and collect</button>
+          </a>
+          <a href="carte">
+            <button class="btn w-48 btn-ghost border border-primary text-primary">Livraison</button>
+          </a>
         </div>
       </div>
     </div>
@@ -71,9 +71,11 @@
 
 <style>
   @import 'leaflet/dist/leaflet.css';
+
   .map {
     height: 600px;
   }
+
   .map-modal {
     height: 250px;
     z-index: 9999;
