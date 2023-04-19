@@ -64,6 +64,7 @@
     dropdownOpen = false
   }
 </script>
+
 <div class="flex justify-center z-index">
   <img class="m-4 object-contain  w-24" alt="good-food-logo" src="/images/Good-Food-logo.png" />
 </div>
@@ -82,7 +83,7 @@
     <RestaurantCard bind:restaurantItem="{restaurant}" />
   {/each}
 {:else}
-<div class="flex justify-center loaderBar">
-  <progress class="progress color-neutral w-6/12 progress-warning"></progress>
-</div>
+  <div class="flex justify-center loaderBar">
+    <progress class="progress color-neutral w-6/12 progress-warning"></progress>
+  </div>
 {/if}
