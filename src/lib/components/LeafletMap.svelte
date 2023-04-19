@@ -40,28 +40,26 @@
 </script>
 
 <main>
-  <div bind:this="{mapElement}" class="map"></div>
+  <div bind:this="{mapElement}" class="h-[80vh] z-0"></div>
   {#if displayModal}
-    <div class="map-modal">
-      <div class="card w-120 border-slate-300 border text-neutral-content bg-white">
-        <div class="card-body p-6 flex-row">
-          <img
-            class="w-1/6 rounded-lg object-cover"
-            alt="restaurant-picture"
-            src="https://media.istockphoto.com/id/931308812/fr/photo/s%C3%A9lection-de-la-nourriture-am%C3%A9ricaine.jpg?s=612x612&w=0&k=20&c=dg395z__O5wl6bitmkvychwTH4d7bsRa57qf2a2L_HE="
-          />
-          <div class="ml-10">
-            <h4 class="card-title">{selectedRestaurant.name}</h4>
-            <h5>{selectedRestaurant.city}</h5>
-            <p>{selectedRestaurant.primaryPhone}</p>
-          </div>
+    <div class="fixed bottom-0 h-72 z-40 p-8 w-full rounded-t-lg bg-base-100">
+      <div class="w-full grid grid-cols-2 md:grid-cols-3 gap-4">
+        <img
+          class="h-20 md:h-32 md:w-full rounded-lg object-cover"
+          alt="restaurant-picture"
+          src="https://media.istockphoto.com/id/931308812/fr/photo/s%C3%A9lection-de-la-nourriture-am%C3%A9ricaine.jpg?s=612x612&w=0&k=20&c=dg395z__O5wl6bitmkvychwTH4d7bsRa57qf2a2L_HE="
+        />
+        <div id="restaurant-info " class="">
+          <h4 class="card-title">{selectedRestaurant.name}</h4>
+          <h5>{selectedRestaurant.city}</h5>
+          <p>{selectedRestaurant.primaryPhone}</p>
         </div>
-        <div class="card-actions justify-center m-6">
-          <a href="carte">
-            <button class="btn w-48 btn-primary text-white">Click and collect</button>
+        <div class="flex md:flex-col gap-4">
+          <a href="carte" class="btn btn-primary btn-block">
+            <button class="uppercase">Click and collect</button>
           </a>
-          <a href="carte">
-            <button class="btn w-48 btn-ghost border border-primary text-primary">Livraison</button>
+          <a href="carte" class="btn btn-outline btn-primary btn-block">
+            <button class="uppercase">Livraison</button>
           </a>
         </div>
       </div>
@@ -71,16 +69,4 @@
 
 <style>
   @import 'leaflet/dist/leaflet.css';
-
-  .map {
-    height: 600px;
-  }
-
-  .map-modal {
-    height: 250px;
-    z-index: 9999;
-    bottom: 0;
-    position: absolute;
-    width: 100%;
-  }
 </style>
