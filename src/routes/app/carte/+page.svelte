@@ -24,6 +24,7 @@
     }
   }
 
+  
   onMount(async () => {
     const res = await fetch('/api/categories')
 
