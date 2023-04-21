@@ -62,7 +62,7 @@
     if (userResponse.data) {
       session.update((session) => userResponse.data)
       if (userResponse.data.user.roles[0].name !== 'customer') {
-        await goto('/admin/dasboard')
+        await goto('/admin')
       }
       await goto('/')
 

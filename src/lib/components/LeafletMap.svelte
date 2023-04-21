@@ -6,6 +6,15 @@
   let map
   let selectedRestaurant 
   let displayModal = false
+  import { cart } from '$lib/stores/cart'
+  import { get } from 'svelte/store'
+  import type { Cart } from '$lib/models/cart'
+  import { page } from '$app/stores'
+
+  function choseRestaurant(id: string){
+    const cartStore = get(cart)
+    cartStore.restaurentId = id
+  }
 
   export let restaurantsList: Array<Restaurant>
 
@@ -23,7 +32,6 @@
       .addTo(map)
 
       restaurantsList.forEach(restaurant => {
-        console.log(restaurant, 'restaurant')
         leaflet.marker([restaurant.lat, restaurant.long]).addTo(map).on('click', function(e) {    
           selectedRestaurant = restaurant
           displayModal = true
@@ -63,8 +71,8 @@
         </div>
       </div>
       <div class="card-actions justify-center m-6">
-        <a href="carte"><button class="btn w-48 btn-primary text-white">Click and collect</button></a>
-        <a href="carte"><button class="btn w-48 btn-ghost border border-primary text-primary">Livraison</button></a>
+        <a href="carte?isTakeaway=true"><button onclick="{choseRestaurant(restaurantItem.id)}" class="btn w-48 btn-primary text-white">Click and collect</button></a>
+        <a href="carte?isTakeaway=false"><button onclick="{choseRestaurant(restaurantItem.id)}" class="btn w-48 btn-ghost border border-primary text-primary">Livraison</button></a>
       </div>
     </div>
   </div>
