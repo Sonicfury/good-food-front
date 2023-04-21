@@ -79,4 +79,3 @@
     <RestaurantCard bind:restaurantItem="{restaurant}" />
   {/each}
 {/if}
-
