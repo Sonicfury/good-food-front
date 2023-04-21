@@ -7,6 +7,15 @@
   let map
   let selectedRestaurant
   let displayModal = false
+  import { cart } from '$lib/stores/cart'
+  import { get } from 'svelte/store'
+  import type { Cart } from '$lib/models/cart'
+  import { page } from '$app/stores'
+
+  function choseRestaurant(id: string){
+    const cartStore = get(cart)
+    cartStore.restaurentId = id
+  }
 
   export let restaurantsList: Array<Restaurant>
 
@@ -17,11 +26,14 @@
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(map)
 
-    restaurantsList.forEach((restaurant) => {
-      console.log(restaurant, 'restaurant')
-      L.marker([restaurant.lat, restaurant.long])
-        .addTo(map)
-        .on('click', function (e) {
+    leaflet
+      .tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      })
+      .addTo(map)
+
+      restaurantsList.forEach(restaurant => {
+        leaflet.marker([restaurant.lat, restaurant.long]).addTo(map).on('click', function(e) {    
           selectedRestaurant = restaurant
           displayModal = true
         })
@@ -54,14 +66,11 @@
           <h5>{selectedRestaurant.city}</h5>
           <p>{selectedRestaurant.primaryPhone}</p>
         </div>
-        <div class="flex md:flex-col gap-4">
-          <a href="carte" class="btn btn-primary btn-block">
-            <button class="uppercase">Click and collect</button>
-          </a>
-          <a href="carte" class="btn btn-outline btn-primary btn-block">
-            <button class="uppercase">Livraison</button>
-          </a>
-        </div>
+      </div>
+      <div class="card-actions justify-center m-6">
+        <a href="carte?isTakeaway=true"><button onclick="{choseRestaurant(restaurantItem.id)}" class="btn w-48 btn-primary text-white">Click and collect</button></a>
+        <a href="carte?isTakeaway=false"><button onclick="{choseRestaurant(restaurantItem.id)}" class="btn w-48 btn-ghost border border-primary text-primary">Livraison</button></a>
+
       </div>
     </div>
   {/if}

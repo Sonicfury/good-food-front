@@ -12,6 +12,15 @@
   let adresseList = null as Array<any> | null
   let dropdownOpen = true as boolean
   let fetchRestaurantUrl
+  import { cart } from '$lib/stores/cart'
+  import { get } from 'svelte/store'
+  import type { Cart } from '$lib/models/cart'
+
+  let cartStore: Cart
+
+  onMount(() => {
+    cartStore = get(cart)
+  })
 
   onMount(async () => {
     const successCallback = async (position) => {

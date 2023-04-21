@@ -6,10 +6,37 @@
   let selectedCategorie: string
   let categories = [] as Array<object>
   let products = [] as Array<object>
-
+  let messageError = 'test' as string
+  let isMessageError = false as boolean
+  let isSucess = false as boolean
+  import { cart } from '$lib/stores/cart'
+  import { get } from 'svelte/store'
+  import type { Cart } from '$lib/models/cart'
+  import { page } from '$app/stores'
+    
+  let cartStore: Cart
   $: if (selectedCategorie) {
     getProduct(selectedCategorie)
   }
+
+  onMount(async () => {
+    cartStore = get(cart)
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const isTakeaway = urlParams.get('isTakeaway');
+    cartStore.isTakeaway = isTakeaway
+    cart.update((cartStore) => cartStore)
+    const successCallback = async (position) => {
+      const coords = [position.coords.latitude, position.coords.longitude]
+      await getRestaurant(coords)
+    }
+
+    const errorCallback = async (error) => {
+      await getRestaurant()
+    }
+
+    navigator.geolocation.getCurrentPosition(successCallback, errorCallback)
+  })
 
   async function getProduct(selectedCategorie: string) {
     const res = await fetch(`/api/${selectedCategorie}`)
@@ -23,7 +50,7 @@
       isSucess = false
     }
   }
-
+  
   onMount(async () => {
     const res = await fetch('/api/categories')
 
