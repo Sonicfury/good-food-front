@@ -3,7 +3,6 @@
   import { session } from '$lib/stores/session'
   import Adress from '$lib/components/Adress.svelte';
   import OrderHistory from '$lib/components/OrderHistory.svelte';
-  import Adress from '$lib/components/Adress.svelte'
   let canUpdate = true
 
   function logout() {
