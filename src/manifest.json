@@ -2,7 +2,7 @@
   "name": "Good Food",
   "short_name": "Good Food",
   "start_url": "/login",
-  "display": "standalone",
+  "display": "fullscreen",
   "background_color": "#f8f9fa",
   "theme_color": "#f8f9fa",
   "description": "Une application pour commander chez Good Food",
