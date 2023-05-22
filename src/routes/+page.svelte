@@ -8,10 +8,10 @@
 
   onMount(async () => {
     await timeout(1700);
-    if (isAuthenticated()) {
-      await goto('/app/dashboard')
-    }
-    await goto('/login')
+    // if (isAuthenticated()) {
+    //   await goto('/app/dashboard')
+    // }
+    // await goto('/login')
     return
   })
 </script>
