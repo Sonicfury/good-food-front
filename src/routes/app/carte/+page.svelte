@@ -13,7 +13,7 @@
   import { get } from 'svelte/store'
   import type { Cart } from '$lib/models/cart'
   import { page } from '$app/stores'
-    
+
   let cartStore: Cart
   $: if (selectedCategorie) {
     getProduct(selectedCategorie)
@@ -22,8 +22,8 @@
   onMount(async () => {
     cartStore = get(cart)
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const isTakeaway = urlParams.get('isTakeaway');
+    const urlParams = new URLSearchParams(window.location.search)
+    const isTakeaway = urlParams.get('isTakeaway')
     cartStore.isTakeaway = isTakeaway
     cart.update((cartStore) => cartStore)
     const successCallback = async (position) => {
@@ -50,7 +50,7 @@
       isSucess = false
     }
   }
-  
+
   onMount(async () => {
     const res = await fetch('/api/categories')
 
