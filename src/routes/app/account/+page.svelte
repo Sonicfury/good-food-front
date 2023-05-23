@@ -1,16 +1,16 @@
 <script>
   import UpdateProfile from '$lib/components/UpdateProfile.svelte'
-  import Adress from '$lib/components/Adress.svelte';
-  import OrderHistory from '$lib/components/OrderHistory.svelte';
+  import Adress from '$lib/components/Adress.svelte'
+  import OrderHistory from '$lib/components/OrderHistory.svelte'
   import { onMount } from 'svelte'
   let canUpdate = true
   import { session } from '$lib/stores/session'
   import { get } from 'svelte/store'
 
-  onMount(()=>{
+  onMount(() => {
     const userSession = get(session)
-    if(!userSession){
-      window.location.href = "/login"
+    if (!userSession) {
+      window.location.href = '/login'
     }
   })
 
@@ -34,7 +34,7 @@
   </details>
   <details class="collapse collapse-arrow  bg-base-100 rounded-box">
     <summary class="collapse-title text-m font-medium">Mon historique de commandes</summary>
-    <OrderHistory/>
+    <OrderHistory />
   </details>
   <form class="flex justify-center" method="POST">
     <button on:click="{logout}" type="submit" class="btn mt-10 btn-neutral text-secondary w-64">Se deconnecter</button>

@@ -6,7 +6,7 @@
   import { get } from 'svelte/store'
   import type { Cart } from '$lib/models/cart'
 
-  function choseRestaurant(id: string){
+  function choseRestaurant(id: string) {
     console.log(id, 'id')
     const cartStore = get(cart) as Cart
     console.log(cartStore, 'cartStore')
@@ -31,8 +31,17 @@
       </div>
     </div>
     <div class="card-actions justify-center m-6">
-      <a href="carte?isTakeaway=true"><button on:click="{choseRestaurant(restaurantItem.id)}" class="btn w-48 btn-primary text-white">Click and collect</button></a>
-      <a href="carte?isTakeaway=false"><button on:click="{choseRestaurant(restaurantItem.id)}" class="btn w-48 btn-ghost border border-primary text-primary">Livraison</button></a>
+      <a href="carte?isTakeaway=true"
+        ><button on:click="{choseRestaurant(restaurantItem.id)}" class="btn w-48 btn-primary text-white"
+          >Click and collect</button
+        ></a
+      >
+      <a href="carte?isTakeaway=false"
+        ><button
+          on:click="{choseRestaurant(restaurantItem.id)}"
+          class="btn w-48 btn-ghost border border-primary text-primary">Livraison</button
+        ></a
+      >
     </div>
   </div>
 </div>

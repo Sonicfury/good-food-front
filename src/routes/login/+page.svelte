@@ -28,8 +28,8 @@
 
   onMount(() => {
     isAuthenticated() && goto('/app/dashboard')
-    const urlParams = new URLSearchParams(window.location.search);
-    isOrder = urlParams.get('order');
+    const urlParams = new URLSearchParams(window.location.search)
+    isOrder = urlParams.get('order')
   })
 
   const handleSubmit = async () => {
@@ -62,20 +62,19 @@
     const userResponse = await response.json()
 
     if (userResponse.data) {
-      if(isOrder){
+      if (isOrder) {
         window.location.href = '/app/checkout/adresse'
         session.update((session) => userResponse.data)
-      }else{
+      } else {
         session.update((session) => userResponse.data)
         if (userResponse.data.user.roles[0].name === 'admin') {
-          window.location.href ='/admin/order'
-        }else{
+          window.location.href = '/admin/order'
+        } else {
           window.location.href = '/app/dashboard'
         }
-       
-      return
+
+        return
       }
-     
     }
 
     isMessageError = true

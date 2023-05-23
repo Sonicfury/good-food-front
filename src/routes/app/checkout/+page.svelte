@@ -107,7 +107,7 @@
   </template>
 {/if}
 <div class="flex justify-center m-20">
-  <a href="{userSession ? './checkout/adresse' : '/login?order=true'}" >
+  <a href="{userSession ? './checkout/adresse' : '/login?order=true'}">
     <button class="btn btn-primary text-white"> Valider mon panier </button>
   </a>
 </div>

@@ -23,16 +23,16 @@
   onMount(async () => {
     cartStore = get(cart)
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const isTakeaway = urlParams.get('isTakeaway');
-    if(cartStore as Cart){
+    const urlParams = new URLSearchParams(window.location.search)
+    const isTakeaway = urlParams.get('isTakeaway')
+    if (cartStore as Cart) {
       cartStore.isTakeaway = isTakeaway
-    }else{
+    } else {
       cartStore = {
-        isTakeaway: isTakeaway
+        isTakeaway: isTakeaway,
       }
     }
-   
+
     cart.update((cartStore) => cartStore)
     const successCallback = async (position) => {
       const coords = [position.coords.latitude, position.coords.longitude]
@@ -48,7 +48,7 @@
 
     let response = await res.json()
     categories = response.data
-    getProduct("menus")
+    getProduct('menus')
   })
 
   async function getProduct(selectedCategorie: string) {
