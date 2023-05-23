@@ -13,7 +13,8 @@
   import { get } from 'svelte/store'
   import type { Cart } from '$lib/models/cart'
   import { page } from '$app/stores'
-    
+  import { session } from '$lib/stores/session'
+
   let cartStore: Cart
   $: if (selectedCategorie) {
     getProduct(selectedCategorie)
@@ -24,7 +25,14 @@
 
     const urlParams = new URLSearchParams(window.location.search);
     const isTakeaway = urlParams.get('isTakeaway');
-    cartStore.isTakeaway = isTakeaway
+    if(cartStore as Cart){
+      cartStore.isTakeaway = isTakeaway
+    }else{
+      cartStore = {
+        isTakeaway: isTakeaway
+      }
+    }
+   
     cart.update((cartStore) => cartStore)
     const successCallback = async (position) => {
       const coords = [position.coords.latitude, position.coords.longitude]
@@ -36,6 +44,11 @@
     }
 
     navigator.geolocation.getCurrentPosition(successCallback, errorCallback)
+    const res = await fetch('/api/categories')
+
+    let response = await res.json()
+    categories = response.data
+    getProduct("menus")
   })
 
   async function getProduct(selectedCategorie: string) {
@@ -50,13 +63,6 @@
       isSucess = false
     }
   }
-  
-  onMount(async () => {
-    const res = await fetch('/api/categories')
-
-    let response = await res.json()
-    categories = response.data
-  })
 </script>
 
 <MobileHeader bind:goBack="{urlBack}" bind:pageName="{pageName}" />

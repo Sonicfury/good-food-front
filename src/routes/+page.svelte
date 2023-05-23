@@ -4,10 +4,6 @@
   import { onMount } from 'svelte'
 
   onMount(() => {
-    if (isAuthenticated()) {
-      goto('/app/dashboard')
-    }
-    goto('/login')
-    return
+    goto('/app/dashboard')
   })
 </script>

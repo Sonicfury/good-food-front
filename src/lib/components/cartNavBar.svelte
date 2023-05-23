@@ -9,8 +9,9 @@
   let addToCart = false
   let cartStore: Cart
 
+
   onMount(() => {
-    cartStore = get(cart)
+   
     const searchParams = new URLSearchParams(window.location.search)
     addToCart = searchParams.get('addToCart') === 'true'
     if (addToCart) {

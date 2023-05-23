@@ -16,7 +16,6 @@
   let fetchRestaurantUrl
 
   onMount(async () => {
-    !isAuthenticated() && goto('/login')
     const successCallback = async (position) => {
       const coords = [position.coords.latitude, position.coords.longitude]
       await getRestaurant(coords)

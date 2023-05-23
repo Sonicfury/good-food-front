@@ -1,10 +1,18 @@
 <script>
   import UpdateProfile from '$lib/components/UpdateProfile.svelte'
-  import { session } from '$lib/stores/session'
   import Adress from '$lib/components/Adress.svelte';
   import OrderHistory from '$lib/components/OrderHistory.svelte';
-  import Adress from '$lib/components/Adress.svelte'
+  import { onMount } from 'svelte'
   let canUpdate = true
+  import { session } from '$lib/stores/session'
+  import { get } from 'svelte/store'
+
+  onMount(()=>{
+    const userSession = get(session)
+    if(!userSession){
+      window.location.href = "/login"
+    }
+  })
 
   function logout() {
     session.update((session) => '')

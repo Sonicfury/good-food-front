@@ -7,6 +7,7 @@
     onMount( async()  => {
         const res = await fetch('/api/employe')
         employes = await res.json()
+        console.log(order, 'order')
     })
 </script>
 
@@ -31,7 +32,7 @@
         <label class="label">
             <span class="label-text">Status :</span>
           </label>
-        <select class="select select-bordered mb-10  w-2/3">
+        <select class="select select-bordered mb-10  w-2/3" bind:value="{order.state}">
             <option selected={order.state === '0'} value="0">Nouveau</option>
             <option selected={order.state === '1'} value="1">En préparation</option>
             <option selected={order.state === '2'} value="2">Prête</option>
@@ -43,16 +44,16 @@
         <label class="label">
             <span class="label-text">Assigné à :</span>
         </label>
-        <select class="select select-bordered mb-10 w-2/3">
+        <select class="select select-bordered mb-10 w-2/3" bind:value="{order.employee}">
             {#each employes.data as employe}
-            <option>{employe.email}</option>
+            <option value="{employe.id}" selected={employe.id === order.employee}>{employe.email}</option>
             {/each}
         </select>
     {/if}
         <label class="label">
             <span class="label-text">Notes :</span>
           </label>
-        <textarea class="textarea textarea-bordered" placeholder="Bio"></textarea>
+        <textarea class="textarea textarea-bordered" placeholder="..."></textarea>
     </div>
     <br>
     <div>

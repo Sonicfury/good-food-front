@@ -36,6 +36,11 @@
     ];
 
     onMount(async () => {
+        getOrders()
+    })
+
+    async function getOrders(){
+        loadOrder = true
         const response = await fetch('/api/ordereds')
         const orders = await response.json()
         orders.data.forEach(order => {
@@ -50,7 +55,7 @@
             baskets[order.state].items.push(order)
         });
         loadOrder = false
-    })
+    }
 	
 	let hoveringOverBasket;
 	
@@ -70,6 +75,10 @@
 		
 		hoveringOverBasket = null;
         item.state = data.itemIndex.toString()
+        upadateOrder(item)
+       
+	}
+    async function upadateOrder(item){
         const response = await fetch('/api/orders', {
             method: 'PUT',
             body: JSON.stringify(item),
@@ -86,7 +95,9 @@
             alertMessage = response.statusText
             showAlert = true
         }
-	}
+        showModal = false
+        getOrders()
+    }
 
     function closeModal() {
         showModal = false
@@ -138,7 +149,7 @@
     <OrderRecap order={order}/>
     <div class=" flex content-row justify-center m-6">
         <button on:click="{() => closeModal()}" class="btn btn-error text-white m-2">Annuler</button>
-        <button  class="btn btn-success text-white m-2"> Valider</button>
+        <button on:click="{() => upadateOrder(order)}"  class="btn btn-success text-white m-2"> Valider</button>
       </div>
 </Modal>
 {/if}
