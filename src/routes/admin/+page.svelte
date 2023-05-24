@@ -3,7 +3,7 @@
   import { goto } from '$app/navigation'
   import { onMount } from 'svelte'
 
-  // onMount(() => {
-  //   isAuthenticatedAdmin() && goto('/app/dashboard')
-  // })
+  onMount(() => {
+    isAuthenticatedAdmin() && goto('/app/dashboard')
+  })
 </script>

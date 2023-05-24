@@ -13,7 +13,7 @@
   let isMessageError: boolean = false
 
   onMount(async () => {
-    // isAuthenticatedAdmin() && goto('/app/dashboard')
+    isAuthenticatedAdmin() && goto('/app/dashboard')
     getCarteItem(carteItemName)
   })
 

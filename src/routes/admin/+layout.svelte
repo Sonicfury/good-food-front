@@ -1,5 +1,11 @@
 <script lang="ts">
   import { page } from '$app/stores'
+  import { session } from '$lib/stores/session'
+
+  function logout() {
+    session.update((session) => '')
+    window.location.href = '/login'
+  }
 </script>
 
 <div class="navbar bg-white">
@@ -29,7 +35,7 @@
         <li>
           <a class="justify-between"> Profile </a>
         </li>
-        <li><a>Logout</a></li>
+        <li><a on:click="{logout}">Logout</a></li>
       </ul>
     </div>
   </div>

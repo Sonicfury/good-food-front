@@ -11,9 +11,11 @@
   import { mdiDeleteOutline } from '@mdi/js'
 
   let cartStore: Cart
+  let userSession = null
 
   onMount(() => {
     cartStore = get(cart)
+    userSession = get(session)
   })
 
   function updateCart(operation: string, price: number, id: string) {
@@ -105,7 +107,7 @@
   </template>
 {/if}
 <div class="flex justify-center m-20">
-  <a href="./checkout/adresse">
+  <a href="{userSession ? './checkout/adresse' : '/login?order=true'}">
     <button class="btn btn-primary text-white"> Valider mon panier </button>
   </a>
 </div>
