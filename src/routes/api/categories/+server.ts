@@ -13,6 +13,7 @@ export const POST: RequestHandler = async ({ cookies, request }) => {
     },
   })
   const requestBody = await response.json()
+
   if (requestBody.success) {
     return new Response(JSON.stringify({ data: requestBody.data }), { status: 200 })
   } else {
@@ -38,6 +39,7 @@ export const GET: RequestHandler = async ({ cookies }) => {
 
 export const PUT: RequestHandler = async ({ cookies, request }): Promise<Response> => {
   const data = await request.json()
+
   const categoryId = data.id
   const response = await fetch(`${import.meta.env.VITE_API_URL}/categories/` + categoryId, {
     method: 'PUT',

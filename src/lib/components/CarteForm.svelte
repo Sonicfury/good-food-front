@@ -4,11 +4,23 @@
   import type { Category } from '$lib/models/category'
   export let carteItemName: string
   export let item: Product | Category
+  import FileInput from './FileInput.svelte';
+
 
   let categories: Array<Category> = []
   let menus: Array<Menu> = []
   let products: Array<Product> = []
   $: offersEntity = 0
+  let searchTerm = ''
+  let adresseList = null as Array<any> | null
+  let dropdownOpen = true as boolean
+
+  let base64;
+
+  const handleFileSelected = (event) => {
+    base64 = event.detail.base64;
+    item.image = base64
+  };
 
   async function getCategories() {
     const res = await fetch(`/api/categories`)
@@ -46,6 +58,24 @@
   $: if (offersEntity !== 0) {
     item.offersEntity = offersEntity
   }
+
+  async function searchBooks() {
+    dropdownOpen = true
+    const response: Response = await fetch('/api/coordinate', {
+      method: 'POST',
+      body: JSON.stringify(item.address1),
+    })
+
+    const adresse = await response.json()
+    adresseList = adresse.data
+  }
+
+  async function selectAdresse(value: Array<any>) {
+    item.lat = value.geometry.coordinates[0]
+    item.long =value.geometry.coordinates[1]
+    item.address1 = value.properties.label
+    dropdownOpen = false
+  }
 </script>
 
 <h3 class="font-bold text-lg m-6">Ajouter ou modifier {carteItemName}</h3>
@@ -56,7 +86,9 @@
     bind:value="{item.name}"
     class="input text-black m-6  bg-neutral mb-3  w-80 max-w-xs mt-10  "
   />
-
+  {#if carteItemName === 'products' || carteItemName === 'categories'}
+  <FileInput on:fileSelected={handleFileSelected} />
+  {/if}
   {#if carteItemName === 'products' || carteItemName === 'menus'}
     <input
       type="number"
@@ -64,6 +96,40 @@
       bind:value="{item.price}"
       class="input text-black m-6  bg-neutral mb-3  w-80 max-w-xs mt-10  "
     />
+  {/if}
+  {#if carteItemName === 'restaurants'}
+  <input
+    type="text"
+    placeholder="Adresse"
+    bind:value="{item.address1}"
+    class="input text-black m-6  bg-neutral w-80 max-w-xs mt-10 "
+    on:input="{searchBooks}"
+  />
+  {#if adresseList && dropdownOpen}
+    <ul class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-68">
+      {#each adresseList as adresse}
+        <li on:click="{() => selectAdresse(adresse)}"><a>{adresse.properties.label}</a></li>
+      {/each}
+    </ul>
+  {/if}
+  <input
+    type="text"
+    placeholder="Code postal"
+    bind:value="{item.zipCode}"
+    class="input text-black m-6  bg-neutral mb-3  w-80 max-w-xs mt-10  "
+  />
+  <input
+    type="text"
+    placeholder="Ville"
+    bind:value="{item.city}"
+    class="input text-black m-6  bg-neutral mb-3  w-80 max-w-xs mt-10  "
+  />
+  <input
+    type="number"
+    placeholder="Téléphone"
+    bind:value="{item.primaryPhone}"
+    class="input text-black m-6  bg-neutral mb-3  w-80 max-w-xs mt-10  "
+  />
   {/if}
   {#if carteItemName === 'products'}
     <label class="label">

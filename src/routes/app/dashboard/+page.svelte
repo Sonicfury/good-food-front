@@ -48,7 +48,7 @@
 
   async function searchBooks() {
     dropdownOpen = true
-    const response: Response = await fetch('/api/adresse', {
+    const response: Response = await fetch('/api/coordinate', {
       method: 'POST',
       body: JSON.stringify(searchTerm),
     })

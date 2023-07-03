@@ -19,6 +19,7 @@
           >Commandes et réservations</a
         >
       </li>
+      <li><a class="{$page.route.id === '/admin/carte' ? 'text-primary' : ''}" href="/admin/restaurants">Restaurants</a></li>
       <li><a class="{$page.route.id === '/admin/carte' ? 'text-primary' : ''}" href="/admin/carte">Ma carte</a></li>
       <li><a class="{$page.route.id === '/admin/kpi' ? 'text-primary' : ''}" href="/admin/kpi">KPI</a></li>
       <li>

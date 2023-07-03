@@ -7,9 +7,7 @@
   import type { Cart } from '$lib/models/cart'
 
   function choseRestaurant(id: string) {
-    console.log(id, 'id')
     const cartStore = get(cart) as Cart
-    console.log(cartStore, 'cartStore')
     cartStore.restaurentId = id
   }
 </script>

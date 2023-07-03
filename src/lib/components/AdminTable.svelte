@@ -94,6 +94,12 @@
         {#if carteItemName === 'offers'}
           <td>Pourcentage</td>
         {/if}
+        {#if carteItemName === 'restaurants'}
+          <td>Adresse</td>
+          <td>Code postal</td>
+          <td>Ville</td>
+          <td>Téléphone</td>
+        {/if}
         <th>Actions</th>
       </tr>
     </thead>
@@ -111,21 +117,27 @@
           {#if carteItemName === 'offers'}
             <td>{carteItem.percent}</td>
           {/if}
+          {#if carteItemName === 'restaurants'}
+            <td>{carteItem.address1}</td>
+            <td>{carteItem.zipCode}</td>
+            <td>{carteItem.city}</td>
+            <td>{carteItem.primaryPhone}</td>
+          {/if}
           <td class="flex content-row">
             <button on:click="{() => openModalWithItem(carteItem)}">
               <Icon
                 path="{mdiCircleEditOutline}"
-                clazz="{isActive('/admin/carte') ? 'fill-success' : 'fill-secondary'}"
+                clazz="{'fill-success'}"
               />
             </button>
             <button on:click="{() => deleteItem(carteItem.id)}">
-              <Icon path="{mdiDeleteOutline}" clazz="{isActive('/admin/carte') ? 'fill-error' : 'fill-secondary'}" />
+              <Icon path="{mdiDeleteOutline}" clazz="{'fill-primary'}"/>
             </button>
           </td>
         </tr>
         {#if showModal}
           <Modal>
-            <CarteForm carteItemName="{carteItemName}" item="{editItem}" />
+            <CarteForm carteItemName="{carteItemName}" item="{editItem}"/>
             <div class=" flex content-row justify-center m-6">
               <button on:click="{() => closeModal()}" class="btn btn-error text-white m-2">Annuler</button>
               <button on:click="{() => putItem(editItem)}" class="btn btn-success text-white m-2"> Valider</button>

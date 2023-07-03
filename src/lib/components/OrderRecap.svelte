@@ -6,7 +6,6 @@
   onMount(async () => {
     const res = await fetch('/api/employe')
     employes = await res.json()
-    console.log(order, 'order')
   })
 </script>
 
