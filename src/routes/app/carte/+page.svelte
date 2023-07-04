@@ -4,15 +4,17 @@
   import { cart } from '$lib/stores/cart'
   import { get } from 'svelte/store'
   import type { Cart } from '$lib/models/cart'
+  import { goto } from '$app/navigation'
 
 
   let urlBack: string = 'restaurants'
-  let selectedCategorie: string
+  let selectedCategorie = 'menus'
   let categories = [] as Array<object>
   let products = [] as Array<object>
   let messageError = 'test' as string
   let isMessageError = false as boolean
   let isSucess = false as boolean
+  let isLoading = false;
   let cartStore: Cart
 
   $: if (selectedCategorie) {
@@ -34,12 +36,9 @@
 
     cart.update((cartStore) => cartStore)
     const successCallback = async (position) => {
-      const coords = [position.coords.latitude, position.coords.longitude]
-      await getRestaurant(coords)
     }
 
     const errorCallback = async (error) => {
-      await getRestaurant()
     }
 
     navigator.geolocation.getCurrentPosition(successCallback, errorCallback)
@@ -51,6 +50,7 @@
   })
 
   async function getProduct(selectedCategorie: string) {
+    isLoading = true;
     const res = await fetch(`/api/${selectedCategorie}`)
 
     let response = await res.json()
@@ -61,37 +61,34 @@
       messageError = response.message
       isSucess = false
     }
+
+    isLoading = false;
   }
 </script>
 
 <MobileHeader bind:goBack="{urlBack}" bind:pageName="{$cart.restaurantName}" />
 {#if categories.length > 0}
-  <div class="flex justify-center mt-10 ">
-    <select class="select w-full max-w-xs bg-neutral" bind:value="{selectedCategorie}">
-      <option value="menus" selected>Menus</option>
-      <option value="offers" selected>Promotions</option>
-
+    <div class="flex h-fit gap-4 overflow-x-scroll my-4 p-4">
+        <button class="btn" class:btn-primary={selectedCategorie === 'menus'} on:click={() => (selectedCategorie = 'menus')}>Menus</button>
+        <button class="btn" class:btn-primary={selectedCategorie === 'offers'} on:click={() => (selectedCategorie = 'offers')}>Promotions</button>
       {#each categories as category}
-        <option value="{category.name}" selected>{category.name}</option>
+        <button class="btn" class:btn-primary={selectedCategorie === category.name} on:click={() => (selectedCategorie = category.name)}>{category.name}</button>
       {/each}
-    </select>
-  </div>
+    </div>
 {/if}
 
-<div class="flex flex-wrap justify-center">
-  {#if products}
+<div class="flex flex-wrap gap-8 p-4 justify-center w-full">
+  {#if products && !isLoading}
     {#each products as product}
-      <a href="{'carte/' + product.id}">
-        <div class="card w-40 h-40 m-10 bg-neutral ">
-          <div class="flex justify-center flex-col items-center text-center p-0">
-            <figure class="px-5 pt-5">
-              <img src="/images/buger.png" alt="Shoes" class="rounded-xl" />
+        <div on:click={async () => await goto(`carte/${product.id}`)} class="card w-full cursor-pointer max-w-md min-w-max bg-neutral shadow-lg">
+          <div class="card-body">
+            <figure class="">
+              <img src="/images/buger.png" alt="Shoes" class="" />
             </figure>
-            <p class="m-3 h-2">{product.name}</p>
-            <h4 class="card-title bottom-5	 absolute">{product.price} €</h4>
+            <span class="card-title">{product.name}</span>
+            <div class="card-actions justify-end">{product.price} €</div>
           </div>
         </div>
-      </a>
     {/each}
   {:else}
     <div class="flex justify-center loaderBar">
