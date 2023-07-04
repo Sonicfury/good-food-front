@@ -3,43 +3,38 @@
   export let restaurantItem: Restaurant
 
   import { cart } from '$lib/stores/cart'
-  import { get } from 'svelte/store'
-  import type { Cart } from '$lib/models/cart'
+  import { goto } from '$app/navigation'
 
-  function choseRestaurant(id: string) {
-    const cartStore = get(cart) as Cart
-    cartStore.restaurentId = id
+  async function choseRestaurant(id: number, isTakeaway: boolean) {
+    cart.update(c => ({...c, restaurentId: `${id}`}))
+    await goto(`carte?isTakeaway=${isTakeaway}`)
   }
 </script>
 
-<div class="flex justify-center m-10">
-  <div class="card w-120 border-slate-300 border text-neutral-content">
-    <div class="card-body p-6 flex-row">
+<div class="flex justify-center p-4">
+  <div class="card lg:card-side bg-white shadow-lg text-neutral-content">
+      <figure>
       <img
-        class="w-1/4 rounded-lg object-cover"
         alt="restaurant-picture"
         src="https://media.istockphoto.com/id/931308812/fr/photo/s%C3%A9lection-de-la-nourriture-am%C3%A9ricaine.jpg?s=612x612&w=0&k=20&c=dg395z__O5wl6bitmkvychwTH4d7bsRa57qf2a2L_HE="
-      />
-      // todo : remplacer par image du produit -- en attente MAJ back
-      <div class="ml-10">
+      /></figure>
+    <div class="card-body p-4 flex flex-col">
         <h3 class="card-title">{restaurantItem.name}</h3>
         <h4>{restaurantItem.city}</h4>
         <p>{restaurantItem.address1}</p>
         <p>{restaurantItem.primaryPhone}</p>
-      </div>
     </div>
-    <div class="card-actions justify-center m-6">
-      <a href="carte?isTakeaway=true"
-        ><button on:click="{choseRestaurant(restaurantItem.id)}" class="btn w-48 btn-primary text-white"
-          >Click and collect</button
-        ></a
-      >
-      <a href="carte?isTakeaway=false"
-        ><button
-          on:click="{choseRestaurant(restaurantItem.id)}"
-          class="btn w-48 btn-ghost border border-primary text-primary">Livraison</button
-        ></a
-      >
-    </div>
+    <div class="card-actions p-4 justify-center items-center">
+        <button 
+        on:click="{choseRestaurant(restaurantItem.id, true)}" 
+        class="btn btn-block lg:w-48 btn-primary text-white">
+        Click and collect
+        </button>
+        <button
+          on:click="{choseRestaurant(restaurantItem.id, false)}"
+          class="btn lg:w-48 btn-block btn-ghost border border-primary text-primary">
+          Livraison
+          </button>
+        </div>
   </div>
 </div>
