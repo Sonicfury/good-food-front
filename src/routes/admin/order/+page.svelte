@@ -40,6 +40,28 @@
   })
 
   async function getOrders() {
+    baskets = [
+      {
+        name: 'Nouveau',
+        items: [],
+      },
+      {
+        name: 'En preparation',
+        items: [],
+      },
+      {
+        name: 'Prete',
+        items: [],
+      },
+      {
+        name: 'En livraison',
+        items: [],
+      },
+      {
+        name: 'Terminee',
+        items: [],
+      }  
+    ] 
     loadOrder = true
     const response = await fetch('/api/ordereds')
     const orders = await response.json()
@@ -75,10 +97,11 @@
     baskets = baskets
 
     hoveringOverBasket = null
-    item.state = basketIndex
+    item.state = basketIndex.toString()
     upadateOrder(item)
   }
   async function upadateOrder(item) {
+    item.employee_id = item.employee
     const response = await fetch('/api/orders', {
       method: 'PUT',
       body: JSON.stringify(item),

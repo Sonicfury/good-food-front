@@ -32,7 +32,6 @@
     if (response.data) {
       restaurants = response.data
       selectedRestaurants = restaurants[0]
-      console.log(restaurants, 'restaurants')
     }
   })
 
