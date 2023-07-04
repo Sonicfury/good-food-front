@@ -10,4 +10,5 @@ export type Cart = {
   totalPrice: number
   isTakeaway: boolean
   restaurentId: string
+  restaurantName: string
 }

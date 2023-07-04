@@ -1,21 +1,20 @@
 <script lang="ts">
   import MobileHeader from '$lib/components/MobileHeader.svelte'
-  let pageName: string = 'Nom restaurant'
-  let urlBack: string = 'restaurants'
   import { onMount } from 'svelte'
+  import { cart } from '$lib/stores/cart'
+  import { get } from 'svelte/store'
+  import type { Cart } from '$lib/models/cart'
+
+
+  let urlBack: string = 'restaurants'
   let selectedCategorie: string
   let categories = [] as Array<object>
   let products = [] as Array<object>
   let messageError = 'test' as string
   let isMessageError = false as boolean
   let isSucess = false as boolean
-  import { cart } from '$lib/stores/cart'
-  import { get } from 'svelte/store'
-  import type { Cart } from '$lib/models/cart'
-  import { page } from '$app/stores'
-  import { session } from '$lib/stores/session'
-
   let cartStore: Cart
+
   $: if (selectedCategorie) {
     getProduct(selectedCategorie)
   }
@@ -65,7 +64,7 @@
   }
 </script>
 
-<MobileHeader bind:goBack="{urlBack}" bind:pageName="{pageName}" />
+<MobileHeader bind:goBack="{urlBack}" bind:pageName="{$cart.restaurantName}" />
 {#if categories.length > 0}
   <div class="flex justify-center mt-10 ">
     <select class="select w-full max-w-xs bg-neutral" bind:value="{selectedCategorie}">
