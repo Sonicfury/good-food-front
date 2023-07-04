@@ -10,6 +10,7 @@
   let cartStore: Cart
 
   onMount(() => {
+    cartStore = get(cart)
     const searchParams = new URLSearchParams(window.location.search)
     addToCart = searchParams.get('addToCart') === 'true'
     if (addToCart) {
@@ -35,7 +36,7 @@
     class="fixed bottom-4 transform inline-flex  mx-auto justify-between bg-white w-full bottom-0 h-14 flex items-center p-5 "
   >
     <span class="text-success text-xl"> {cartStore.totalPrice} $</span>
-    <a href="/app/checkout">
+    <a href="checkout">
       <div class="flex items-center flex-row	">
         Valider mon panier
         <Icon path="{mdiChevronRight}" clazz="fill-black" />

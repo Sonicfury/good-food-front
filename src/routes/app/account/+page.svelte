@@ -5,6 +5,7 @@
   import { onMount } from 'svelte'
   let canUpdate = true
   import { session } from '$lib/stores/session'
+  import { cart } from '$lib/stores/cart'
   import { get } from 'svelte/store'
 
   onMount(() => {
@@ -16,6 +17,7 @@
 
   function logout() {
     session.update((session) => '')
+    cart.update((cart) => '')
   }
 </script>
 
@@ -28,9 +30,6 @@
   <details class="collapse collapse-arrow  bg-base-100 rounded-box">
     <summary class="collapse-title text-m font-medium">Mes adresses</summary>
     <Adress bind:canUpdate="{canUpdate}" />
-  </details>
-  <details class="collapse collapse-arrow  bg-base-100 rounded-box">
-    <summary class="collapse-title text-m font-medium">Mes moyens de paiements</summary>
   </details>
   <details class="collapse collapse-arrow  bg-base-100 rounded-box">
     <summary class="collapse-title text-m font-medium">Mon historique de commandes</summary>

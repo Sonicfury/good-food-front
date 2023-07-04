@@ -26,14 +26,14 @@
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(map)
 
-    leaflet
+    L
       .tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       })
       .addTo(map)
 
     restaurantsList.forEach((restaurant) => {
-      leaflet
+      L
         .marker([restaurant.lat, restaurant.long])
         .addTo(map)
         .on('click', function (e) {
@@ -72,13 +72,13 @@
       </div>
       <div class="card-actions justify-center m-6">
         <a href="carte?isTakeaway=true"
-          ><button onclick="{choseRestaurant(restaurantItem.id)}" class="btn w-48 btn-primary text-white"
+          ><button onclick="{choseRestaurant(selectedRestaurant.id)}" class="btn w-48 btn-primary text-white"
             >Click and collect</button
           ></a
         >
         <a href="carte?isTakeaway=false"
           ><button
-            onclick="{choseRestaurant(restaurantItem.id)}"
+            onclick="{choseRestaurant(selectedRestaurant.id)}"
             class="btn w-48 btn-ghost border border-primary text-primary">Livraison</button
           ></a
         >

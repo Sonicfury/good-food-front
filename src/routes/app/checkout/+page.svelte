@@ -5,12 +5,13 @@
   let pageName = 'Panier'
   let quantity = 0 as number
   import { cart } from '$lib/stores/cart'
+  import { session } from '$lib/stores/session'
   import { get } from 'svelte/store'
   import type { Cart } from '../models/cart'
   import Icon from '$lib/components/Icon.svelte'
   import { mdiDeleteOutline } from '@mdi/js'
 
-  let cartStore: Cart
+  let cartStore = null
   let userSession = null
 
   onMount(() => {

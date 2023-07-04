@@ -13,7 +13,6 @@ export const POST: RequestHandler = async ({ cookies, request }) => {
     },
   })
   const requestBody = await response.json()
-
   if (requestBody.success) {
     return new Response(JSON.stringify({ data: requestBody.data }), { status: 200 })
   } else {
