@@ -16,7 +16,7 @@
     <p>Client : {order.customer.email}</p>
     <br />
     {#if order.customer.adresses.length > 0}
-      <p>Adresse :{order.customer.adresses[0].name}</p>
+      <p>Adresse : {order.customer.adresses[0].name}</p>
     {/if}
   </div>
   {#if order.isTakeaway}

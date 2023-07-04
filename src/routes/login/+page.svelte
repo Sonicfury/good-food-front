@@ -67,7 +67,7 @@
         session.update((session) => userResponse.data)
       } else {
         session.update((session) => userResponse.data)
-        if (userResponse.data.user.roles[0].name === 'admin') {
+        if (userResponse.data.user.roles[0].name === 'admin' || userResponse.data.user.roles[0].name === 'employee') {
           window.location.href = '/admin/order'
         } else {
           window.location.href = '/app/dashboard'

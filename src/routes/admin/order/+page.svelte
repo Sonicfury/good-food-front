@@ -65,6 +65,7 @@
   }
 
   async function drop(event, basketIndex) {
+   
     event.preventDefault()
     const json = event.dataTransfer.getData('text/plain')
     const data = JSON.parse(json)
@@ -74,7 +75,7 @@
     baskets = baskets
 
     hoveringOverBasket = null
-    item.state = data.itemIndex.toString()
+    item.state = basketIndex
     upadateOrder(item)
   }
   async function upadateOrder(item) {
@@ -112,6 +113,7 @@
       <div animate:flip class="w-1/3">
         <h1 class="text-3xl">{basket.name}</h1>
         <ul
+        class="p-0 items-center	"
           class:hovering="{hoveringOverBasket === basket.name}"
           on:dragenter="{() => (hoveringOverBasket = basket.name)}"
           on:dragleave="{() => (hoveringOverBasket = null)}"
@@ -119,12 +121,14 @@
           ondragover="return false"
         >
           {#each basket.items as item, itemIndex (item)}
+         
             <div class="item" animate:flip>
               <li
                 draggable="{true}"
                 on:dragstart="{(event) => dragStart(event, basketIndex, itemIndex)}"
                 on:click="{() => ((showModal = true), (order = item))}"
               >
+              <h2 class="text-primary">#{item.id}</h2>
                 {item.createdAt}
                 {#if item.isTakeaway}
                   <div class="badge badge-accent">Emporter</div>
@@ -169,8 +173,8 @@
     margin-right: 10px;
     padding: 10px;
     margin: 10px;
-    width: 200px;
-    height: 100px;
+    width: 220px;
+    height: 120px;
   }
   li:hover {
     background: #e7b9a5;
