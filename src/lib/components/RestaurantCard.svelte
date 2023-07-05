@@ -32,12 +32,12 @@
     </div>
     <div class="card-actions p-4 justify-center items-center">
         <button 
-        on:click="{choseRestaurant(true)}" 
+        on:click="{() => choseRestaurant(true)}"
         class="btn btn-block lg:w-48 btn-primary text-white">
         Click and collect
         </button>
         <button
-          on:click="{choseRestaurant(false)}"
+          on:click="{() => choseRestaurant(false)}"
           class="btn lg:w-48 btn-block btn-ghost border border-primary text-primary">
           Livraison
           </button>

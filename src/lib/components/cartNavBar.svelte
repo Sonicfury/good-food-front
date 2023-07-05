@@ -35,7 +35,7 @@
     aria-label="Nav"
     class="fixed bottom-4 transform inline-flex  mx-auto justify-between bg-white w-full bottom-0 h-14 flex items-center p-5 "
   >
-    <span class="text-success text-xl"> {cartStore.totalPrice} $</span>
+    <span class="text-success text-xl"> {cartStore.totalPrice ? cartStore.totalPrice : "0"} $</span>
     <a href="checkout">
       <div class="flex items-center flex-row	">
         Valider mon panier

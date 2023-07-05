@@ -19,6 +19,7 @@
 
   async function addToCart() {
     const storeCart = get(cart)
+   
     if (get(cart)) {
       storeCart.items.push({
         id: product.id,

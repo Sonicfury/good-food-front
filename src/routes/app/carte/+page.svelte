@@ -41,7 +41,6 @@
 
     const errorCallback = async (error) => {
     }
-
     navigator.geolocation.getCurrentPosition(successCallback, errorCallback)
     const res = await fetch('/api/categories')
 
@@ -55,11 +54,11 @@
   })
 
   async function getProduct(selectedCategorie: string) {
+    
     isLoading = true;
-
+    
     if (['menus', 'offers'].includes(selectedCategorie)) {
         const res = await fetch(`/api/${selectedCategorie}`)
-
         let response = await res.json()
         if (response.data) {
           products = response.data
@@ -69,12 +68,6 @@
           isSucess = false
         }
     } else {
-        console.log(
-            products,
-            otherProducts,
-            selectedCategorie,
-            otherProducts.filter(op => op.category.name === selectedCategorie)
-        )
         products = otherProducts.filter(op => op.category.name === selectedCategorie)
     }
 
@@ -82,7 +75,7 @@
   }
 </script>
 
-<MobileHeader bind:goBack="{urlBack}" bind:pageName="{$cart.restaurantName}" />
+<!-- <MobileHeader bind:goBack="{urlBack}" bind:pageName="{$cart.restaurantName}" /> -->
 {#if categories.length > 0}
     <div class="flex h-fit gap-4 overflow-x-scroll my-4 p-4">
         <button class="btn" class:btn-primary={selectedCategorie === 'menus'} on:click={() => (selectedCategorie = 'menus')}>Menus</button>
