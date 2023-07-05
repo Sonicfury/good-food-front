@@ -76,7 +76,7 @@
     <div class="dropdown dropdown-end ml-24 mr-6">
       <label tabindex="0" class="btn btn-ghost btn-circle avatar">
         <div class="w-10 rounded-full">
-          <img src="https://placeimg.com/80/80/people" />
+          <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
         </div>
       </label>
      

@@ -16,12 +16,13 @@ export const GET: RequestHandler = async ({ cookies }) => {
 
 export const POST: RequestHandler = async ({ cookies, request }) => {
   const data = await request.json()
-  const response = await fetch(`${import.meta.env.VITE_API_URL}/register`, {
+  const response = await fetch(`${import.meta.env.VITE_API_URL}/users`, {
     method: 'POST',
     body: JSON.stringify(data),
     headers: {
       'content-type': 'application/json',
       Accept: 'application/json',
+      Authorization: `Bearer ${cookies.get('session')}`,
     },
   })
   const requestBody = await response.json()

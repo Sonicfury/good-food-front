@@ -21,8 +21,6 @@
 
   async function addToCart() {
     const storeCart = get(cart)
-    console.log(storeCart)
-   
     if (get(cart)) {
       storeCart.items.push({
         id: product.id,
@@ -52,7 +50,7 @@
   }
 </script>
 
-<MobileHeader bind:goBack="{urlBack}" bind:pageName="{pageName}" />
+<MobileHeader bind:goBack="{urlBack}" bind:pageName="{$cart.restaurantName}" />
 
 <div class="flex justify-center flex-col items-center	">
   <figure class="px-20 pt-20 w-50">

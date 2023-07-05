@@ -19,8 +19,7 @@
   let base64;
 
   const handleFileSelected = (event) => {
-    base64 = event.detail.base64;
-    item.image = base64
+    item.image = event.detail
   };
 
   async function getCategories() {
@@ -128,7 +127,7 @@
   <input
     type="number"
     placeholder="Téléphone"
-    bind:value="{item.primaryPhone}"
+    bind:value="{item.phone}"
     class="input text-black m-6  bg-neutral mb-3  w-80 max-w-xs mt-10  "
   />
   {/if}
