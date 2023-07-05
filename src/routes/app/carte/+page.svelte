@@ -5,12 +5,13 @@
   import { get } from 'svelte/store'
   import type { Cart } from '$lib/models/cart'
   import { goto } from '$app/navigation'
-
+  import type { Product } from '$lib/models/product'
 
   let urlBack: string = 'restaurants'
   let selectedCategorie = 'menus'
   let categories = [] as Array<object>
   let products = [] as Array<object>
+  let otherProducts: Product[] = []
   let messageError = 'test' as string
   let isMessageError = false as boolean
   let isSucess = false as boolean
@@ -47,19 +48,34 @@
     let response = await res.json()
     categories = response.data
     getProduct('menus')
+
+    const otherProductsResp = await fetch('/api/products')
+    const otherProductsJsonResp = await otherProductsResp.json()
+    otherProducts = otherProductsJsonResp.data ?? []
   })
 
   async function getProduct(selectedCategorie: string) {
     isLoading = true;
-    const res = await fetch(`/api/${selectedCategorie}`)
 
-    let response = await res.json()
-    if (response.data) {
-      products = response.data
+    if (['menus', 'offers'].includes(selectedCategorie)) {
+        const res = await fetch(`/api/${selectedCategorie}`)
+
+        let response = await res.json()
+        if (response.data) {
+          products = response.data
+        } else {
+          isMessageError = true
+          messageError = response.message
+          isSucess = false
+        }
     } else {
-      isMessageError = true
-      messageError = response.message
-      isSucess = false
+        console.log(
+            products,
+            otherProducts,
+            selectedCategorie,
+            otherProducts.filter(op => op.category.name === selectedCategorie)
+        )
+        products = otherProducts.filter(op => op.category.name === selectedCategorie)
     }
 
     isLoading = false;
@@ -94,5 +110,10 @@
     <div class="flex justify-center loaderBar">
       <progress class="progress color-neutral w-6/12 progress-warning"></progress>
     </div>
+  {/if}
+  {#if !products.length}
+    <span class="text-slate-500">
+        Aucun produit disponible dans cette catégorie !
+    </span>
   {/if}
 </div>
