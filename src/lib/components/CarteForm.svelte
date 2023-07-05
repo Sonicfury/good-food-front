@@ -5,6 +5,7 @@
   export let carteItemName: string
   export let item: Product | Category
   import FileInput from './FileInput.svelte';
+  import { browser } from '$app/environment'
 
 
   let categories: Array<Category> = []
@@ -46,11 +47,11 @@
     }
   }
 
-  $: if (carteItemName === 'products') {
+  $: if (carteItemName === 'products' && browser) {
     getCategories()
   }
 
-  $: if (carteItemName === 'offers') {
+  $: if (carteItemName === 'offers' && browser) {
     getProducts()
     getMenus()
   }

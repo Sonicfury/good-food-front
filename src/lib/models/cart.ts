@@ -1,14 +1,13 @@
+export type CartItem = {
+        id: string
+        name: string
+        price: number
+        quantity: number
+    }
 export type Cart = {
-  items: [
-    {
-      id: string
-      name: string
-      price: number
-      quantity: number
-    },
-  ]
-  totalPrice: number
-  isTakeaway: boolean
-  restaurentId: string
-  restaurantName: string
+    items: CartItem[]
+    totalPrice: number
+    isTakeaway: boolean
+    restaurentId: string
+    restaurantName: string
 }

@@ -1,6 +1,8 @@
 <script lang="ts">
+  import { goto } from '$app/navigation'
   import MobileHeader from '$lib/components/MobileHeader.svelte'
   import { cart } from '$lib/stores/cart'
+  import { toasts } from '$lib/stores/toasts'
   import { get } from 'svelte/store'
 
   export let data
@@ -19,6 +21,7 @@
 
   async function addToCart() {
     const storeCart = get(cart)
+    console.log(storeCart)
    
     if (get(cart)) {
       storeCart.items.push({
@@ -44,7 +47,8 @@
       }
       cart.update((cart) => cartStore)
     }
-    window.location.href = '/app/carte?addToCart=true'
+    await goto('/app/carte')
+    toasts.success(`${product.name} ajouté au panier`)
   }
 </script>
 
@@ -59,7 +63,7 @@
   <div class="custom-number-input h-10 w-32 mt-10">
     <div class="flex flex-row h-10 w-full rounded-lg relative mt-1 border-primary">
       <button
-        on:click="{removeQuantity}"
+        on:click="{() => removeQuantity()}"
         data-action="decrement"
         class=" border-y border-l	border-primary  h-full w-20 rounded-l cursor-pointer"
       >
@@ -72,7 +76,7 @@
         value="{quantity}"
       />
       <button
-        on:click="{addQuantity}"
+        on:click="{() => addQuantity()}"
         data-action="increment"
         class=" border-y border-r		border-primary h-full w-20 rounded-r cursor-pointer"
       >
@@ -80,7 +84,7 @@
       </button>
     </div>
   </div>
-  <button on:click="{addToCart}" class="btn w-48 btn-primary text-white mt-20">Ajouter au panier</button>
+  <button on:click="{() => addToCart()}" class="btn w-48 btn-primary text-white mt-20">Ajouter au panier</button>
 </div>
 
 <style>

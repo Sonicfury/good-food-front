@@ -9,7 +9,8 @@
     cart.update(c => ({
         ...c, 
         restaurentId: `${restaurantItem.id}`, 
-        restaurantName: restaurantItem.name
+        restaurantName: restaurantItem.name,
+        items: []
     }))
 
     await goto(`carte?isTakeaway=${isTakeaway}`)

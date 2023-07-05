@@ -6,6 +6,7 @@
   import type { Cart } from '$lib/models/cart'
   import { goto } from '$app/navigation'
   import type { Product } from '$lib/models/product'
+  import { browser } from '$app/environment'
 
   let urlBack: string = 'restaurants'
   let selectedCategorie = 'menus'
@@ -13,12 +14,12 @@
   let products = [] as Array<object>
   let otherProducts: Product[] = []
   let messageError = 'test' as string
-  let isMessageError = false as boolean
-  let isSucess = false as boolean
+  let isMessageError = false 
+  let isSucess = false 
   let isLoading = false;
   let cartStore: Cart
 
-  $: if (selectedCategorie) {
+  $: if (selectedCategorie && browser) {
     getProduct(selectedCategorie)
   }
 
@@ -75,7 +76,7 @@
   }
 </script>
 
-<!-- <MobileHeader bind:goBack="{urlBack}" bind:pageName="{$cart.restaurantName}" /> -->
+<MobileHeader bind:goBack="{urlBack}" bind:pageName="{$cart.restaurantName}" />
 {#if categories.length > 0}
     <div class="flex h-fit gap-4 overflow-x-scroll my-4 p-4">
         <button class="btn" class:btn-primary={selectedCategorie === 'menus'} on:click={() => (selectedCategorie = 'menus')}>Menus</button>
