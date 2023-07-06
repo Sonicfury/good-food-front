@@ -1,7 +1,7 @@
 <script lang="ts">
   import { page } from '$app/stores'
   import Icon from './Icon.svelte'
-  import { mdiChevronLeft, mdiClose } from '@mdi/js'
+  import { mdiChevronLeft, mdiSilverware } from '@mdi/js'
 
   export let pageName: string
   export let goBack: string
@@ -16,7 +16,5 @@
     <h1 class="text-2xl text-primary">Good Food</h1>
     <h2 class="text-xl">{pageName}</h2>
   </div>
-  {#if showIcons}
-  <a class="btn btn-circle btn-ghost" href="/app/dashboard"><Icon clazz="w-6 h-6" path="{mdiClose}" /> </a>
-  {/if}
+  <a class="btn btn-circle btn-ghost" href="/app/dashboard"><Icon clazz="w-6 h-6" path="{mdiSilverware}" /> </a>
 </div>

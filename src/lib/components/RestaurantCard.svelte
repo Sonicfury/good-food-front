@@ -15,7 +15,7 @@
     }))
 
     await goto(`carte`)
-    toasts.success(`Bienvenue chez Good Food - ${restaurantItem.name} !`)
+    toasts.success(`<p>Bienvenue chez Good Food</p><p>${restaurantItem.name} !</p>`)
   }
 </script>
 

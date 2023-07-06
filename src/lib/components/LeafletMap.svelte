@@ -10,6 +10,7 @@
   import { cart } from '$lib/stores/cart'
   import type { Cart, CartItem } from '$lib/models/cart'
   import { goto } from '$app/navigation'
+  import { toasts } from '$lib/stores/toasts'
 
   async function choseRestaurant(isTakeaway: boolean) {
     cart.update(c => ({
@@ -21,6 +22,7 @@
     }))
 
     await goto(`carte`)
+    toasts.success(`<p>Bienvenue chez Good Food</p><p>${selectedRestaurant.name} !</p>`)
   }
 
   export let restaurantsList: Array<Restaurant>
