@@ -3,8 +3,9 @@
   import ToastNoti from '$lib/components/ToastNoti.svelte'
   import '../app.postcss'
 </script>
-
+<div class="touch-manipulation">
 <slot />
+</div>
 <style>
     .toast {
         z-index: 10000;
