@@ -50,7 +50,7 @@
     getCategories()
   }
 
-  $: if (carteItemName === 'offers' && browser) {
+  $: if (carteItemName === 'offers' && browser || carteItemName === 'menus') {
     getProducts()
     getMenus()
   }
@@ -181,7 +181,8 @@
         />
       </label>
     </div>
-    {#if offersEntity === 1}
+    {/if}
+    {#if carteItemName === 'offers' && !item.id && offersEntity === 1 || carteItemName === 'menus'}
       <label class="label">
         <span class="label-text">Produits</span>
       </label>
@@ -191,7 +192,7 @@
         {/each}
       </select>
     {/if}
-    {#if offersEntity === 2}
+    {#if  carteItemName === 'offers' && !item.id && offersEntity === 2}
       <label class="label">
         <span class="label-text">Menus</span>
       </label>
@@ -201,5 +202,5 @@
         {/each}
       </select>
     {/if}
-  {/if}
+ 
 </div>

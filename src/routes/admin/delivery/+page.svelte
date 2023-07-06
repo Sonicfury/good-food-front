@@ -25,13 +25,7 @@
         firstname: null,
         lastname: null,
         email: null,
-        password: 'Test67test' as string,
-        roles: [
-            { 
-                "name": "deliveryman",
-                "id": "2"
-            }
-        ]
+        roles: "deliveryman",
     }
     onMount(async () => {
         getEmployer()

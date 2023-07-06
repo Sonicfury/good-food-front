@@ -27,6 +27,7 @@ export const POST: RequestHandler = async ({ cookies, request }) => {
   formData.append('id', images.id)
   formData.append('model', images.model)
   formData.append('image', images.image)
+  formData.append('_method', 'PUT')
   const image = await fetch(`${import.meta.env.VITE_API_URL}/medias`, {
     method: 'POST',
     body: formData,

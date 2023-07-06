@@ -12,7 +12,19 @@ export const POST: RequestHandler = async ({ cookies, request }) => {
       Accept: 'application/json',
     },
   })
+
   const requestBody = await response.json()
+  const productMenus = await fetch(
+    `${import.meta.env.VITE_API_URL}/menus/${requestBody.data.id}/products/${data.products.id}`,
+    {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        Authorization: `Bearer ${cookies.get('session')}`,
+        Accept: 'application/json',
+      },
+    },
+  )
   if (requestBody.success) {
     return new Response(JSON.stringify({ data: requestBody.data }), { status: 200 })
   } else {
