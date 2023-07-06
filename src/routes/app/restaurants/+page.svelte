@@ -90,9 +90,6 @@
 {/if}
 
 <style>
-  .loaderBar {
-    margin-top: 200px;
-  }
   .z-index {
     z-index: 9999;
   }

@@ -5,8 +5,7 @@ export type Restaurant = {
     address2: string
     zipCode: string
     city: string
-    primaryPhone: string
-    secondaryPhone: string
+    phone: string
     lat: string
     long: string
 }

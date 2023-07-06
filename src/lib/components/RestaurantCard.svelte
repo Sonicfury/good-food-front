@@ -2,6 +2,7 @@
   import type { Restaurant } from '../models/restaurant'
   import { cart } from '$lib/stores/cart'
   import { goto } from '$app/navigation'
+  import { toasts } from '$lib/stores/toasts'
 
   export let restaurantItem: Restaurant
 
@@ -13,12 +14,13 @@
         items: []
     }))
 
-    await goto(`carte?isTakeaway=${isTakeaway}`)
+    await goto(`carte`)
+    toasts.success(`Bienvenue chez Good Food - ${restaurantItem.name} !`)
   }
 </script>
 
 <div class="flex justify-center p-4">
-  <div class="card lg:card-side bg-white shadow-lg text-neutral-content">
+  <div class="card lg:card-side w-full bg-white shadow-lg text-neutral-content">
       <figure>
       <img
         alt="restaurant-picture"
@@ -30,7 +32,7 @@
         <h3 class="card-title">{restaurantItem.name}</h3>
         <h4>{restaurantItem.city}</h4>
         <p>{restaurantItem.address1}</p>
-        <p>{restaurantItem.primaryPhone}</p>
+        <p>{restaurantItem.phone}</p>
     </div>
     <div class="card-actions p-4 justify-center items-center">
         <button 

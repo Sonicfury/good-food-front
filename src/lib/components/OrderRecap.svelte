@@ -59,7 +59,7 @@
 
     {#each order.ordered as orderItem}
       {#if orderItem.product}
-        <p class="mt-10">{orderItem.product.name} {orderItem.product.price} €</p>
+        <p class="mt-10">{orderItem.product.name} {orderItem.product.price.toFixed(2)} €</p>
       {/if}
     {/each}
     <p class="mt-10 font-bold">Total: {order.total}</p>

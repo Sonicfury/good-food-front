@@ -3,7 +3,6 @@
   import MobileHeader from '$lib/components/MobileHeader.svelte'
   import { cart } from '$lib/stores/cart'
   import { toasts } from '$lib/stores/toasts'
-  import { get } from 'svelte/store'
 
   export let data
   const { product } = data
@@ -20,33 +19,17 @@
   }
 
   async function addToCart() {
-    const storeCart = get(cart)
-    if (get(cart)) {
-      storeCart.items.push({
-        id: product.id,
-        name: product.name,
-        price: product.price,
-        quantity: quantity,
-      })
-      const price = Number(product.price) * Number(quantity)
-      storeCart.totalPrice = Number(storeCart.totalPrice) + price
-      cart.update((cart) => storeCart)
-    } else {
-      const cartStore = {
-        items: [
-          {
-            id: product.id,
-            name: product.name,
-            price: product.price,
-            quantity: quantity,
-          },
-        ],
-        totalPrice: product.price,
-      }
-      cart.update((cart) => cartStore)
+    if (cart && quantity > 0) {
+      cart.update((cart) => ({
+        ...cart,
+        items: [...cart.items, { id: product.id, name: product.name, price: product.price, quantity: quantity }],
+      }))
+      await goto('/app/carte')
+      quantity > 0 && toasts.success(`${quantity} ${product.name} ajouté.e(s) au panier`)
+      return
     }
-    await goto('/app/carte')
-    toasts.success(`${product.name} ajouté au panier`)
+
+    toasts.info('Il en faut au moins 1 !')
   }
 </script>
 
@@ -57,7 +40,7 @@
     <img src={`${import.meta.env.VITE_BACK_URL}${product.image.url}`} class="w-60" />
   </figure>
   <p class="m-5 h-2">{product.name}</p>
-  <h4>{product.price} €</h4>
+  <h4>{Number(product.price).toFixed(2)} €</h4>
   <div class="custom-number-input h-10 w-32 mt-10">
     <div class="flex flex-row h-10 w-full rounded-lg relative mt-1 border-primary">
       <button
@@ -68,7 +51,6 @@
         <span class="m-auto text-2xl font-thin text-primary">−</span>
       </button>
       <input
-        type="number"
         class=" border-y	border-primary outline-none focus:outline-none text-center w-full font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700  outline-none"
         name="custom-input-number"
         value="{quantity}"

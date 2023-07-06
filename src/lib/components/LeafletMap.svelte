@@ -8,9 +8,7 @@
   let selectedRestaurant: Restaurant
   let displayModal = false
   import { cart } from '$lib/stores/cart'
-  import { get } from 'svelte/store'
   import type { Cart, CartItem } from '$lib/models/cart'
-  import { page } from '$app/stores'
   import { goto } from '$app/navigation'
 
   async function choseRestaurant(isTakeaway: boolean) {
@@ -18,10 +16,11 @@
         ...c, 
         restaurentId: `${selectedRestaurant.id}`, 
         restaurantName: selectedRestaurant.name,
+        isTakeaway,
         items: [] as CartItem[]
     }))
 
-    await goto(`carte?isTakeaway=${isTakeaway}`)
+    await goto(`carte`)
   }
 
   export let restaurantsList: Array<Restaurant>
@@ -79,7 +78,7 @@
       <div id="restaurant-info " class="card-body">
         <h4 class="card-title">{selectedRestaurant.name}</h4>
         <h5>{selectedRestaurant.city}</h5>
-        <p>{selectedRestaurant.primaryPhone}</p>
+        <p>{selectedRestaurant.phone}</p>
         <div class="card-actions justify-center lg:flex-col">
           <button on:click="{() => choseRestaurant(true)}" class="btn w-48 btn-primary text-white"
             >Click and collect</button

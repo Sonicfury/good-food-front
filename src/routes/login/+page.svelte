@@ -4,6 +4,7 @@
   import { session } from '$lib/stores/session'
   import { onMount } from 'svelte'
   import { isAuthenticated } from '$lib/helpers/guard'
+  import { toasts } from '$lib/stores/toasts'
 
   type LoginForm = {
     email: string
@@ -63,15 +64,18 @@
 
     if (userResponse.data) {
       if (isOrder) {
-        window.location.href = '/app/checkout/adresse'
+        await goto('/app/checkout/adresse')
         session.update((session) => userResponse.data)
+
+        toasts.success(`Bienvenue, ${$session.user.firstname} !`)
       } else {
         session.update((session) => userResponse.data)
         if (userResponse.data.user.roles[0].name === 'admin' || userResponse.data.user.roles[0].name === 'employee') {
-          window.location.href = '/admin/order'
+          await goto('/admin/order')
         } else {
-          window.location.href = '/app/dashboard'
+          await goto('/app/dashboard')
         }
+        toasts.success(`Bienvenue, ${$session.user.firstname} !`)
 
         return
       }

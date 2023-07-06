@@ -1,15 +1,11 @@
 <script lang="ts">
     import type { Product } from '$lib/models/product.ts'
     import Icon from '$lib/components/Icon.svelte'
-    import { mdiCircleEditOutline } from '@mdi/js'
     import { mdiDeleteOutline } from '@mdi/js'
-    import { page } from '$app/stores'
-    import CarteForm from '$lib/components/CarteForm.svelte'
     import type { Category } from '$lib/models/category'
     import { onMount } from 'svelte'
     import { paginate, LightPaginationNav } from 'svelte-paginate'
     import Search from '$lib/components/Search.svelte'
-    import { createEventDispatcher } from 'svelte'
     import Modal from '$lib/components/Modal.svelte'
    
     let items: Array<Category | Product> = []
@@ -17,7 +13,6 @@
     let pageSize: number = 5
     let paginatedItems: Array<Category | Product> = []
     let searchTerm: string = ''
-    let itemToPut = null
     let showModal: boolean = false
     let editItem = {}
     let employes = []
@@ -35,7 +30,6 @@
     async function getEmployer(){
         const res = await fetch('/api/deliveryMen')
         employes = await res.json()
-        console.log(employes, 'employes')
         employes = employes.data.filter(employe => employe.roles[0].name === "deliveryman");
     }
   

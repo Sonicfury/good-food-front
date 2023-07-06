@@ -5,7 +5,12 @@
 </script>
 
 <slot />
- <div class="toast toast-start lg:toast-end">
+<style>
+    .toast {
+        z-index: 10000;
+    }
+</style>
+ <div class="toast toast-start lg:toast-end ">
     {#each $toasts as toast, i (toast.id)}
         <ToastNoti {toast} />
     {/each}

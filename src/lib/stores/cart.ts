@@ -22,5 +22,8 @@ export const cart: Writable<Cart> = writable(localCart ? JSON.parse(localCart) :
 
 // Updates localStorage on store update
 if (browser) {
-  cart.subscribe((cart) => window.localStorage.setItem('cart', JSON.stringify(cart)))
+  cart.subscribe((cart) => {
+      cart.totalPrice = cart.items.reduce((acc, curr) => acc + (Number(curr.price) * Number(curr.quantity)), 0)
+      window.localStorage.setItem('cart', JSON.stringify(cart))
+  })
 }

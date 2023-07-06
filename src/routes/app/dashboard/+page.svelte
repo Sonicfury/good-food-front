@@ -79,5 +79,7 @@
     <RestaurantCard bind:restaurantItem="{restaurant}" />
   {/each}
 {:else}
-          <span class="loading loading-infinity loading-lg text-primary"></span>
+          <div class="flex w-full mt-24 justify-center">
+              <span class="loading loading-infinity loading-lg text-primary"></span>
+          </div>
 {/if}
