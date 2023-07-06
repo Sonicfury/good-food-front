@@ -25,6 +25,7 @@
         firstname: null,
         lastname: null,
         email: null,
+        password: "",
         roles: "deliveryman",
     }
     onMount(async () => {

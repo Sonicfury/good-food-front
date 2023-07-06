@@ -37,8 +37,15 @@
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(map)
 
+    var greenIcon = L.icon({
+        iconUrl: 'https://img.icons8.com/officel/16/marker.png',
+        shadowUrl: 'https://img.icons8.com/officel/16/marker.png',
+
+        iconSize: [50, 50], 
+    });
+
     restaurantsList.forEach((restaurant) => {
-      L.marker([restaurant.lat, restaurant.long])
+      L.marker([restaurant.lat, restaurant.long], {icon: greenIcon})
         .addTo(map)
         .on('click', function (e) {
           selectedRestaurant = restaurant
