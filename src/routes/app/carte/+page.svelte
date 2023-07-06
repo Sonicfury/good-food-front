@@ -102,7 +102,7 @@
     {/each}
   {:else}
     <div class="flex justify-center loaderBar">
-      <progress class="progress color-neutral w-6/12 progress-warning"></progress>
+      <span class="loading loading-infinity loading-lg text-primary"></span>
     </div>
   {/if}
   {#if !products.length && !isLoading}

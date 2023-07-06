@@ -79,7 +79,5 @@
     <RestaurantCard bind:restaurantItem="{restaurant}" />
   {/each}
 {:else}
-  <div class="flex justify-center loaderBar">
-    <progress class="progress color-neutral w-6/12 progress-warning"></progress>
-  </div>
+          <span class="loading loading-infinity loading-lg text-primary"></span>
 {/if}

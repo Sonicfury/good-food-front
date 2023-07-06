@@ -83,26 +83,26 @@
     <button
       on:click="{() => getCarteItem('categories')}"
       class="{carteItemName === 'categories'
-        ? 'tab-active tab tab-bordered text-xl text-black'
-        : 'tab tab-bordered text-xl text-black'}	">Catégories</button
+        ? 'tab-active tab tab-bordered tab-lg text-black'
+        : 'tab tab-bordered tab-lg text-black'}	">Catégories</button
     >
     <button
       on:click="{() => getCarteItem('menus')}"
       class="{carteItemName === 'menus'
-        ? 'tab-active tab tab-bordered text-xl text-black'
-        : 'tab tab-bordered text-xl text-black'}	">Menus</button
+        ? 'tab-active tab tab-bordered tab-lg text-black'
+        : 'tab tab-bordered tab-lg text-black'}	">Menus</button
     >
     <button
       on:click="{() => getCarteItem('products')}"
       class="{carteItemName === 'products'
-        ? 'tab-active tab tab-bordered text-xl text-black'
-        : 'tab tab-bordered text-xl text-black'}	">Produits</button
+        ? 'tab-active tab tab-bordered tab-lg text-black'
+        : 'tab tab-bordered tab-lg text-black'}	">Produits</button
     >
     <button
       on:click="{() => getCarteItem('offers')}"
       class="{carteItemName === 'offers'
-        ? 'tab-active tab tab-bordered text-xl text-black'
-        : 'tab tab-bordered text-xl text-black'}	">Promotions</button
+        ? 'tab-active tab tab-bordered tab-lg text-black'
+        : 'tab tab-bordered tab-lg text-black'}	">Promotions</button
     >
   </div>
 </div>

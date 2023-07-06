@@ -130,7 +130,10 @@
           </div>
         </div>
       {/if}
-      <button type="submit" class="btn mt-10 btn-primary text-base-100 w-32" class:loading="{isLoading}">
+      <button type="submit" class="btn mt-10 btn-primary text-base-100 w-32">
+        {#if isLoading}
+        <span class="loading loading-spinner text-secondary"></span>
+        {/if}
         Valider
       </button>
       <a href="/register" class="text-primary mt-5 cursor-pointer">Où s'inscrire ?</a>

@@ -3,7 +3,6 @@
   import Icon from './Icon.svelte'
   import { mdiCircleEditOutline } from '@mdi/js'
   import { mdiDeleteOutline } from '@mdi/js'
-  import { page } from '$app/stores'
   import CarteForm from './CarteForm.svelte'
   import type { Category } from '$lib/models/category'
 
@@ -15,14 +14,12 @@
 
   export let carteItemName: string
   export let cartefetchItem: Array<Category | Product>
-  const isActive = (path: string) => $page.route.id === path
 
   let items: Array<Category | Product> = []
   let currentPage: number = 1
   let pageSize: number = 5
   let paginatedItems: Array<Category | Product> = []
   let searchTerm: string = ''
-  let itemToPut = null
   let showModal: boolean = false
   let editItem = {}
 
@@ -71,6 +68,15 @@
     showModal = false
     editItem = {}
   }
+
+  const columns: Record<string, string[]> = {
+    products: ['Id', 'Nom', 'Prix', 'Catégorie', 'Actions'],
+    menus: ['Id', 'Nom', 'Prix', 'Actions'],
+    categories: ['Id', 'Nom', 'Actions'],
+    offers: ['Id', 'Nom', 'Réduction (%)', 'Actions'],
+    restaurants: ['Id', 'Nom', 'Adresse', 'Code postal', 'Ville', 'Téléphone', 'Actions'],
+  }
+
 </script>
 
 <div class=" flex justify-around mt-24 mb-4">
@@ -83,27 +89,21 @@
   <table class="table w-3/4">
     <thead>
       <tr>
-        <th>id </th>
-        <th>Nom </th>
-        {#if carteItemName === 'products' || carteItemName === 'menus'}
-          <th>Prix </th>
-        {/if}
-        {#if carteItemName === 'products'}
-          <td>Catégorie</td>
-        {/if}
-        {#if carteItemName === 'offers'}
-          <td>Pourcentage</td>
-        {/if}
-        {#if carteItemName === 'restaurants'}
-          <td>Adresse</td>
-          <td>Code postal</td>
-          <td>Ville</td>
-          <td>Téléphone</td>
-        {/if}
-        <th>Actions</th>
+        {#each columns[carteItemName] as col}  
+           <th>{col}</th> 
+        {/each}  
       </tr>
     </thead>
     <tbody class="bg-white">
+      {#if !paginatedItems.length} 
+      <tr>
+        <td colspan={columns[carteItemName]?.length}>
+          <div class="flex w-full justify-center">
+            <span class="loading loading-infinity loading-lg text-primary"></span>
+          </div>
+        </td>
+      </tr>
+      {/if}
       {#each paginatedItems as carteItem}
         <tr>
           <th>{carteItem.id}</th>
@@ -123,21 +123,21 @@
             <td>{carteItem.city}</td>
             <td>{carteItem.primaryPhone}</td>
           {/if}
-          <td class="flex content-row">
-            <button on:click="{() => openModalWithItem(carteItem)}">
+          <td class="flex content-row gap-4">
+            <button class="btn btn-circle btn-ghost" on:click="{() => openModalWithItem(carteItem)}">
               <Icon
                 path="{mdiCircleEditOutline}"
                 clazz="{'fill-success'}"
               />
             </button>
-            <button on:click="{() => deleteItem(carteItem.id)}">
+            <button class="btn btn-circle btn-ghost" on:click="{() => deleteItem(carteItem.id)}">
               <Icon path="{mdiDeleteOutline}" clazz="{'fill-primary'}"/>
             </button>
           </td>
         </tr>
         {#if showModal}
           <Modal>
-            <CarteForm carteItemName="{carteItemName}" item="{editItem}"/>
+            <CarteForm carteItemName="{carteItemName}" item="{editItem}" />
             <div class=" flex content-row justify-center m-6">
               <button on:click="{() => closeModal()}" class="btn btn-error text-white m-2">Annuler</button>
               <button on:click="{() => putItem(editItem)}" class="btn btn-success text-white m-2"> Valider</button>
