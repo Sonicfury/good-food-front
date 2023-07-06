@@ -105,7 +105,7 @@
       <progress class="progress color-neutral w-6/12 progress-warning"></progress>
     </div>
   {/if}
-  {#if !products.length}
+  {#if !products.length && !isLoading}
     <span class="text-slate-500">
         Aucun produit disponible dans cette catégorie !
     </span>
