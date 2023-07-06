@@ -20,11 +20,11 @@
 </script>
 
 <div class="flex justify-center p-4">
-  <div class="card lg:card-side w-full bg-white shadow-lg text-neutral-content">
-      <figure>
+  <div class="card lg:card-side w-full lg:max-h-[16rem] bg-white shadow-lg text-neutral-content">
+      <figure class="lg:max-w-[40%] max-h-[16rem]">
       <img
         alt="restaurant-picture"
-        class="picture"
+        class=""
         src={`${import.meta.env.VITE_BACK_URL}${restaurantItem.image.url}`}
         />
       </figure>
