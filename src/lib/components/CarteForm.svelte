@@ -19,7 +19,7 @@
   let base64;
 
   const handleFileSelected = (event) => {
-    item.image = event.detail
+    //item.image = event.detail
   };
 
   async function getCategories() {

@@ -42,7 +42,7 @@ export const PUT: RequestHandler = async ({ cookies, request }): Promise<Respons
   const categoryId = data.id
   const response = await fetch(`${import.meta.env.VITE_API_URL}/categories/` + categoryId, {
     method: 'PUT',
-    body: JSON.stringify(data),
+    body: JSON.stringify(data.name),
     headers: {
       'content-type': 'application/json',
       Authorization: `Bearer ${cookies.get('session')}`,

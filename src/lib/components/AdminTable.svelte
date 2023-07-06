@@ -121,7 +121,7 @@
             <td>{carteItem.address1}</td>
             <td>{carteItem.zipCode}</td>
             <td>{carteItem.city}</td>
-            <td>{carteItem.primaryPhone}</td>
+            <td>{carteItem.phone}</td>
           {/if}
           <td class="flex content-row gap-4">
             <button class="btn btn-circle btn-ghost" on:click="{() => openModalWithItem(carteItem)}">
