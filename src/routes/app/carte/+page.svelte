@@ -87,19 +87,24 @@
     </div>
 {/if}
 
-<div class="flex flex-wrap gap-8 p-4 justify-center w-full">
+<div class="card flex flex-wrap gap-8 p-4 justify-center w-full">
+
   {#if products && !isLoading}
     {#each products as product}
-        <div on:click={async () => await goto(`carte/${product.id}`)} class="card w-full cursor-pointer max-w-md min-w-max bg-neutral shadow-lg">
-          <div class="card-body">
-            <figure class="">
-              <img src="/images/buger.png" alt="Shoes" class="" />
-            </figure>
-            <span class="card-title">{product.name}</span>
-            <div class="card-actions justify-end">{product.price} €</div>
+        <div class="flex justify-center p-4 ">
+          <div on:click={async () => await goto(`carte/${product.id}${selectedCategorie === 'menus' ? '?menus=true' : '?menus=false'}`)} 
+            class="card w-full cursor-pointer max-w-md min-w-max bg-neutral shadow-lg">
+            <div class="card-body">
+              <figure class="">
+                <img class="w-48" src={`${import.meta.env.VITE_BACK_URL}${product.image.url}`} />
+              </figure>
+              <span class="card-title">{product.name}</span>
+              <div class="card-actions justify-end">{product.price} €</div>
+            </div>
           </div>
         </div>
     {/each}
+    
   {:else}
     <div class="flex justify-center loaderBar">
       <span class="loading loading-infinity loading-lg text-primary"></span>

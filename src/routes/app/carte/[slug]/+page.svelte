@@ -54,7 +54,7 @@
 
 <div class="flex justify-center flex-col items-center	">
   <figure class="px-20 pt-20 w-50">
-    <img src="/images/buger.png" class="w-60" />
+    <img src={`${import.meta.env.VITE_BACK_URL}${product.image.url}`} class="w-60" />
   </figure>
   <p class="m-5 h-2">{product.name}</p>
   <h4>{product.price} €</h4>

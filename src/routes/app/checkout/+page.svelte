@@ -59,7 +59,7 @@
 <div class="flex items-center flex-col">
   {#each cartStore.items as item}
     <div class=" border	border-grey h-full w-20 rounded-l cursor-pointer flex flex-row cartCard">
-      <img src="/images/buger.png" />
+      <img src={`${import.meta.env.VITE_BACK_URL}${product.image.url}`} />
       <div>
         <p>{item.name}</p>
         <span> {item.price} $</span>
