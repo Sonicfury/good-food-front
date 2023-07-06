@@ -18,6 +18,24 @@ export const POST: RequestHandler = async ({ cookies, request }) => {
     },
   })
   const requestBody = await response.json()
+  const images = {
+    id: requestBody.data.id,
+    model: 'product',
+    image: data.image,
+  }
+  const formData = new FormData()
+  formData.append('id', images.id)
+  formData.append('model', images.model)
+  formData.append('image', images.image)
+  const image = await fetch(`${import.meta.env.VITE_API_URL}/medias`, {
+    method: 'POST',
+    body: formData,
+    headers: {
+      'content-type': 'multipart/form-data',
+      Authorization: `Bearer ${cookies.get('session')}`,
+      Accept: 'application/json',
+    },
+  })
   if (requestBody.success) {
     return new Response(JSON.stringify({ data: requestBody.data }), { status: 200 })
   } else {

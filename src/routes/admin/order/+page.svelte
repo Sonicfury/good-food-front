@@ -73,8 +73,9 @@
       const minute = date.getMinutes()
 
       order.createdAt = `${jour}/${mois} ${heure}:${minute}`
-
-      baskets[order.state].items.push(order)
+      if( baskets[order.state]){
+        baskets[order.state].items.push(order)
+      }
     })
     loadOrder = false
   }

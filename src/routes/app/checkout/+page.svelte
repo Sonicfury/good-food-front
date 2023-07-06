@@ -56,6 +56,7 @@
   </ul>
 </div>
 {#if cartStore}
+<div class="flex items-center flex-col">
   {#each cartStore.items as item}
     <div class=" border	border-grey h-full w-20 rounded-l cursor-pointer flex flex-row cartCard">
       <img src="/images/buger.png" />
@@ -92,7 +93,7 @@
       </a>
     </div>
   {/each}
-
+</div>
   <template>
     <div class="container mx-auto px-4">
       <div class="flex justify-between mb-4">
@@ -117,12 +118,19 @@
   .cartCard {
     width: 90%;
     padding: 25px;
-    margin: 40px;
+    margin: 10px;
     border-radius: 15px;
     align-items: center;
     justify-content: space-between;
   }
   .stepper {
-    margin: 60px;
+    display: block;
+    margin: 10px;
   }
+  @media screen and (max-width: 780px){
+  .stepper {
+    display: none;
+    margin: 10px;
+  }
+}
 </style>

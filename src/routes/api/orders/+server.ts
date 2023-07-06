@@ -3,9 +3,9 @@ import type { User } from '$lib/models/user'
 
 export const POST: RequestHandler = async ({ cookies, request }) => {
   const data = await request.json()
-
-  //data.customer_id =
   data.customer_id = cookies.get('userId')
+  data.employee_id = '1'
+  data.addresses_id = '1'
   const response = await fetch(`${import.meta.env.VITE_API_URL}/orders`, {
     method: 'POST',
     body: JSON.stringify(data),
