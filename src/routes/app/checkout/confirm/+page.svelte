@@ -7,6 +7,7 @@
   let urlBack = 'payment'
   let pageName = 'Checkout'
   import { get } from 'svelte/store'
+  import { toasts } from '$lib/stores/toasts'
 
   onMount(async () => {
     const storeCart = get(cart)
@@ -35,12 +36,23 @@
         body: JSON.stringify(productOrder),
       })
     })
-  })
+
+    toasts.success("<p>Merci pour votre commande,</p><p>c'est en cuisine !</p>")
+
+    cart.update(cart => ({
+        items: [],
+        totalPrice: 0,
+        isTakeaway: cart.isTakeaway,
+        restaurentId: cart.restaurentId,
+        restaurantName: cart.restaurantName
+    }))
+    })
+
 </script>
 
 <MobileHeader bind:goBack="{urlBack}" bind:pageName="{pageName}" />
 
-<div class="stepper">
+<div class="stepper hidden lg:block mb-12">
   <ul class="steps w-full">
     <li class="step step-primary">Panier</li>
     <li class="step step-primary">Adresse</li>
@@ -50,9 +62,9 @@
 </div>
 
 <div class="flex justify-center flex-col items-center">
-  <h3 class="text-4xl mb-20 center mt-20">Commande comfirmée</h3>
-  <img src="../../images/checkIcon.png" class="w-44" alt="icon" />
-  <a href="delivery">
+  <h3 class="text-3xl mb-20 center mt-20">Commande comfirmée</h3>
+  <img src="../../images/checkIcon.png" class="w-36" alt="icon" />
+  <button on:click="{() => toasts.info("Bientôt, c'est promis !")}">
     <button class=" btn btn-outline  btn-primary text-white"> Suivre ma livraison </button>
-  </a>
+  </button>
 </div>

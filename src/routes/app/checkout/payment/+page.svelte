@@ -6,7 +6,7 @@
 
 <MobileHeader bind:goBack="{urlBack}" bind:pageName="{pageName}" />
 
-<div class="stepper">
+<div class="stepper hidden lg:block mb-12">
   <ul class="steps w-full">
     <li class="step step-primary">Panier</li>
     <li class="step step-primary">Adresse</li>

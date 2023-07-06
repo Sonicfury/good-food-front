@@ -29,7 +29,7 @@
 
 <MobileHeader bind:goBack="{urlBack}" bind:pageName="{pageName}" />
 
-<div class="stepper">
+<div class="stepper hidden lg:block mb-12">
   <ul class="steps w-full">
     <li class="step step-primary">Panier</li>
     <li class="step">Adresse</li>
@@ -106,14 +106,4 @@
 </div>
 
 <style>
-  .stepper {
-    display: block;
-    margin: 10px;
-  }
-  @media screen and (max-width: 780px) {
-    .stepper {
-      display: none;
-      margin: 10px;
-    }
-  }
 </style>
