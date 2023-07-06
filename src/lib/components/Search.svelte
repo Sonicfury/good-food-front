@@ -25,7 +25,7 @@
   <input
     type="text"
     placeholder="{placeholder}"
-    class="input w-80 max-w-xs bg-neutral search-btn placeholder-black"
+    class="input w-80 max-w-xs bg-neutral search-btn placeholder-neutral-content"
     bind:value="{searchTerm}"
     on:input
   />
