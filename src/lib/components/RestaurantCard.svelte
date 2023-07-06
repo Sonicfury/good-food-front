@@ -22,8 +22,9 @@
       <figure>
       <img
         alt="restaurant-picture"
-        src="https://media.istockphoto.com/id/931308812/fr/photo/s%C3%A9lection-de-la-nourriture-am%C3%A9ricaine.jpg?s=612x612&w=0&k=20&c=dg395z__O5wl6bitmkvychwTH4d7bsRa57qf2a2L_HE="
-      />
+        class="picture"
+        src={`${import.meta.env.VITE_BACK_URL}${restaurantItem.image.url}`}
+        />
       </figure>
     <div class="card-body p-4 flex flex-col">
         <h3 class="card-title">{restaurantItem.name}</h3>
@@ -45,3 +46,10 @@
         </div>
   </div>
 </div>
+
+<style>
+  .picture{
+    width: 500px;
+    height: 200px;
+  }
+</style>
