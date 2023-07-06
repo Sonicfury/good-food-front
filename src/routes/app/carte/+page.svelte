@@ -94,10 +94,11 @@
             await goto(`carte/${product.id}${selectedCategorie === 'menus' ? '?menus=true' : '?menus=false'}`)}"
           class="card cursor-pointer max-w-[20rem] min-w-max bg-neutral shadow-lg"
         >
+        {#if product.image}
           <figure class="max-h-[12rem] max-w-[20rem]">
-            <img class=" object-cover " src="{`${import.meta.env.VITE_BACK_URL}${product.image.url}`}" />
+            <img class=" object-cover " src="{`${import.meta.env.VITE_BACK_URL}${product.image?.url}`}" />
           </figure>
-
+        {/if}
           <div class="card-body">
             <span class="card-title">{product.name}</span>
             <div class="card-actions justify-end">{product.price} €</div>
