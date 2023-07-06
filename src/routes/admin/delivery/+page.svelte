@@ -28,7 +28,8 @@
         password: 'Test67test' as string,
         roles: [
             { 
-                "name": "deliveryman"
+                "name": "deliveryman",
+                "id": "2"
             }
         ]
     }
@@ -39,6 +40,7 @@
     async function getEmployer(){
         const res = await fetch('/api/deliveryMen')
         employes = await res.json()
+        console.log(employes, 'employes')
         employes = employes.data.filter(employe => employe.roles[0].name === "deliveryman");
     }
   
