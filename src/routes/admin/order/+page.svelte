@@ -1,45 +1,18 @@
 <script lang="ts">
-  import { flip } from 'svelte/animate'
   import { onMount } from 'svelte'
   import Alert from '$lib/components/Alert.svelte'
   import Modal from '$lib/components/Modal.svelte'
   import OrderRecap from '$lib/components/OrderRecap.svelte'
-  let loadOrder = true
+  let isLoading = true
   let alertMessage = ''
-  let isLoading = false
   let alertLevel: 'error' | 'success' | 'warning' | 'info' = 'error'
   let showAlert = false
   let showModal: boolean = false
   let order = null
 
-  let baskets = [
-    {
-      name: 'Nouveau',
-      items: [],
-    },
-    {
-      name: 'En preparation',
-      items: [],
-    },
-    {
-      name: 'Prete',
-      items: [],
-    },
-    {
-      name: 'En livraison',
-      items: [],
-    },
-    {
-      name: 'Terminee',
-      items: [],
-    },
-  ]
-
+  type Basket = { name: string; items: any[] }
+  let baskets: Basket[]
   onMount(async () => {
-    getOrders()
-  })
-
-  async function getOrders() {
     baskets = [
       {
         name: 'Nouveau',
@@ -60,48 +33,43 @@
       {
         name: 'Terminee',
         items: [],
-      }  
-    ] 
-    loadOrder = true
+      },
+    ]
+
+    getOrders()
+  })
+
+  async function getOrders() {
+    isLoading = true
     const response = await fetch('/api/ordereds')
     const orders = await response.json()
-    orders.data.forEach((order) => {
-      const date = new Date(order.createdAt)
-      const jour = date.getDate()
-      const mois = date.getMonth() + 1
-      const heure = date.getHours()
-      const minute = date.getMinutes()
-
-      order.createdAt = `${jour}/${mois} ${heure}:${minute}`
-      if( baskets[order.state]){
-        baskets[order.state].items.push(order)
-      }
+    baskets = baskets.map((basket, idx ) => {
+        basket.items = [...orders.data.filter((o) => o.state === `${idx}`)]
+        return basket
     })
-    loadOrder = false
+    isLoading = false
   }
 
   let hoveringOverBasket
-
   function dragStart(event, basketIndex, itemIndex) {
     const data = { basketIndex, itemIndex }
     event.dataTransfer.setData('text/plain', JSON.stringify(data))
   }
 
-  async function drop(event, basketIndex) {
-   
+  async function move(event, basketIndex) {
     event.preventDefault()
     const json = event.dataTransfer.getData('text/plain')
     const data = JSON.parse(json)
     const [item] = baskets[data.basketIndex].items.splice(data.itemIndex, 1)
 
-    baskets[basketIndex].items.push(item)
-    baskets = baskets
+    baskets[basketIndex].items = [...baskets[basketIndex].items, item]
 
     hoveringOverBasket = null
     item.state = basketIndex.toString()
-    upadateOrder(item)
+    await updateOrder(item)
+    await getOrders()
   }
-  async function upadateOrder(item) {
+  async function updateOrder(item) {
     item.employee_id = item.employee
     const response = await fetch('/api/orders', {
       method: 'PUT',
@@ -120,7 +88,6 @@
       showAlert = true
     }
     showModal = false
-    getOrders()
   }
 
   function closeModal() {
@@ -128,43 +95,45 @@
   }
 </script>
 
-<div class="flex w-full p-20">
+<div class="flex w-full gap-4 my-24 px-8">
   {#if showAlert}
     <Alert level="{alertLevel}" message="{alertMessage}" />
   {/if}
-  {#if !loadOrder}
+  {#if !isLoading || baskets}
     {#each baskets as basket, basketIndex (basket)}
-      <div animate:flip class="w-1/3">
+      <div class="w-1/3">
         <h1 class="text-3xl">{basket.name}</h1>
         <ul
-        class="p-0 items-center	"
+          class="gap-2 p-2 bg-base-200 rounded shadow-inner"
           class:hovering="{hoveringOverBasket === basket.name}"
           on:dragenter="{() => (hoveringOverBasket = basket.name)}"
           on:dragleave="{() => (hoveringOverBasket = null)}"
-          on:drop="{(event) => drop(event, basketIndex)}"
+          on:drop="{(event) => move(event, basketIndex)}"
           ondragover="return false"
         >
           {#each basket.items as item, itemIndex (item)}
-         
-            <div class="item" animate:flip>
-              <li
-                draggable="{true}"
-                on:dragstart="{(event) => dragStart(event, basketIndex, itemIndex)}"
-                on:click="{() => ((showModal = true), (order = item))}"
-              >
-              <h2 class="text-primary">#{item.id}</h2>
-                {item.createdAt}
+            <li
+              class="rounded p-2 shadow-lg flex flex-col gap-2 min-w-[16rem]"
+              draggable="{true}"
+              on:dragstart="{(event) => dragStart(event, basketIndex, itemIndex)}"
+              on:click="{() => ((showModal = true), (order = item))}"
+            >
+              <div class="flex justify-between">
+                <h2 class="text-primary font-black text-lg">#{item.id}</h2>
                 {#if item.isTakeaway}
                   <div class="badge badge-accent">Emporter</div>
                 {:else}
                   <div class="badge badge-primary">Livraison</div>
                 {/if}
-                <br />
-                {item.total} €
-                <br />
-                <p class="truncate">{item.customer.email}</p>
-              </li>
-            </div>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-secondary">{new Date(item.createdAt).toLocaleString()}</span>
+                <span>{item.total} €</span>
+              </div>
+              <span class="mt-2 flex justify-end font-medium text-lg"
+                >{item.customer.lastname} {item.customer.firstname}</span
+              >
+            </li>
           {/each}
         </ul>
       </div>
@@ -174,13 +143,13 @@
         <OrderRecap order="{order}" />
         <div class=" flex content-row justify-center m-6">
           <button on:click="{() => closeModal()}" class="btn btn-error text-white m-2">Annuler</button>
-          <button on:click="{() => upadateOrder(order)}" class="btn btn-success text-white m-2"> Valider</button>
+          <button on:click="{() => updateOrder(order)}" class="btn btn-success text-white m-2"> Valider</button>
         </div>
       </Modal>
     {/if}
-  {:else}
+    {:else}
       <div class="flex w-full justify-center items-center h-96">
-          <span class="loading loading-infinity loading-lg text-primary"></span>
+        <span class="loading loading-infinity loading-lg text-primary"></span>
       </div>
   {/if}
 </div>
@@ -195,11 +164,7 @@
   li {
     background-color: rgb(255, 255, 255);
     cursor: pointer;
-    display: inline-block;
-    margin-right: 10px;
-    padding: 10px;
-    margin: 10px;
-    width: 220px;
+    width: 100%;
     height: 120px;
   }
   li:hover {
@@ -207,10 +172,8 @@
     color: white;
   }
   ul {
-    border: solid rgb(227, 227, 227) 1px;
     display: flex; /* required for drag & drop to work when .item display is inline */
     height: 100%; /* needed when empty */
-    padding: 10px;
     flex-direction: column;
   }
 </style>
