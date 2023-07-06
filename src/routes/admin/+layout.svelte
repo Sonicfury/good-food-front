@@ -22,6 +22,9 @@
 
   onMount(async () => {
     const userSession = get(session)
+    if (!userSession) {
+        await goto('/app/dashboard')
+    }
     if (userSession.user.roles[0].name === 'employee') {
       isEmployee = true 
     }

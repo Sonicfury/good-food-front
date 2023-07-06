@@ -8,6 +8,7 @@
   let pageName = 'Checkout'
   import { get } from 'svelte/store'
   import { toasts } from '$lib/stores/toasts'
+  import { goto } from '$app/navigation'
 
   onMount(async () => {
     const storeCart = get(cart)
@@ -39,15 +40,20 @@
 
     toasts.success("<p>Merci pour votre commande,</p><p>c'est en cuisine !</p>")
 
-    cart.update(cart => ({
-        items: [],
-        totalPrice: 0,
-        isTakeaway: cart.isTakeaway,
-        restaurentId: cart.restaurentId,
-        restaurantName: cart.restaurantName
+    cart.update((cart) => ({
+      items: [],
+      totalPrice: 0,
+      isTakeaway: cart.isTakeaway,
+      restaurentId: cart.restaurentId,
+      restaurantName: cart.restaurantName,
     }))
-    })
+    await timeout(5000)
+    await goto('/app/dashboard')
+  })
 
+  function timeout(ms: number) {
+    return new Promise((resolve) => setTimeout(resolve, ms))
+  }
 </script>
 
 <MobileHeader bind:goBack="{urlBack}" bind:pageName="{pageName}" />

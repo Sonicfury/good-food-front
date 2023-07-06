@@ -8,11 +8,12 @@
   import { mdiDeleteOutline } from '@mdi/js'
   import { toasts } from '$lib/stores/toasts'
   import type { CartItem } from '$lib/models/cart'
+  import { goto } from '$app/navigation'
 
   const remove = (product: CartItem) => {
-    cart.update(cart => ({
-        ...cart,
-        items: cart.items.filter(i => i.id !== product.id)
+    cart.update((cart) => ({
+      ...cart,
+      items: cart.items.filter((i) => i.id !== product.id),
     }))
 
     toasts.info(`${product?.name} retiré du panier`)
@@ -20,10 +21,14 @@
 
   const decrement = (product: CartItem, index: number) => {
     if (product.quantity === 1) {
-        remove(product)
-        return
+      remove(product)
+      return
     }
     $cart.items[index].quantity--
+  }
+
+  const redirect = async () => {
+    $session ? await goto('/app/checkout/adresse') : await goto('/login?order=true')
   }
 </script>
 
@@ -42,7 +47,7 @@
     {#each $cart.items as item, index}
       {#if item.quantity > 0}
         <div class="shadow-lg h-full w-full rounded-lg flex p-4 gap-2 items-center">
-          <button class="btn btn-circle btn-ghost" on:click={()=>remove(item)}>
+          <button class="btn btn-circle btn-ghost" on:click="{() => remove(item)}">
             <Icon path="{mdiDeleteOutline}" clazz="fill-secondary" />
           </button>
           <div>
@@ -100,9 +105,11 @@
   </template>
 {/if}
 <div class="flex justify-center m-20">
-  <a href="{$session ? './checkout/adresse' : '/login?order=true'}">
-    <button class="btn btn-primary text-white"> Valider mon panier </button>
-  </a>
+  <!-- <a href="{$session ? './checkout/adresse' : '/login?order=true'}"> -->
+  <button on:click="{() => redirect()}" class="btn btn-primary text-white" class:btn-disabled="{!$cart.items.length}">
+    Valider mon panier
+  </button>
+  <!-- </a> -->
 </div>
 
 <style>

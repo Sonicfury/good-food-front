@@ -1,5 +1,4 @@
 import type { RequestHandler } from './$types'
-import type { User } from '$lib/models/user'
 
 export const POST: RequestHandler = async ({ cookies, request }) => {
   const data = await request.json()
@@ -24,7 +23,7 @@ export const POST: RequestHandler = async ({ cookies, request }) => {
 }
 
 export const GET: RequestHandler = async ({ cookies }) => {
-  const response = await fetch(`${import.meta.env.VITE_API_URL}/orders/ ` + cookies.get('userId') + '/ordereds', {
+  const response = await fetch(`${import.meta.env.VITE_API_URL}/customers/${cookies.get('userId')}/orders`, {
     headers: {
       'content-type': 'application/json',
       Authorization: `Bearer ${cookies.get('session')}`,
